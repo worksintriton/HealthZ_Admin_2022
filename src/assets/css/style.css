@@ -487,7 +487,7 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
 }
 
 ::-webkit-scrollbar {
-    display: none!important
+    display: none;
 }
 
 :host::ng-deep .ui-table-wrapper::-webkit-scrollbar {

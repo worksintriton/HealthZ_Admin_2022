@@ -42,8 +42,8 @@ show:boolean;
   password: any;
   passwordError = false;
   passwordErrorMsg: any;
-  public isChecked = true;
-rember: boolean;
+   isChecked :any =false;
+rember: boolean
   constructor(
     private router: Router,
     private user:UserService,
@@ -62,6 +62,13 @@ rember: boolean;
   ngOnInit() {
     this.saveInLocal("login_status", false);
    this.user.gUserLoggedIn();
+  
+   this.email_id=localStorage.getItem('Name');
+   this.passwords= localStorage.getItem('password');
+   this.isChecked=localStorage.getItem('rem');
+   
+   
+   console.log(this.email)
    this.checkbox=false;
     setTimeout(()=>{
       this.focusField.nativeElement.focus();
@@ -70,8 +77,8 @@ rember: boolean;
   }
   emailValidator() {
     let reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    let emailcheck = reg.test(this.email);
-    if (this.email === '' || this.email === undefined || this.email === null) {
+    let emailcheck = reg.test(this.email_id);
+    if (this.email_id === '' || this.email_id === undefined || this.email_id === null) {
       this.emailError = true;
       this.emailErrorMsg = 'Email Address Required.'
     } 
@@ -84,7 +91,7 @@ rember: boolean;
     }
   }
   passwordValidator() {
-    if (this.password === '' || this.password === undefined || this.password === null) {
+    if (this.passwords === '' || this.passwords === undefined || this.passwords === null) {
       this.passwordError = true;
       this.passwordErrorMsg = 'Password Required.'
     } else {
@@ -95,7 +102,7 @@ rember: boolean;
   emailChange(data) {
   
     //console.log(data);
-    this.email = data;
+    this.email_id = data;
     // this.emailValidator();
     this.emailError = false;
   }
@@ -105,7 +112,7 @@ rember: boolean;
 
   passwordChange(data) {
     //console.log(data);
-    this.password = data;
+    this.passwords = data;
     this.passwordValidator();
   
   }
@@ -127,19 +134,36 @@ rember: boolean;
     this.checkbox=data
   }
   logintest1() {
+    
+    if(this.isChecked == false){
+      localStorage.removeItem('Name');
+    localStorage.removeItem('password');
+    localStorage.removeItem('rem');
+    }
     this.validator();
     if (this.validation) {
       console.log(this.rember);
-      if ((this.email == 'healthz@gmail.com') && (this.password == '12345') && (this.checkbox == true)) {
-       
-        localStorage.setItem("this.email", this.email)
-  this.saveInLocal("login_status", true);
+      if ((this.email_id == 'healthz@gmail.com') && (this.passwords == '12345') ) {
+       //&& (this.checkbox == true)
+   
+      console.log("rem",this.isChecked)
+       this.saveInLocal("login_status", true);
         this.router.navigateByUrl('/admin/dashboard');
+        if(this.isChecked == true){
+          localStorage.setItem('Name', this.email_id);
+          localStorage.setItem('password', this.passwords);
+          localStorage.setItem('rem', this.isChecked);
+        }
+        
+      
+        // localStorage.setItem("this.email", this.email)
+  
       
      
     }else {
         alert('Invalid Account');
       }
+    
     }
   }
 
