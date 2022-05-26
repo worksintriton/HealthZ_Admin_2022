@@ -1,7 +1,7 @@
 <section>
-    <div class="page-header">
+    <div class="page-header  justify-content-center">
         <div>
-            <h2 class="main-content-title tx-24 mb-1">User type</h2>
+            <h2 class="main-content-title tx-24 mb-1 ">User Type</h2>
             <!-- <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page"> Details</li>
@@ -35,7 +35,7 @@
                     <div class="card-item">
                         <div class="row">
                             <div class="col-md-3">
-                                <h5 class="form-lable">User type</h5>
+                                <h5 class="form-lable">User Type</h5>
                                 <input type="text" pInputText name="user_type_title" [(ngModel)]="user_type_title" placeholder="Enter user type">
                             </div>
                             <!-- <div class="col-md-3">
@@ -43,7 +43,7 @@
                                 <input type="text" pInputText name="user_type_value"   (keypress)=_keyPress($event) [(ngModel)]="user_type_value" placeholder="Enter User Type Value">
                             </div> -->
                             <div class="col-md-4">
-                                <h5 class="form-lable">User type icon</h5>
+                                <h5 class="form-lable">User Type Icon</h5>
                                 <div class="custom-file">
                                  <input type="file" #imgType (change)="fileupload($event)" id="imgfile"
                                   accept=".png, .jpg, .jpeg" class="form-control" id="city" placeholder="User type icon">
@@ -61,7 +61,7 @@
 
                                  </div>
                             <div class="col-md-2">
-                                <!-- <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4" (click)="Insert_user_type_details()"><i class="fas fa-plus-circle"></i> Add</button> -->
+                                <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4" (click)="Insert_user_type_details()"><i class="fas fa-plus-circle"></i> Add</button>
                                 <button *ngIf="update_button == false" type="button" class="btn btn-primary mt-4" (click)="Edit_user_type_details()">
                                     <i class="fas fa-pen"></i> Update</button>
                                     <button *ngIf="update_button == false" type="button" class="btn btn-danger mt-4" (click)="cancel()">
@@ -95,8 +95,8 @@
                         </div>
                     </div>
                     <div class="col-md-8 text-lg-right text-sm-left">
-                        <p-calendar placeholder="Start Date" [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" class="mr-2"></p-calendar>
-                        <p-calendar placeholder="End Date" [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" class="mr-3"></p-calendar>
+                        <p-calendar placeholder="Start Date" [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" class="mr-2" [readonlyInput]="true"></p-calendar>
+                        <p-calendar placeholder="End Date" [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" class="mr-3" [readonlyInput]="true"></p-calendar>
                         <button type="button" class="btn btn-primary mr-2"
                             (click)="usertype_filter_date()"><i class="fas fa-search"></i> Search</button>
                             <button type="button" class="btn btn-secondary" (click)="refersh()"><i class="fas fa-sync-alt"></i> Refresh</button>
@@ -127,17 +127,17 @@
                                 S.No
                             </th>
                             <th>
-                            User type
+                            User Type
                             </th>
                             <th>
-                            User type icon
+                            User Type Icon
                             </th>
                             <!-- <th>
                                 User type Value
                             </th> -->
-                            <th>Created by</th>
+                            <th>Created By</th>
                             <!-- <th>Modified by</th> -->
-                            <th>Created at</th>
+                            <th>Modified At</th>
                             <!-- <th>Modified at</th> -->
                             <th style="width: 140px;text-align:center">
                                 Action
@@ -161,7 +161,7 @@
                             <td>
                             {{item.date_and_time}}
                             </td>
-                            <td class="act">
+                            <td class="act text-center">
                                 <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" (click)="Editcompanydetailsdata(item)" pTooltip="Edit"></i>
                                 <!-- <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true" pTooltip="Delete" (click)="Deletecompanydetails(item._id)"></i> -->
                                 <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->

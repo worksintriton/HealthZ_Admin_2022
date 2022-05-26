@@ -226,21 +226,35 @@ if(this.getFromLocal("login_status") === false)
   }
 
   usertype_filter_date() {
+    var date=new Date();
     if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
-      let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
+       let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
+
+
 
       let a = {
         "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
         "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
       }
-      console.log(a);
-      this._api.user_type_filter_date(a).subscribe(
-        (response: any) => {
-          console.log(response.Data);
-          this.rows = response.Data;
-        }
-      );
+      console.log(date.getTime())
+      console.log(this.S_Date.getTime())
+      
+ 
+
+  this._api.user_type_filter_date(a).subscribe(
+    (response: any) => {
+      console.log(response.Data);
+      this.rows = response.Data;
+    }
+  );
+ }
+ else{
+   alert("Please Select the Start date less than or Equal to End date")
+ }
+      
     }
     else {
       alert('Please select the Start Date and End Date');

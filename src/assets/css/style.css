@@ -486,16 +486,17 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
     outline: none!important
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
+/* ::-webkit-scrollbar {
+    display: block !important;
+    width: 10px !important;
+} */
 
-:host::ng-deep .ui-table-wrapper::-webkit-scrollbar {
+/* :host::ng-deep .ui-table-wrapper::-webkit-scrollbar {
     display: block!important;
     -webkit-appearance: none;
     width: 7px;
     height: 5px
-}
+} */
 
 :host::ng-deep .ui-table-wrapper::-webkit-scrollbar-thumb {
     border-radius: 4px;

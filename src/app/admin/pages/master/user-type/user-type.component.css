@@ -1,2 +1,6 @@
 @import "../../../../../assets/css/style.css";
 .custom-file input{height: 42px;}
+::-webkit-scrollbar {
+    display: none !important;
+    width: 10px!important;
+}
