@@ -1,6 +1,6 @@
 
 <section>
-    <div class="page-header">
+    <div class="page-header justify-content-center">
         <div>
             <h2 class="main-content-title tx-24 mb-1">Service Banner</h2>
             <!-- <ol class="breadcrumb">
@@ -20,14 +20,14 @@
             <div class="card-item">
                 <div class="row">
                     <div class="col-md-4">
-                      <h5 class="form-lable">Service banner</h5>
+                      <h5 class="form-lable">Service Banner</h5>
                       <input type="file" #imgType (change)="fileupload($event)" id="imgfile"
                       accept=".png, .jpg, .jpeg" class="form-control" id="city" placeholder="User type icon">
                       <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with 800 * 350 (Max 400 kB)</div>
                       <div class="imgthumcontainer"><img src="{{img_path}}"></div>
                   </div>
                   <div class="col-md-4">
-                    <h5 class="form-lable">Service banner title</h5>
+                    <h5 class="form-lable">Service Banner Title</h5>
                     <input type="text" pInputText name="img_title" [(ngModel)]="img_title" placeholder="Enter home Banner title">
                   </div>
 
@@ -104,9 +104,9 @@
             <th>
                 Service Title
             </th>
-            <th>Created by</th>
+            <th>Created By</th>
             <!-- <th>Modified by</th> -->
-            <th>Created at</th>
+            <th>Created At</th>
             <!-- <th>Modified at</th> -->
             <th style="width: 163px;text-align:center">
                 Action
@@ -129,7 +129,7 @@
             <td>
              {{item.date_and_time}}
             </td>
-            <td class="act">
+            <td class="act text-center">
                 <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" (click)="Editcompanydetailsdata(item)" pTooltip="Edit"></i>
                 <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true" pTooltip="Delete" (click)="Deletecompanydetails(item._id)"></i>
                 <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->

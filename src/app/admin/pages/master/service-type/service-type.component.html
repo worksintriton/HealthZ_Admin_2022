@@ -1,4 +1,4 @@
-<h4 class="title">Service Type</h4>
+<h4 class="title text-center">Service Type</h4>
 
 <div class="card-box">
     <div class="row" style="padding: 0px 0px 23px 10px;">
@@ -7,7 +7,7 @@
             <input type="text" pInputText [(ngModel)]="Tittle" placeholder="Enter Service Type">
         </div>
         <div class="col-md-3">
-          <h5 class="form-lable">Sub_title:</h5>
+          <h5 class="form-lable">Sub_Title:</h5>
           <input type="text" pInputText [(ngModel)]="subtitle" placeholder="Enter Service subtitle">
       </div>
 
@@ -105,9 +105,9 @@
                 Service Type
             </th>
             <th>
-              Service sub title
+              Service Sub Title
           </th>
-            <th>Created by</th>
+            <th>Created By</th>
             <!-- <th>Modified by</th>
             <th>Created at</th> -->
             <!-- <th>Modified at</th> -->
@@ -134,7 +134,7 @@
             <td>
                 {{item.date_and_time}}
             </td>
-            <td class="act">
+            <td class="act text-center">
                 <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" pTooltip="Edit" (click)="edit(item)"></i>
                 <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true" pTooltip="Delete" (click)="delete(item._id)"></i>
                 <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->

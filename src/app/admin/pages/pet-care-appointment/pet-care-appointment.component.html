@@ -1,5 +1,5 @@
-<section>
-    <div class="page-header">
+<section style="text-transform:capitalize">
+    <div class="page-header justify-content-center">
         <div>
             <h2 class="main-content-title tx-24 mb-1">Pet Care Appointments</h2>
             <!-- <ol class="breadcrumb">
@@ -112,7 +112,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-item let-i="rowIndex">
-            <tr class="tdrow" [ngStyle]="{'background-color':item.appoinment_status === 'Missed' ? '#ff6c6c' : 'white'}">
+            <tr class="tdrow" style="text-transform:none" [ngStyle]="{'background-color':item.appoinment_status === 'Missed' ? '#ff6c6c' : 'white'}">
                 <td>{{i+1}}</td>
                 <td>{{item.user_id.first_name}} {{item.user_id.last_name}}</td>
                 <td>{{item.user_id.user_phone}}</td>
@@ -129,7 +129,7 @@
                 <td>{{item.mobile_type}}</td>
                 <!-- <td>{{item.booking_date_time}}</td> -->
                    <td>{{item.amount}}</td>
-                <td class="act">
+                <td class="act text-center">
                     <!-- <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" pTooltip="Edit"></i>
                     <i style="color: #4CAF50;" class="fa  fa-clock-o" aria-hidden="true" pTooltip="Reschedule"></i>
                     <i style="color: #fd2c3a;" class="fa fa-ban" aria-hidden="true" pTooltip="Disable"></i> -->

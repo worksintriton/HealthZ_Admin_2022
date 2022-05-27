@@ -1,5 +1,5 @@
-<section>
-    <div class="page-header">
+<section style="text-transform:capitalize">
+    <div class="page-header justify-content-center">
         <div>
             <h2 class="main-content-title tx-24 mb-1">Customer Management</h2>
             <!-- <ol class="breadcrumb">
@@ -105,7 +105,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-item let-i="rowIndex" >
-        <tr  class="tdrow">
+        <tr  class="tdrow" style="text-transform: none;">
             <td>{{i+1}}</td>
             <td> <div class="imgthumcontainer"><img src="{{item.profile_img}}" alt=""></div></td>
             <td class="truncate-cell">{{item.first_name}} {{item.last_name}}</td>

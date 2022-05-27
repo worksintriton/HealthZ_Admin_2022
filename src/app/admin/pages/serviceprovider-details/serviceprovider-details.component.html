@@ -1,6 +1,6 @@
 
-<section>
-    <div class="page-header">
+<section style="text-transform:capitalize">
+    <div class="page-header justify-content-center">
         <div>
             <h2 class="main-content-title tx-24 mb-1">Service Provider Details</h2>
             <!-- <ol class="breadcrumb">
@@ -79,7 +79,7 @@
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-item let-i="rowIndex">
-                                <tr class="tdrow">
+                                <tr class="tdrow" style="text-transform:none">
                                     <td>{{i+1}}</td>
                                     <!-- <td>{{item.user_id.first_name}} {{item.user_id.last_name}} & {{item.user_id.user_phone}}</td> -->
                                     <td>{{item.bussiness_name}}</td>
@@ -125,7 +125,7 @@
                                     <td>
                                         {{item.mobile_type}}
                                     </td>
-                                    <td class="act">
+                                    <td class="act text-center">
 
                                       <button class="btn btn-success btn-sm" (click)="verify('Verified',item._id)" style="padding: 2px; line-height: 1.2;font-size: 12px !Important;"  *ngIf="item.profile_verification_status != 'Verified'">Approve</button>
                                       <button class="btn btn-danger btn-sm" (click)="verify('Not verified',item._id)" style="padding: 2px; line-height: 1.2;font-size: 12px !Important;" *ngIf="item.profile_verification_status == 'Verified'">Reject</button>

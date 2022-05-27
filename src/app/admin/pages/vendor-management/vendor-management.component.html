@@ -1,4 +1,4 @@
-<h4 class="title">Vendor Management</h4>
+<h4 class="title text-center">Vendor Management</h4>
 
 <div class="row">
     <div class="col-md-3">
@@ -31,7 +31,7 @@
             [globalFilterFields]="['type']">
 
             <ng-template pTemplate="header">
-                <tr class="thhead">
+                <tr class="thhead" style="text-transform:capitalize">
                     <th class="th-1">
                         S.No
                     </th>
@@ -88,7 +88,7 @@
                     <td>
                         {{item.mobile_type}}
                     </td>
-                    <td class="act">
+                    <td class="act text-center">
 
                       <button class="btn btn-success btn-sm" (click)="verify('Verified',item._id)" style="padding: 2px; line-height: 1.2;font-size: 12px !Important;"  *ngIf="item.profile_verification_status != 'Verified'">Approve</button>
                       <button class="btn btn-danger btn-sm" (click)="verify('Not verified',item._id)" style="padding: 2px; line-height: 1.2;font-size: 12px !Important;" *ngIf="item.profile_verification_status == 'Verified'">Reject</button>
@@ -108,7 +108,7 @@
                                 pTooltip="Block"></i>
                         </td> -->
 
-                    <td class="act">
+                    <td class="act text-center">
                         <!-- <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" pTooltip="Edit"></i> -->
                         <!-- <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true" pTooltip="Delete" (click)="del(item._id)"></i> -->
                         <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View" (click)="view_details(item)" ></i>

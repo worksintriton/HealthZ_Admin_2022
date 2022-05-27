@@ -9,7 +9,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 
 @Component({
-  selector: 'app-vendor-management',
+  selector: 'use',
   templateUrl: './vendor-management.component.html',
   styleUrls: ['./vendor-management.component.css']
 })
