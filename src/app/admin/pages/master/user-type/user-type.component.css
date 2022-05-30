@@ -4,3 +4,25 @@
     display: none !important;
     width: 10px!important;
 }
+.clearable{
+    position: relative;
+    display: inline-block;
+  }
+  .clearable input[type=text]{
+    padding-right: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .clearable__clear{
+  
+    position: absolute;
+    right:0; top:0;
+    padding: 11px 8px;
+    font-style: normal;
+    font-size: 1.4em;
+    user-select: none;
+    cursor: pointer;
+  }
+  .clearable input::-ms-clear {  /* Remove IE default X */
+  display: none;
+}

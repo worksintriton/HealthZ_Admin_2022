@@ -19,7 +19,7 @@ export class HealthissueComponent implements OnInit {
   rows = [];
   searchQR:any;
   value1:any;
-
+  shremove:boolean=false;
 
   health_issue_img : any;
 
@@ -27,7 +27,7 @@ export class HealthissueComponent implements OnInit {
 
   S_Date: any;
   E_Date: any;
-  health_issue_title : string = '';
+  health_issue_title : any = '';
   date_and_time : string = new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
   pet_type_list : any = [];
   pet_type_id : string = '';
@@ -91,14 +91,18 @@ if(this.getFromLocal("login_status") === false)
 
   Insert_pet_type_details() {
 
-
+console.log(this.health_issue_img)
     if(this.health_issue_title == ''){
       //alert("Please enter the pet type")
-      this.showWarning("Please enter the pet type")
-    }else{
+      this.showWarning("Please enter the Health Issue Type")
+    }
+    else if(this.health_issue_img==undefined){
+      this.showWarning("Please Upload the Health Issue Image")
+    }
+    else{
     let a = {
       'health_issue_img' : this.health_issue_img,
-      'health_issue_title' : this.health_issue_title,
+      'health_issue_title' : this.health_issue_title.toLowerCase() ,
       'date_and_time' : new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}),
       };
     console.log(a);
@@ -107,10 +111,11 @@ if(this.getFromLocal("login_status") === false)
       console.log(response.Data);
       if ( response.Code === 200 ) {
         //alert('Added Successfully');
-        this.showSuccess("Added Successfully")
+        this.showSuccess("Added Successfully");
+        this.health_issue_img='';
       }else {
         //alert(response.Message);
-        this.showError(response.Message)
+        this.showError("Health Issue Already Added")
       }
       this.ngOnInit();
       this.imgType.nativeElement.value = "";
@@ -134,6 +139,7 @@ if(this.getFromLocal("login_status") === false)
     (response: any) => {
       console.log(response.Data);
       //alert("Updated Successfully");
+      this.health_issue_img='';
       this.showSuccess("Updated Successfully")
       this.ngOnInit();
       this.imgType.nativeElement.value = "";
@@ -220,7 +226,7 @@ if(this.getFromLocal("login_status") === false)
     addfiles1() {
     const fd = new FormData();
     fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
-    this.http.post('http://13.57.9.246:3000/upload', fd)
+    this.http.post(this.imgUrl, fd)
       .subscribe((res: any) => {
         console.log(res);
         this.health_issue_img = res.Data;
@@ -229,8 +235,11 @@ if(this.getFromLocal("login_status") === false)
 
 
     filter_date() {
+      var date =new Date();
       if ( this.E_Date != undefined && this.S_Date != undefined) {
         // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+        var edate=this.E_Date;
+        if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
         let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
 
         let a = {
@@ -245,6 +254,11 @@ if(this.getFromLocal("login_status") === false)
           }
         );
       }
+      else{
+        alert("Please Select the Start date less than or Equal to End date");
+        console.log("ss")
+      }
+    }
       else{
         this.showWarning("Please select the Start Date and End Date");
         //alert('Please select the Start Date and End Date');
@@ -266,7 +280,28 @@ if(this.getFromLocal("login_status") === false)
     showWarning(msg) {
         this.toastr.warningToastr(msg);
     }
-
+    
+    research(){
+      if(this.searchQR!=''){
+        this.shremove=true;
+      }
+  
+    
+    }
+    research1(){
+      if(this.searchQR==''){
+        this.shremove=false;
+      }
+  
+     
+    }
+    remove(){
+      this.searchQR='';
+      if(this.searchQR==''){
+        this.shremove=false;
+      }
+  
+    }
 
 
 }

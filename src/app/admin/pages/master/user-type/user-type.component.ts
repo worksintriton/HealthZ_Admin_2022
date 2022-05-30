@@ -22,7 +22,7 @@ export class UserTypeComponent implements OnInit {
   rows = [];
   searchQR: any;
   value1: any;
-
+  shremove:boolean=false;
 
   user_type_title: string = '';
   user_type_value: any = '';
@@ -87,7 +87,7 @@ if(this.getFromLocal("login_status") === false)
   ////// Inserting Data
 
   Insert_user_type_details() {
-    if (this.user_type_title == '') {
+    if ((this.user_type_title == '')&&(this.user_type_img=='')) {
       //alert("Please enter the user type")
       this.showWarning("Please enter the user type");
     } else {
@@ -104,9 +104,9 @@ if(this.getFromLocal("login_status") === false)
           if (response.Code === 200) {
             //alert('Added Successfully');
             this.showSuccess("Added Successfully")
-            this.openAddedDialog();
+            // this.openAddedDialog();
           } else {
-            alert(response.Message);
+        
             this.showError(response.Message)
           }
           this.ngOnInit();
@@ -139,7 +139,7 @@ if(this.getFromLocal("login_status") === false)
           console.log(response.Data);
           //alert("Updated Successfully");
           this.showSuccess("Updated Successfully");
-          this.openUpdateDialog();
+          // this.openUpdateDialog();
           this.ngOnInit();
         }
       );
@@ -171,7 +171,27 @@ if(this.getFromLocal("login_status") === false)
       }
     );
   }
+  research(){
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
 
+  
+  }
+  research1(){
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+   
+  }
+  remove(){
+    this.searchQR='';
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+  }
 
   Editcompanydetailsdata(data) {
     this.update_button = false;
@@ -211,6 +231,7 @@ if(this.getFromLocal("login_status") === false)
       img.src = fr.result as string; // The data URL
     };
     fr.readAsDataURL(this.selectedimgae);
+    console.log(this.selectedimgae)
     // clear the value after upload
   }
 
@@ -220,7 +241,7 @@ if(this.getFromLocal("login_status") === false)
     fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
     this.http.post(this.imgUrl, fd)
       .subscribe((res: any) => {
-        console.log(res);
+        console.log(this.imgUrl);
         this.user_type_img = res.Data;
       });
   }
@@ -239,8 +260,7 @@ if(this.getFromLocal("login_status") === false)
         "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
         "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
       }
-      console.log(date.getTime())
-      console.log(this.S_Date.getTime())
+  
       
  
 
