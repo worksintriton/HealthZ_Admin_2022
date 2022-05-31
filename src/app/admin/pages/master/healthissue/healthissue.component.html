@@ -29,9 +29,8 @@
                     <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with 100 * 100 (Max 100 kB)</div>
                    <div class="imgthumcontainer"> <img src="{{health_issue_img}}" style="width: 15%;"></div>
                 </div>
-                  <div class="col-md-4 mt-2">
-                      <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4" (click)="Insert_pet_type_details()" style="position: relative;
-                      top: 16px;"><i class="fas fa-plus-circle"></i> Add</button>
+                  <div class="col-md-4 mt-1">
+                      <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4" (click)="Insert_pet_type_details()" ><i class="fas fa-plus-circle"></i> Add</button>
                       <button *ngIf="update_button == false" type="button" class="btn btn-primary mt-4" (click)="Edit_pet_type_details()"> <i class="fas fa-edit"></i> Update</button>
                       <button *ngIf="update_button == false" type="button" class="btn btn-danger mt-4" (click)="cancel()">
                           Cancel</button>
