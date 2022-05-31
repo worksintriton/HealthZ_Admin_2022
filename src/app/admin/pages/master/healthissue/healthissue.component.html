@@ -29,8 +29,9 @@
                     <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with 100 * 100 (Max 100 kB)</div>
                    <div class="imgthumcontainer"> <img src="{{health_issue_img}}" style="width: 15%;"></div>
                 </div>
-                  <div class="col-md-4">
-                      <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4" (click)="Insert_pet_type_details()"><i class="fas fa-plus-circle"></i> Add</button>
+                  <div class="col-md-4 mt-2">
+                      <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4" (click)="Insert_pet_type_details()" style="position: relative;
+                      top: 16px;"><i class="fas fa-plus-circle"></i> Add</button>
                       <button *ngIf="update_button == false" type="button" class="btn btn-primary mt-4" (click)="Edit_pet_type_details()"> <i class="fas fa-edit"></i> Update</button>
                       <button *ngIf="update_button == false" type="button" class="btn btn-danger mt-4" (click)="cancel()">
                           Cancel</button>
@@ -60,7 +61,7 @@
                              </div>
                              <span class="clearable">
                                 <input class="form-control" type="text" name="search2"
-                            [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..." (keypress) = 'research()' (blur) = 'research1()'>
+                            [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..."   (input)="tt.filterGlobal($event.target.value, 'contains')" (keypress) = 'research()' (blur) = 'research1()'>
                             <i *ngIf="shremove" class="clearable__clear" (click)="remove()">&times;</i>
                         </span>
                            </div>
@@ -81,9 +82,9 @@
               <!-- search -->
 
               <div class="table-responsive">
-                  <p-table [value]="rows | filter:searchQR" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="15"
+                  <p-table #tt [value]="rows" styleClass="ui-table-customers"  [paginator]="true" [rows]="15"
   [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['type']">
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['health_issue_title']">
   <!-- <ng-template pTemplate="caption">
       <div fxLayout="row" fxLayoutAlign="space-around center">
           <div fxFlex="50">

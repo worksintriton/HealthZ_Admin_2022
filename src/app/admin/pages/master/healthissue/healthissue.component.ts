@@ -6,7 +6,7 @@ import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 @Component({
   selector: 'app-healthissue',
   templateUrl: './healthissue.component.html',
@@ -35,7 +35,7 @@ export class HealthissueComponent implements OnInit {
   update_button : boolean;
   selectedimgae : any;
 
-
+  @ViewChild("tt") table: Table;
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
 
   constructor(
@@ -86,15 +86,17 @@ if(this.getFromLocal("login_status") === false)
   cancel() {
     this.update_button = true;
     this.health_issue_title= undefined;
+    this.health_issue_img='';
   }
   ////// Inserting Data
 
   Insert_pet_type_details() {
 
-console.log(this.health_issue_img)
-    if(this.health_issue_title == ''){
+console.log(this.health_issue_title)
+    if(this.health_issue_title.trim() == ''){
       //alert("Please enter the pet type")
       this.showWarning("Please enter the Health Issue Type")
+      this.health_issue_title='';
     }
     else if(this.health_issue_img==undefined){
       this.showWarning("Please Upload the Health Issue Image")
@@ -113,11 +115,12 @@ console.log(this.health_issue_img)
         //alert('Added Successfully');
         this.showSuccess("Added Successfully");
         this.health_issue_img='';
+        this.ngOnInit();
       }else {
         //alert(response.Message);
         this.showError("Health Issue Already Added")
       }
-      this.ngOnInit();
+     
       this.imgType.nativeElement.value = "";
     }
   );
@@ -140,8 +143,14 @@ console.log(this.health_issue_img)
       console.log(response.Data);
       //alert("Updated Successfully");
       this.health_issue_img='';
-      this.showSuccess("Updated Successfully")
-      this.ngOnInit();
+      if ( response.Code === 200 ) {
+        //alert('Added Successfully');
+        this.showSuccess("Updated Successfully");
+         this.ngOnInit();
+        // this. openAddedDialog();
+      }else {
+        alert("Already Specialization added");
+      }
       this.imgType.nativeElement.value = "";
     }
   );
@@ -256,7 +265,7 @@ console.log(this.health_issue_img)
       }
       else{
         alert("Please Select the Start date less than or Equal to End date");
-        console.log("ss")
+       
       }
     }
       else{

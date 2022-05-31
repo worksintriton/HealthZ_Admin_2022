@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 @Component({
   selector: 'app-sp-spec',
   templateUrl: './sp-spec.component.html',
@@ -21,11 +21,11 @@ export class SpSpecComponent implements OnInit {
   value1:any;
 
 
-  specialzation : string = '';
+  specialzation : any = '';
   date_and_time : string = new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
   pet_type_list : any = [];
   pet_type_id : string = '';
-
+  shremove:boolean=false;
   update_button : boolean;
   selectedimgae : any;
   S_Date: any;
@@ -33,7 +33,7 @@ export class SpSpecComponent implements OnInit {
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
   @ViewChild('updateDialog') updateDialog: TemplateRef<any>;
   @ViewChild('addedDialog') addedDialog: TemplateRef<any>;
-
+  @ViewChild("dt") table: Table;
   constructor(
     private router: Router,
     private toastr:ToastrManager,
@@ -96,12 +96,12 @@ if(this.getFromLocal("login_status") === false)
   Insert_pet_type_details() {
 
 
-    if(this.specialzation == ''){
+    if(this.specialzation.trim() == ''){
       // alert("Please enter the pet type")
-      this.showWarning("Please enter the pet type");
+      this.showWarning("Please enter the Service Specialization");
     }else{
     let a = {
-      'specialzation' : this.specialzation,
+      'specialzation' : this.specialzation.toLowerCase(),
       'date_and_time' : new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}),
       };
     console.log(a);
@@ -111,11 +111,12 @@ if(this.getFromLocal("login_status") === false)
       if ( response.Code === 200 ) {
         //alert('Added Successfully');
         this.showSuccess("Added Successfully");
-        this. openAddedDialog();
+         this.ngOnInit();
+        // this. openAddedDialog();
       }else {
-        alert(response.Message);
+        alert("Already Specialization added");
       }
-      this.ngOnInit();
+      
     }
   );
     }
@@ -134,10 +135,17 @@ if(this.getFromLocal("login_status") === false)
     this._api.sp_spec_edit(a).subscribe(
     (response: any) => {
       console.log(response.Data);
-      this.openUpdateDialog();
+      // this.openUpdateDialog();
       //alert("Updated Successfully");
-      this.showSuccess("Updated Successfully");
-      this.ngOnInit();
+      if ( response.Code === 200 ) {
+        //alert('Added Successfully');
+        this.showSuccess("Updated Successfully");
+         this.ngOnInit();
+        // this. openAddedDialog();
+      }else {
+        alert("Already Specialization added");
+      }
+     
     }
   );
     }
@@ -169,8 +177,11 @@ if(this.getFromLocal("login_status") === false)
 
 
     filter_date() {
+      var date=new Date()
       if ( this.E_Date != undefined && this.S_Date != undefined) {
         // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+        var edate=this.E_Date;
+        if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
         let yourDate= this.E_Date.setDate(this.E_Date.getDate());
 
         let a = {
@@ -184,6 +195,11 @@ if(this.getFromLocal("login_status") === false)
             this.rows = response.Data;
           }
         );
+      }
+      else{
+        alert("Please Select the Start date less than or Equal to End date");
+       
+      }
       }
       else{
         // alert('Please select the Start Date and End Date');
@@ -210,5 +226,26 @@ if(this.getFromLocal("login_status") === false)
 
     showWarning(msg) {
         this.toastr.warningToastr(msg);
+    }
+    research(){
+      if(this.searchQR!=''){
+        this.shremove=true;
+      }
+  
+    
+    }
+    research1(){
+      if(this.searchQR==''){
+        this.shremove=false;
+      }
+  
+     
+    }
+    remove(){
+      this.searchQR='';
+      if(this.searchQR==''){
+        this.shremove=false;
+      }
+  
     }
 }

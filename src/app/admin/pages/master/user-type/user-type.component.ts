@@ -24,7 +24,7 @@ export class UserTypeComponent implements OnInit {
   value1: any;
   shremove:boolean=false;
 
-  user_type_title: string = '';
+  user_type_title: any = '';
   user_type_value: any = '';
   user_type_img: string = 'http://13.57.9.246:3000/api/uploads/user-icon.jpg';
   date_and_time: string = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
@@ -89,6 +89,7 @@ if(this.getFromLocal("login_status") === false)
   Insert_user_type_details() {
     if ((this.user_type_title == '')&&(this.user_type_img=='')) {
       //alert("Please enter the user type")
+      this.user_type_title='';
       this.showWarning("Please enter the user type");
     } else {
       let a = {
@@ -123,7 +124,7 @@ if(this.getFromLocal("login_status") === false)
   }
   Edit_user_type_details() {
 
-    if (this.user_type_title == '') {
+    if (this.user_type_title.trim() == '') {
       //alert("Please enter the user type")
       this.showWarning("Please enter the user type");
     } else {
@@ -138,9 +139,14 @@ if(this.getFromLocal("login_status") === false)
         (response: any) => {
           console.log(response.Data);
           //alert("Updated Successfully");
-          this.showSuccess("Updated Successfully");
-          // this.openUpdateDialog();
-          this.ngOnInit();
+          if ( response.Code === 200 ) {
+            //alert('Added Successfully');
+            this.showSuccess("Updated Successfully");
+             this.ngOnInit();
+            // this. openAddedDialog();
+          }else {
+            alert("Already Specialization added");
+          }
         }
       );
     }
