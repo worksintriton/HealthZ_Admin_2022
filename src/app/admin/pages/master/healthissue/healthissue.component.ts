@@ -104,7 +104,7 @@ console.log(this.health_issue_title)
     else{
     let a = {
       'health_issue_img' : this.health_issue_img,
-      'health_issue_title' : this.health_issue_title.toLowerCase() ,
+      'health_issue_title' : this.health_issue_title.toLowerCase(),
       'date_and_time' : new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"}),
       };
     console.log(a);

@@ -6,7 +6,7 @@ import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 @Component({
   selector: 'app-doctorbanner',
   templateUrl: './doctorbanner.component.html',
@@ -17,12 +17,14 @@ export class DoctorbannerComponent implements OnInit {
   imgUrl = environment.imageURL;
   rows = [];
   searchQR: any;
+  shremove:boolean=false;
   value1: any;
   S_Date: any;
   E_Date: any;
+  @ViewChild("tt") table: Table;
   img_index: number = 0;
   show_status: boolean = true;
-  img_title: string = '';
+  img_title:any;
   img_describ: string = '';
   img_path: string = 'http://13.57.9.246:3000/api/uploads/banner_empty.jpg';
   date_and_time: string = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
@@ -56,7 +58,7 @@ if(this.getFromLocal("login_status") === false)
     this.show_status = true;
     this.img_title = '';
     this.img_describ = '';
-    this.img_path = 'http://13.57.9.246:3000/api/uploads/banner_empty.jpg';
+    this.img_path = '';
     this.update_button = true;
     this.listdoctorbanner();
   }
@@ -88,9 +90,12 @@ if(this.getFromLocal("login_status") === false)
   ////// Inserting Data
 
   Insert_doctorbanner_details() {
-    if (this.img_path == '') {
+    if (this.img_path =='') {
       // alert("Please upload the image");
-      this.showWarning("Please upload the image");
+      this.showWarning("Please upload the Doctor Banner");
+    }else if(this.img_title.trim() == '') {
+      // alert("Please upload the image");
+      this.showWarning("Please enter the Doctor Banner Title");
     }
     else {
       let a = {
@@ -243,8 +248,11 @@ if(this.getFromLocal("login_status") === false)
 
 
   filter_date() {
+    var date =new Date();
     if ( this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
@@ -261,9 +269,13 @@ if(this.getFromLocal("login_status") === false)
     }
     else{
       // alert('Please select the Start Date and End Date');
-      this.showWarning("Please select the Start Date and End Date")
+      alert("Please select the Start Date and End Date")
     }
-
+  }
+  else{
+    // alert('Please select the Start Date and End Date');
+    this.showWarning("Please select the Start Date and End Date")
+  }
   }
   refersh(){
     this.listdoctorbanner();this.E_Date = undefined ; this.S_Date = undefined;
@@ -279,6 +291,27 @@ if(this.getFromLocal("login_status") === false)
 
   showWarning(msg) {
       this.toastr.warningToastr(msg);
+  }
+  research(){
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
+
+  
+  }
+  research1(){
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+   
+  }
+  remove(){
+    this.searchQR='';
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
   }
 
 }

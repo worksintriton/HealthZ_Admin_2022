@@ -18,7 +18,7 @@ export class EcombannerComponent implements OnInit {
   imgUrl = environment.imageURL;
   rows = [];
   searchQR: any;
-  Tittle: any;
+  Tittle: any='';
   Description: any;
   selectedtype: any;
   type: any = [];
@@ -84,9 +84,11 @@ if(this.getFromLocal("login_status") === false)
 
   create() {
     this.validation();
-    if (this.Validation == false) {
+    if (this.Tittle.trim() == '') {
       // alert("Please enter valid inputs")
-      this.showWarning("Please enter valid inputs")
+      this.showWarning("Please Enter the Valid Inputs")
+    }else if(this.img_path == '') {
+      this.showWarning("Please Enter the Valid Inputs")
     } else {
       let a = {
         "img_path": this.img_path,
@@ -94,7 +96,7 @@ if(this.getFromLocal("login_status") === false)
         "img_describ": this.Description,
         "img_index": 4,
         "show_status": true,
-        "date_and_time": "" + new Date(),
+        "date_and_time": new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
       }
       console.log(a);
       this._api.ecombanner_add(a).subscribe(
@@ -180,18 +182,21 @@ if(this.getFromLocal("login_status") === false)
     this.Description = item.img_describ;
   }
   update() {
-    if (this.Validation == false) {
+    if (this.img_path == '') {
       //alert("Please enter valid inputs")
-      this.showWarning("Please enter valid inputs")
+      this.showWarning("Please Enter the Valid Inputs");
+    }
+    else if(this.Tittle.trim() == '') {
+      this.showWarning("Please Enter the Valid Inputs");
     } else {
       let a = {
         "_id": this.id,
         "img_path": this.img_path,
-        "img_title": this.Tittle,
+        "img_title": this.Tittle.toLowerCase(),
         "img_describ": this.Description,
         "img_index": 4,
         "show_status": true,
-        "date_and_time": "" + new Date(),
+        "date_and_time":new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
 
       }
       console.log(a);

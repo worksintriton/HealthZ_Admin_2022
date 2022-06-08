@@ -93,7 +93,7 @@ if(this.getFromLocal("login_status") === false)
   Insert_homebanner_details() {
     if (this.img_path == '') {
       // alert("Please upload the image");
-      this.showWarning("Please upload the image");
+      this.showWarning("Please Upload the Home Banner");
     }
     else if(this.img_title.trim()==''){
       this.showWarning("Please enter the Home Banner Title");
@@ -102,7 +102,7 @@ if(this.getFromLocal("login_status") === false)
     else {
       let a = {
         'img_path': this.img_path,
-        'img_title': this.img_title,
+        'img_title': this.img_title.toLowerCase(),
         'img_describ': this.img_describ,
         'img_index': this.img_index,
         'show_status': this.show_status,
@@ -152,10 +152,6 @@ if(this.getFromLocal("login_status") === false)
         }
       );
     }
-
-
-
-
 
 
   }
@@ -252,7 +248,7 @@ if(this.getFromLocal("login_status") === false)
 
 
   filter_date() {
-    var date =new Date()
+    var date =new Date();
     if ( this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
       var edate=this.E_Date;

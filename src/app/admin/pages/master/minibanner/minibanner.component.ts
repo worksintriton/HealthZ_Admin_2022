@@ -6,25 +6,27 @@ import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 @Component({
   selector: 'app-minibanner',
   templateUrl: './minibanner.component.html',
   styleUrls: ['./minibanner.component.css']
 })
 export class MinibannerComponent implements OnInit {
+  @ViewChild("tt") table: Table;
   apiUrl = environment.apiUrl;
   imgUrl = environment.imageURL;
   rows = [];
   searchQR: any;
+  shremove:boolean=false;
   value1: any;
   S_Date: any;
   E_Date: any;
   img_index: number = 0;
   show_status: boolean = true;
-  img_title: string = '';
+  img_title:any ='';
   img_describ: string = '';
-  img_path: string = 'http://13.57.9.246:3000/api/uploads/banner_empty.jpg';
+  img_path:any='';
   date_and_time: string = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
   user_type_list: any = [];
   user_type_id: string = '';
@@ -56,7 +58,7 @@ if(this.getFromLocal("login_status") === false)
     this.show_status = true;
     this.img_title = '';
     this.img_describ = '';
-    this.img_path = 'http://13.57.9.246:3000/api/uploads/banner_empty.jpg';
+    // this.img_path = 'http://13.57.9.246:3000/api/uploads/banner_empty.jpg';
     this.update_button = true;
     this.listhomebanner();
   }
@@ -90,12 +92,17 @@ if(this.getFromLocal("login_status") === false)
   Insert_homebanner_details() {
     if (this.img_path == '') {
       // alert("Please upload the image");
-      this.showWarning("Please upload the image");
+      console.log("ss",this.img_path)
+      this.showWarning("Please Upload the Mini Banner");
+    }
+    else if(this.img_title.trim()==''){
+      this.showWarning("Please enter the Mini Banner Title");
+      this.img_title='';
     }
     else {
       let a = {
         'img_path': this.img_path,
-        'img_title': this.img_title,
+        'img_title': this.img_title.toLowerCase(),
         'img_describ': this.img_describ,
         'img_index': this.img_index,
         'show_status': this.show_status,
@@ -107,12 +114,15 @@ if(this.getFromLocal("login_status") === false)
           console.log(response.Data);
           if (response.Code === 200) {
             // alert('Added Successfully');
+            this.ngOnInit();
+            this.img_path == ''
             this.showSuccess("Added Successfully")
           } else {
             this.showError(response.Message)
+            
             // alert(response.Message);
           }
-          this.ngOnInit();
+         
         }
       );
     }
@@ -243,8 +253,11 @@ if(this.getFromLocal("login_status") === false)
 
 
   filter_date() {
+    var date =new Date();
     if ( this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
@@ -258,6 +271,11 @@ if(this.getFromLocal("login_status") === false)
           this.rows = response.Data;
         }
       );
+    }
+    else{
+      alert("Please Select the Start date less than or Equal to End date");
+     
+    }
     }
     else{
       // alert('Please select the Start Date and End Date');
@@ -280,5 +298,27 @@ if(this.getFromLocal("login_status") === false)
   showWarning(msg) {
       this.toastr.warningToastr(msg);
   }
+  research(){
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
 
+  
+  }
+  research1(){
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+   
+  }
+  remove(){
+    this.ngOnInit();
+    this.searchQR='';
+    console.log("sda",this.searchQR)
+  
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+  }
 }

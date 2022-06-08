@@ -233,6 +233,7 @@ if(this.getFromLocal("login_status") === false)
     research1(){
       if(this.searchQR==''){
         this.shremove=false;
+        this.ngOnInit();
       }
   
      
