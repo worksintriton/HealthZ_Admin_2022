@@ -306,9 +306,9 @@ console.log(this.health_issue_title)
     }
     remove(){
       this.searchQR='';
-      if(this.searchQR==''){
+   
         this.shremove=false;
-      }
+      
   
     }
 

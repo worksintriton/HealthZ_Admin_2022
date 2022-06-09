@@ -224,6 +224,7 @@ if(this.getFromLocal("login_status") === false)
         this.toastr.warningToastr(msg);
     }
     research(){
+      console.log(this.table)
       if(this.searchQR!=''){
         this.shremove=true;
       }
@@ -231,6 +232,7 @@ if(this.getFromLocal("login_status") === false)
     
     }
     research1(){
+   
       if(this.searchQR==''){
         this.shremove=false;
         this.ngOnInit();
@@ -240,9 +242,6 @@ if(this.getFromLocal("login_status") === false)
     }
     remove(){
       this.searchQR='';
-      if(this.searchQR==''){
-        this.shremove=false;
-      }
-  
+      this.shremove=false;
     }
 }

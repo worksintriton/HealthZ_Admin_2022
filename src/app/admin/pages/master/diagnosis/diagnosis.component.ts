@@ -21,11 +21,12 @@ export class DiagnosisComponent implements OnInit {
 
   S_Date: any;
   E_Date: any;
-  Diagnosis : string = '';
+  Diagnosis : any = '';
   user_type_value : string = '';
   date_and_time : string = new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
   pet_type_list : any = [];
   pet_type_id : string = '';
+  shremove:boolean=false;
 
   update_button : boolean;
   selectedimgae : any;
@@ -87,9 +88,9 @@ if(this.getFromLocal("login_status") === false)
   Insert_pet_type_details() {
 
 
-    if(this.Diagnosis == ''){
+    if(this.Diagnosis.trim() == ''){
       //alert("Please enter the pet type")
-      this.showWarning("Please enter the pet type")
+      this.showWarning("Please Enter the Diagnosis")
     }else{
     let a = {
       'diagnosis' : this.Diagnosis,
@@ -116,7 +117,7 @@ if(this.getFromLocal("login_status") === false)
   Edit_pet_type_details(){
     if(this.Diagnosis == ''){
       //alert("Please enter the pet type")
-      this.showWarning("Please enter the pet type")
+      this.showWarning("Please Enter Diagnosis")
     }else{
     let a = {
       '_id' : this.pet_type_id,
@@ -158,10 +159,13 @@ if(this.getFromLocal("login_status") === false)
   }
 
     filter_date() {
+      var date =new Date();
       if ( this.E_Date != undefined && this.S_Date != undefined) {
         // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+        var edate=this.E_Date;
+        if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
         let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
-  
+
         let a = {
           "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
           "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')
@@ -174,6 +178,11 @@ if(this.getFromLocal("login_status") === false)
           }
         );
       }
+      else{
+        alert("Please Select the Start date less than or Equal to End date");
+       
+      }
+    }
       else{
         this.showWarning("Please select the Start Date and End Date");
         //alert('Please select the Start Date and End Date');
@@ -195,7 +204,24 @@ if(this.getFromLocal("login_status") === false)
     showWarning(msg) {
         this.toastr.warningToastr(msg);
     }
+    research(){
+      if(this.searchQR!=''){
+        this.shremove=true;
+      }
+    }
+  research1()
+  {
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+   
+  }
+  remove(){
+ 
+    this.searchQR='';
+   
+      this.shremove=false;
     
-
-
+  }
 }

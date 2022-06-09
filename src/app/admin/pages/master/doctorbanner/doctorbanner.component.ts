@@ -308,10 +308,7 @@ if(this.getFromLocal("login_status") === false)
   }
   remove(){
     this.searchQR='';
-    if(this.searchQR==''){
       this.shremove=false;
-    }
-
   }
 
 }

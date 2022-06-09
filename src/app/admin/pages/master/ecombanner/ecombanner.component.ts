@@ -24,9 +24,10 @@ export class EcombannerComponent implements OnInit {
   type: any = [];
   S_Date: any;
   E_Date: any;
+  shremove:boolean=false;
   Validation: any;
   selectedimgae: any;
-  img_path: string = 'http://13.57.9.246:3000/api/uploads/banner_empty.jpg';
+  img_path: string = '';
   list: any;
   id:any;
   edit_t:boolean = false;
@@ -104,7 +105,9 @@ if(this.getFromLocal("login_status") === false)
           console.log(response);
           if (response.Code === 200) {
             // alert('Added Successfully');
-            this.showSuccess("Added Successfully")
+            this.showSuccess("Added Successfully");
+            this.Tittle='';
+            this.img_path='';
             this.ngOnInit();
           } else {
             this.showError(response.Message);
@@ -222,8 +225,11 @@ if(this.getFromLocal("login_status") === false)
   }
 
   filter_date() {
+    var date = new Date();
     if ( this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
@@ -237,6 +243,11 @@ if(this.getFromLocal("login_status") === false)
           this.list = response.Data;
         }
       );
+    }
+    else{
+      // alert('Please select the Start Date and End Date');
+      alert("Please select the Start Date and End Date")
+    }
     }
     else{
       this.showWarning("Please select the Start Date and End Date")
@@ -258,5 +269,23 @@ if(this.getFromLocal("login_status") === false)
 
   showWarning(msg) {
       this.toastr.warningToastr(msg);
+  }
+  research(){
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
+
+  
+  }
+  research1(){
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+   
+  }
+  remove(){
+    this.searchQR='';
+      this.shremove=false;
   }
 }

@@ -6,7 +6,7 @@ import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 @Component({
   selector: 'app-sub-diagnosis',
   templateUrl: './sub-diagnosis.component.html',
@@ -18,6 +18,8 @@ export class SubDiagnosisComponent implements OnInit {
   rows = [];
   final = [];
   rows1 = [];
+  @ViewChild("td") table: Table;
+  shremove:boolean=false;
   searchQR: any;
   value1: any;
   S_Date: any;
@@ -105,7 +107,7 @@ if(this.getFromLocal("login_status") === false)
   Insert_Sub_Diagnosis_details() {
     if (this.Sub_Diagnosis == '') {
       // alert("Please enter the pet breed");
-      this.showWarning("Please enter the pet breed")
+      this.showWarning("Please enter the Sub Diagnosis")
     } else {
       let a = {
         'diagnosis_id': this.Diagnosis._id,
@@ -194,8 +196,11 @@ if(this.getFromLocal("login_status") === false)
 
 
   filter_date() {
+    var date=new Date();
     if ( this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
@@ -209,6 +214,11 @@ if(this.getFromLocal("login_status") === false)
           this.rows = response.Data;
         }
       );
+    }
+    else{
+      alert("Please Select the Start date less than or Equal to End date");
+     
+    }
     }
     else{
       //alert('Please select the Start Date and End Date');
@@ -233,7 +243,24 @@ if(this.getFromLocal("login_status") === false)
   showWarning(msg) {
       this.toastr.warningToastr(msg);
   }
+  research(){
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
 
+  
+  }
+  research1(){
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+   
+  }
+  remove(){
+    this.searchQR='';
+      this.shremove=false;
+  }
 
 
 }

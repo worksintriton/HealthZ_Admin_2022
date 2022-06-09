@@ -60,14 +60,17 @@
                                <div class="input-group-prepend">
                                  <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                </div>
-                               <input class="form-control" type="text" name="search2"
-                           [(ngModel)]="searchQR" autocomplete="off" placeholder="Search...">
+                               <span class="clearable">
+                                    <input class="form-control" type="text" name="search2"  (input)="td.filterGlobal($event.target.value, 'contains')"
+                                [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..." (keypress) = 'research()' (blur) = 'research1()'>
+                                <i *ngIf="shremove" class="clearable__clear" (click)="td.filterGlobal('', 'contains');remove()">&times;</i>
+                            </span>
                              </div>
                           </div>
                     </div>
                     <div class="col-md-6 text-center">
-                        <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date" class="mr-3"></p-calendar>
-                        <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date" class="mr-3"></p-calendar>
+                        <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date" class="mr-3" [readonlyInput]="true"></p-calendar>
+                        <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date" class="mr-3" [readonlyInput]="true"></p-calendar>
                         <button type="button" class="btn btn-primary" (click)="filter_date()"><i class="fas fa-search"></i> Search</button>
                     </div>
                     <div class="col-md-3 text-right">
@@ -78,10 +81,10 @@
                 <!-- search -->
 
 
-                <div class="table-responsive" *ngIf="rows.length > 0">
-                    <p-table [value]="final | filter:searchQR" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="15"
+                <div class="table-responsive" >
+                    <p-table [value]="final" styleClass="ui-table-customers" #td [paginator]="true" [rows]="15"
     [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['type']">
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['diagnosis_id.diagnosis','sub_diagnosis']">
     <!-- <ng-template pTemplate="caption">
         <div fxLayout="row" fxLayoutAlign="space-around center">
             <div fxFlex="50">

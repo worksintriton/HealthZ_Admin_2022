@@ -7,7 +7,7 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 @Component({
   selector: 'app-splash-screen',
   templateUrl: './splash-screen.component.html',
@@ -18,6 +18,8 @@ export class SplashScreenComponent implements OnInit {
   imgUrl = environment.imageURL;
   rows = [];
   searchQR: any;
+  @ViewChild("tt") table: Table;
+  shremove:boolean=false;
   Tittle: any;
   Description: any;
   selectedtype: any;
@@ -26,7 +28,7 @@ export class SplashScreenComponent implements OnInit {
   E_Date: any;
   Validation: any;
   selectedimgae: any;
-  img_path: string = 'http://13.57.9.246:3000/api/uploads/banner_empty.jpg';
+  img_path: string = '';
   list: any;
   id:any;
   edit_t:boolean = false;
@@ -67,7 +69,7 @@ if(this.getFromLocal("login_status") === false)
     );
   }
   validation() {
-    if (this.Tittle == undefined || this.Tittle == '' || this.img_path == undefined) {
+    if (this.Tittle == undefined || this.Tittle == '' || this.img_path == undefined || this.img_path =='' ) {
       this.Validation = false;
       console.log(this.Validation)
     }
@@ -82,7 +84,7 @@ if(this.getFromLocal("login_status") === false)
     this.validation();
     if (this.Validation == false) {
       // alert("Please enter valid inputs")
-      this.showWarning("Please enter valid inputs")
+      this.showWarning("Please Enter the Valid Inputs")
     } else {
       let a = {
         "img_path": this.img_path,
@@ -219,8 +221,11 @@ if(this.getFromLocal("login_status") === false)
   }
 
   filter_date() {
+    var date=new Date();
     if ( this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
@@ -234,6 +239,11 @@ if(this.getFromLocal("login_status") === false)
           this.list = response.Data;
         }
       );
+    }
+    else{
+      alert("Please Select the Start date less than or Equal to End date");
+     
+    }
     }
     else{
       this.showWarning("Please select the Start Date and End Date")
@@ -255,5 +265,23 @@ if(this.getFromLocal("login_status") === false)
 
   showWarning(msg) {
       this.toastr.warningToastr(msg);
+  }
+  research(){
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
+
+  
+  }
+  research1(){
+    if(this.searchQR==''){
+      this.shremove=false;
+    }
+
+   
+  }
+  remove(){
+    this.searchQR='';
+      this.shremove=false;
   }
 }

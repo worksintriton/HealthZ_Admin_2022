@@ -126,7 +126,7 @@ if(this.getFromLocal("login_status") === false)
   Edit_pet_type_details(){
     if(this.specialzation == ''){
       // alert("Please enter the pet type")
-      this.showWarning("Please enter the pet type");
+      this.showWarning("Please enter the Service Specialization");
     }else{
     let a = {
       '_id' : this.pet_type_id,
@@ -177,7 +177,7 @@ if(this.getFromLocal("login_status") === false)
 
 
     filter_date() {
-      var date=new Date()
+      var date=new Date();
       if ( this.E_Date != undefined && this.S_Date != undefined) {
         // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
         var edate=this.E_Date;
@@ -243,9 +243,6 @@ if(this.getFromLocal("login_status") === false)
     }
     remove(){
       this.searchQR='';
-      if(this.searchQR==''){
         this.shremove=false;
-      }
-  
     }
 }

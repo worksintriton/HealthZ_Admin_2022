@@ -305,12 +305,7 @@ var date= new Date();
    
   }
   remove(){
-    this.ngOnInit();
     this.searchQR='';
-    console.log("sda",this.searchQR)
-  
-    if(this.searchQR==''){
       this.shremove=false;
-    }
   }
 }

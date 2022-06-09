@@ -313,12 +313,7 @@ if(this.getFromLocal("login_status") === false)
    
   }
   remove(){
-    this.ngOnInit();
     this.searchQR='';
-    console.log("sda",this.searchQR)
-  
-    if(this.searchQR==''){
       this.shremove=false;
-    }
   }
 }
