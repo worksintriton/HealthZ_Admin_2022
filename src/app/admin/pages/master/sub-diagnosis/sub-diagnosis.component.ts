@@ -26,7 +26,7 @@ export class SubDiagnosisComponent implements OnInit {
   E_Date: any;
   Diagnosis: any;
   pet_type_id: string = '';
-  Sub_Diagnosis: string = '';
+  Sub_Diagnosis: any = '';
   user_type_value: string = '';
   date_and_time: string = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
   Sub_Diagnosis_list: any = [];
@@ -105,9 +105,13 @@ if(this.getFromLocal("login_status") === false)
 
   ////// Inserting Data ///
   Insert_Sub_Diagnosis_details() {
-    if (this.Sub_Diagnosis == '') {
+
+    if(this.Diagnosis==null){
+      this.showWarning(" Please Select the Dignosis")
+    }
+    if (this.Sub_Diagnosis.trim() == '') {
       // alert("Please enter the pet breed");
-      this.showWarning("Please enter the Sub Diagnosis")
+      this.showWarning("Please Enter the Sub Diagnosis")
     } else {
       let a = {
         'diagnosis_id': this.Diagnosis._id,

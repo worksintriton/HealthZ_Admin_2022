@@ -59,14 +59,17 @@
                                <div class="input-group-prepend">
                                  <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                </div>
-                               <input class="form-control" type="text" name="search2"
-                           [(ngModel)]="searchQR" autocomplete="off" placeholder="Search...">
+                               <span class="clearable">
+                                <input class="form-control" type="text" name="search2"
+                            [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..."   (input)="tt.filterGlobal($event.target.value, 'contains')" (keypress) = 'research()' (blur) = 'research1()'>
+                            <i *ngIf="shremove" class="clearable__clear" (click)="tt.filterGlobal('', 'contains');remove()">&times;</i>
+                        </span>
                              </div>
                           </div>
                     </div>
                     <div class="col-md-7 text-center">
-                        <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date" class="mr-3"></p-calendar>
-                        <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date" class="mr-3"></p-calendar>
+                        <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date" class="mr-3" [readonlyInput]="true"></p-calendar>
+                        <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date" class="mr-3" [readonlyInput]="true"></p-calendar>
                         <button type="button" class="btn btn-primary" (click)="filter_date()"><i class="fas fa-search"></i> Search</button>
                     </div>
                     <div class="col-md-2 text-right">
@@ -78,9 +81,9 @@
 
                 <div class="doc-table table-responsive">
 
-<p-table [value]="rows | filter:searchQR" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="15"
+<p-table [value]="rows" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="15"
 [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
-currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['type']">
+currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['product_cate']">
 <!-- <ng-template pTemplate="caption">
     <div fxLayout="row" fxLayoutAlign="space-around center">
         <div fxFlex="50">
@@ -100,7 +103,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
         <th class="th-1">    S.No     </th>
         <th style="width: 100px;">   Category Icon            </th>
         <th style="width: 300px;">   Category         </th>
-        <th style="width: 300px;">   Delete Status         </th>
+        <th style="width: 300px;">   Modified at        </th>
         <!-- <th>Created at</th>
         <th>Modified at</th> -->
         <th style="width: 100px;">        Action        </th>
@@ -115,7 +118,7 @@ currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
             </div>
         </td>
         <td>{{item.product_cate}}</td>
-        <td>{{item.delete_status}}</td>
+        <td>  {{item.date_and_time}}</td>
         <!-- <td>{{item.createdAt}}</td>
         <td>{{item.updatedAt}}</td> -->
         <td class="act text-center">

@@ -16,6 +16,7 @@ export class CategoryManagementComponent implements OnInit {
   apiUrl = environment.apiUrl;
   imgUrl = environment.imageURL;
   Category_name: any;
+  shremove:boolean=false;
   Category_code: any;
   img_path: any = "http://13.57.9.246:3000/api/uploads/template.jpg";
   edit_t: boolean = false;
@@ -54,7 +55,7 @@ if(this.getFromLocal("login_status") === false)
   }
 
   ngOnInit(): void {
-
+this.Category_name='';
     this.specialzation = '';
     // this.user_type_img = 'http://13.57.9.246:3000/api/uploads/template.jpg';
     this.pet_type_id = '';
@@ -91,9 +92,9 @@ if(this.getFromLocal("login_status") === false)
 
   create() {
 
-    if ( this.Category_name == '' || this.Category_name == undefined || this.img_path == undefined) {
+    if ( this.Category_name.trim() == '' || this.Category_name == undefined || this.img_path == undefined) {
       //alert("Please enter the pet type");
-      this.showWarning("Please enter the pet type")
+      this.showWarning("Please Enter the Category")
     } else {
       let a = {
         "img_path": this.img_path,
@@ -188,9 +189,12 @@ if(this.getFromLocal("login_status") === false)
   }
 
   filter_date() {
+    var date =new Date();
     if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
       let yourDate = this.E_Date.setDate(this.E_Date.getDate());
+      var edate=this.E_Date;
+        if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
 
       let a = {
         "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
@@ -204,6 +208,11 @@ if(this.getFromLocal("login_status") === false)
         }
       );
     }
+    else{
+      alert("Please Select the Start date less than or Equal to End date");
+     
+    }
+  }
     else {
       //alert('Please select the Start Date and End Date');
       this.showWarning('Please select the Start Date and End Date');
@@ -273,4 +282,24 @@ if(this.getFromLocal("login_status") === false)
   showWarning(msg) {
     this.toastr.warningToastr(msg);
   }
+  research(){
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
+  }
+research1()
+{
+  if(this.searchQR==''){
+    this.shremove=false;
+  }
+
+ 
+}
+remove(){
+
+  this.searchQR='';
+ 
+    this.shremove=false;
+  
+}
 }
