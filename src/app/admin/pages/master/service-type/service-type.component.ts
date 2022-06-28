@@ -7,7 +7,7 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 @Component({
   selector: 'app-service-type',
   templateUrl: './service-type.component.html',
@@ -16,6 +16,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 export class ServiceTypeComponent implements OnInit {
   apiUrl = environment.apiUrl;
   imgUrl = environment.imageURL;
+  shremove:boolean=false;
   rows = [];
   searchQR: any;
   Tittle: any;
@@ -33,6 +34,7 @@ export class ServiceTypeComponent implements OnInit {
   id: any;
   edit_t: boolean = false;
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
+  @ViewChild("tt") table: Table;
   constructor(
     private toastr:ToastrManager,
     private router: Router,
@@ -69,7 +71,7 @@ if(this.getFromLocal("login_status") === false)
     );
   }
   validation() {
-    if (this.Tittle == undefined || this.Tittle == '' || this.img_path == undefined) {
+    if (this.Tittle.trim() == undefined || this.Tittle.trim() == '' || this.img_path == undefined ||this.subtitle.trim() == undefined || this.subtitle.trim() == '') {
       this.Validation = false;
       console.log(this.Validation)
     }
@@ -267,9 +269,14 @@ if(this.getFromLocal("login_status") === false)
     }
   }
 
+
+
   filter_date() {
+    var date =new Date();
     if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
@@ -284,6 +291,11 @@ if(this.getFromLocal("login_status") === false)
         }
       );
     }
+    else{
+      // alert('Please select the Start Date and End Date');
+      alert("Please select the Start Date and End Date")
+    }
+  }
     else {
       this.showWarning("Please select the Start Date and End Date");
       //alert('Please select the Start Date and End Date');
@@ -291,6 +303,7 @@ if(this.getFromLocal("login_status") === false)
 
   }
   refersh() {
+    this.searchQR='';
     this.listpettype(); this.E_Date = undefined; this.S_Date = undefined;
   }
   cancel() {
@@ -310,5 +323,26 @@ if(this.getFromLocal("login_status") === false)
 
   showWarning(msg) {
       this.toastr.warningToastr(msg);
+  }
+  research(){
+    console.log(this.table)
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
+
+  
+  }
+  research1(){
+ 
+    if(this.searchQR==''){
+      this.shremove=false;
+      this.ngOnInit();
+    }
+
+   
+  }
+  remove(){
+    this.searchQR='';
+    this.shremove=false;
   }
 }
