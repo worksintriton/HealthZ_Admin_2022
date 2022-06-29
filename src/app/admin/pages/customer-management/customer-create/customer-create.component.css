@@ -28,3 +28,11 @@
     background-color: #61c27f;
     color: white;
   }
+  .required:after {
+    content:" *";
+    color: red;
+  }
+  .required:befor {
+    content:" *";
+    color: black;
+  }

@@ -5,22 +5,23 @@
     <div class="row" style="padding: 0px 0px 23px 10px;">
         
         <div class="col-md-6">
-            <h5 class="form-lable">First name:</h5>
-            <input type="text" pInputText [(ngModel)]="Fname" placeholder="First name">
-            <div *ngIf="Validation == false && (Fname == undefined || Fname == '')" class="mt-1 error">
-                <div class="text-danger">Phone Number is Required.</div>
+            <h5 class="form-lable required" >First Name:</h5>
+            <input type="text" id="txtName" pInputText [(ngModel)]="Fname" placeholder="First Name" >
+            <div *ngIf="Validation == false && (Fname.trim() == undefined || Fname.trim() == '')" class="mt-1 error">
+                <div class="text-danger">First Name is Required.</div>
             </div>
+           
         </div>
         <div class="col-md-6">
-            <h5 class="form-lable">Last name:</h5>
-            <input type="text" pInputText [(ngModel)]="Lname" placeholder="Last name">
-            <div *ngIf="Validation == false && (Lname == undefined || Lname == '')" class="mt-1 error">
-                <div class="text-danger">Phone Number is Required.</div>
+            <h5 class="form-lable required">Last Name:</h5>
+            <input type="text" id="txt" pInputText [(ngModel)]="Lname" placeholder="Last Name">
+            <div *ngIf="Validation == false && (Lname.trim() == undefined || Lname.trim() == '')" class="mt-1 error">
+                <div class="text-danger">Last Name is Required.</div>
             </div>
         </div>
         <ng-container *ngIf="type == 'create'">
         <div class="col-md-6">
-            <h5 class="form-lable">Email ID:</h5>
+            <h5 class="form-lable required">Email ID:</h5>
             <input type="text" pInputText [(ngModel)]="Email"  (ngModelChange)="EmailidChange($event)"  placeholder="Email ID">
             <div *ngIf="Email_idError" class="mt-1 error">
                 <div class="text-danger">Valid Email Address Required.</div>
@@ -30,9 +31,9 @@
             </div>
         </div>
         <div class="col-md-6">
-            <h5 class="form-lable">Phone Number:</h5>
+            <h5 class="form-lable required">Phone Number:</h5>
             <input type="text" pInputText [(ngModel)]="Phone" placeholder="Phone Number"  maxlength="10" (keypress)=_keyPress($event)>
-            <div *ngIf="Validation == false && (Phone == undefined || Phone == ''  || Phone.length != 10)" class="mt-1 error">
+            <div *ngIf="Validation == false && (Phone == undefined || Phone == ''|| Phone == '0000000000'  || Phone.length != 10)" class="mt-1 error">
                 <div class="text-danger">Phone Number is Required.</div>
             </div>
         </div>
@@ -41,7 +42,7 @@
 
     <ng-container *ngIf="type == 'edit'">
         <div class="col-md-6">
-            <h5 class="form-lable">Email ID:</h5>
+            <h5 class="form-lable required">Email ID:</h5>
             <input type="text" pInputText [(ngModel)]="Email"  disabled (ngModelChange)="EmailidChange($event)"  placeholder="Email ID">
             <div *ngIf="Email_idError" class="mt-1 error">
                 <div class="text-danger">Valid Email Address Required.</div>
@@ -51,7 +52,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <h5 class="form-lable">Phone Number:</h5>
+            <h5 class="form-lable required">Phone Number:</h5>
             <input type="text" pInputText [(ngModel)]="Phone" disabled placeholder="Phone Number"  maxlength="10" (keypress)=_keyPress($event)>
             <div *ngIf="Validation == false && (Phone == undefined || Phone == ''  || Phone.length != 10)" class="mt-1 error">
                 <div class="text-danger">Phone Number is Required.</div>
@@ -64,7 +65,7 @@
             <button type="button" *ngIf="type == 'create'" class="btn btn-primary" (click)="create()">Create</button>
             <button type="button" *ngIf="type == 'edit'" class="btn btn-primary" (click)="edit()">Update</button>
 
-            <button type="button" class="btn btn-primary btn-bg-blue" (click)="cancel()">Cancel</button>
+            <button type="button" class="btn btn-danger " (click)="cancel()">Cancel</button>
         </div>
 
     </div>

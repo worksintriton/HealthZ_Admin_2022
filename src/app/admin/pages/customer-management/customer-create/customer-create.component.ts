@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+declare var $:any;
 @Component({
   selector: 'app-customer-create',
   templateUrl: './customer-create.component.html',
@@ -16,13 +16,14 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 export class CustomerCreateComponent implements OnInit {
   apiUrl = environment.apiUrl;
   imgUrl = environment.imageURL;
-  Fname: any;
-  Lname: any;
+  Fname: any='';
+  Lname: any='';
   Email: any;
   Phone: any;
   Email_id: any;
   Email_idError: any;
   Validation: any;
+  faValidation:any;
   type:any;
   detail:any;
   constructor(
@@ -36,6 +37,33 @@ export class CustomerCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    $('#txtName').keypress(function (e) {
+      var regex = new RegExp("^[a-zA-Z \s]+$");
+      var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+      if (regex.test(str)) {
+          return true;
+      }
+      else
+      {
+      e.preventDefault();
+     
+      return false;
+      }
+  });
+  $('#txt').keypress(function (e) {
+    var regex = new RegExp("^[a-zA-Z \s]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+    else
+    {
+    e.preventDefault();
+   
+    return false;
+    }
+});
+  
     this.type = this.getFromLocal('fun_type');
     if(this.type == 'edit'){
       this.detail = this.getFromLocal('view_detail_data');
@@ -64,20 +92,22 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   validation() {
-    if (this.Fname == undefined || this.Fname == '' || this.Lname == undefined || this.Lname == '' || this.Email == undefined || this.Phone == undefined || this.Email_idError == true ||  this.Phone == ''  || this.Phone.length != 10) {
+    if (this.Fname.trim() == undefined || this.Fname.trim() == ''|| this.Lname.trim() == undefined || this.Lname.trim() == '' || this.Email.trim() == undefined || this.Phone.trim() == undefined || this.Email_idError == true ||  this.Phone.trim() == '' ||  this.Phone == '0000000000' || this.Phone.length != 10) {
       this.Validation = false;
-      console.log(this.Validation)
+      
     }
     else {
       this.Validation = true;
       console.log(this.Validation)
     }
+   
+ 
   }
   create() {
     this.validation();
     if (this.Validation == false) {
       // alert("Please enter valid inputs");
-      this.showWarning("Please enter valid inputs")
+      // this.showWarning("Please enter valid inputs")
     } else {
       let a = {
         "first_name": this.Fname,
