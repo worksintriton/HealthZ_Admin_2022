@@ -169,7 +169,8 @@ if(this.getFromLocal("login_status") === false)
       var edate=this.E_Date;
       if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate = this.E_Date.setDate(this.E_Date.getDate());
-
+      let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+      element.click();
       let a = {
         "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
         "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')

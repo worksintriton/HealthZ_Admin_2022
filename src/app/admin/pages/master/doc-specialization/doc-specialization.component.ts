@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,  ViewChild, AfterViewInit, ElementRef, TemplateRef } from '@angular/core';import { Router } from '@angular/router';
+import { Component, OnInit, Inject,  ViewChild, AfterViewInit, ElementRef, TemplateRef,ChangeDetectorRef } from '@angular/core';import { Router } from '@angular/router';
 import { ApiService } from '../../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Table } from "primeng/table";
+declare var $ :any;
 @Component({
   selector: 'app-doc-specialization',
   templateUrl: './doc-specialization.component.html',
@@ -43,7 +44,7 @@ export class DocSpecializationComponent implements OnInit {
     private _api: ApiService,
     private routes: ActivatedRoute,
     private datePipe: DatePipe,
-    private dialog: MatDialog
+    private dialog: MatDialog,private cdRef: ChangeDetectorRef
   ) {
     // login_status
 if(this.getFromLocal("login_status") === false)
@@ -60,6 +61,21 @@ if(this.getFromLocal("login_status") === false)
     this.update_button = true;
     this.listpettype();
   }
+  
+  ngAfterViewChecked() {
+    if (this.table._totalRecords === 0) {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+    } else {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+    }
+    this.cdRef.detectChanges();
+    
+    }
+    paginate(event) {
+      console.log("this.first")
+     
+    
+    }
 
   saveInLocal(key, val): void {
     this.storage.set(key, val);
@@ -178,12 +194,18 @@ if(this.getFromLocal("login_status") === false)
         var edate=this.E_Date;
         if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
         let yourDate= this.E_Date.setDate(this.E_Date.getDate());
-  
+       
         let a = {
           "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
           "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')
           }
-        console.log(a);
+          let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+element.click();
+        //   $(document).ready(function(){
+        //     document.getElementsByClassName('.ui-paginator-page').click();
+        //     document.querySelector('.ui-paginator-page').click();
+        //  });
+        this.paginate(event);
         this._api.doctor_spec_filter_date(a).subscribe(
           (response: any) => {
             console.log(response.Data);

@@ -128,6 +128,8 @@ if(this.getFromLocal("login_status") === false)
         "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
         "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')
         }
+        let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+        element.click();
       console.log(a);
       this._api.appointment_filter_date(a).subscribe(
         (response: any) => {

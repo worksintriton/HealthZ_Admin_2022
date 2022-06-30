@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef,ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
@@ -8,6 +8,8 @@ import { DatePipe } from '@angular/common';
 import { environment } from '../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Table } from "primeng/table";
+
 @Component({
   selector: 'app-vendor-productdetail',
   templateUrl: './vendor-productdetail.component.html',
@@ -16,7 +18,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class VendorProductdetailComponent implements OnInit {
   apiUrl = environment.apiUrl;
   imgUrl = environment.imageURL;
-
+  @ViewChild("tt") table: Table;
 
   searchQR: any;
   S_Date: any;
@@ -32,7 +34,7 @@ constructor(
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private _api: ApiService,
     private http: HttpClient,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe,private cdRef: ChangeDetectorRef
     ){}
 
 
@@ -47,7 +49,14 @@ constructor(
     );
     
   }
-
+  ngAfterViewChecked() {
+    if (this.table._totalRecords === 0) {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+    } else {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+    }
+    this.cdRef.detectChanges();
+    }
 
   filter_date() {
     if (this.E_Date != undefined && this.S_Date != undefined) {
@@ -58,7 +67,8 @@ constructor(
         "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
         "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
       }
-      console.log(a);
+      let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+      element.click();
       this._api.product_details_filter_date(a).subscribe(
         (response: any) => {
           console.log(response.Data);

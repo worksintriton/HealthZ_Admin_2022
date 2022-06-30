@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef,ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
@@ -7,6 +7,7 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { Table } from "primeng/table";
 
 @Component({
   selector: 'app-ecombanner',
@@ -32,14 +33,16 @@ export class EcombannerComponent implements OnInit {
   id:any;
   edit_t:boolean = false;
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
+  @ViewChild("tt") table: Table;
   constructor(
     private toastr:ToastrManager,
     private router: Router,
     private location: Location,
     @Inject(SESSION_STORAGE) private storage: StorageService,
+    
     private _api: ApiService,
     private http: HttpClient,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe,private cdRef: ChangeDetectorRef
   ) { 
     // login_status
 if(this.getFromLocal("login_status") === false)
@@ -51,6 +54,14 @@ if(this.getFromLocal("login_status") === false)
   ngOnInit(): void {
     this.listecomBanner();
   }
+  ngAfterViewChecked() {
+    if (this.table._totalRecords === 0) {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+    } else {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+    }
+    this.cdRef.detectChanges();
+    }
   saveInLocal(key, val): void {
     this.storage.set(key, val);
   }
@@ -231,7 +242,8 @@ if(this.getFromLocal("login_status") === false)
       var edate=this.E_Date;
       if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
-
+      let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+      element.click();
       let a = {
         "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
         "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')

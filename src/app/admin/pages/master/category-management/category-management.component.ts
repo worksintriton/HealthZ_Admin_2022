@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef } from '@angular/core'; import { Router } from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef,ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
 import { ApiService } from '../../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
 import { DatePipe } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { Table } from "primeng/table";
 
 @Component({
   selector: 'app-category-management',
@@ -37,6 +38,7 @@ export class CategoryManagementComponent implements OnInit {
   S_Date: any;
   E_Date: any;
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
+  @ViewChild("tt") table: Table;
 
   constructor(
     private toastr:ToastrManager,
@@ -45,7 +47,7 @@ export class CategoryManagementComponent implements OnInit {
     private http: HttpClient,
     private _api: ApiService,
     private routes: ActivatedRoute,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe,private cdRef: ChangeDetectorRef
   ) { 
     // login_status
 if(this.getFromLocal("login_status") === false)
@@ -62,6 +64,16 @@ this.Category_name='';
     this.update_button = true;
     this.listpettype();
   }
+  ngAfterViewChecked() {
+    if (this.table._totalRecords === 0) {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+    } else {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+    }
+    this.cdRef.detectChanges();
+    }
+
+    
   saveInLocal(key, val): void {
     this.storage.set(key, val);
   }
@@ -195,7 +207,8 @@ this.Category_name='';
       let yourDate = this.E_Date.setDate(this.E_Date.getDate());
       var edate=this.E_Date;
         if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
-
+          let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+          element.click();
       let a = {
         "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
         "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')

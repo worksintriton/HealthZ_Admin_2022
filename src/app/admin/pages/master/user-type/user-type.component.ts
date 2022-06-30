@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef, TemplateRef } from '@angular/core'; import { Router } from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef, TemplateRef,ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
 import { ApiService } from '../../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -7,7 +7,7 @@ import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '../../../../../environments/environment';
 import { ToastrManager } from 'ng6-toastr-notifications';
-
+import { Table } from "primeng/table";
 
 
 
@@ -37,6 +37,7 @@ export class UserTypeComponent implements OnInit {
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
   @ViewChild('updateDialog') updateDialog: TemplateRef<any>;
   @ViewChild('addedDialog') addedDialog: TemplateRef<any>;
+  @ViewChild("tt") table: Table;
 
   constructor(
     private toastr: ToastrManager,
@@ -46,7 +47,7 @@ export class UserTypeComponent implements OnInit {
     private _api: ApiService,
     private routes: ActivatedRoute,
     private datePipe: DatePipe,
-    private dialog: MatDialog
+    private dialog: MatDialog,private cdRef: ChangeDetectorRef
   ) {
        // login_status
 if(this.getFromLocal("login_status") === false)
@@ -63,7 +64,14 @@ if(this.getFromLocal("login_status") === false)
     this.update_button = true;
     this.listpettype();
   }
-
+  ngAfterViewChecked() {
+    if (this.table._totalRecords === 0) {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+    } else {
+    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+    }
+    this.cdRef.detectChanges();
+    }
 
 
   listpettype() {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef } from '@angular/core'; import { Router } from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef,ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 import * as XLSX from 'xlsx';
 import { ExcelService } from '../../../excel.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
+import { Table } from "primeng/table";
 
 @Component({
   selector: 'app-doctorlist',
@@ -19,7 +20,7 @@ export class DoctorlistComponent implements OnInit {
   searchQR: any;
   value1: any;
 
-
+  @ViewChild('TABLE') table: ElementRef;
   specialzation: string = '';
   date_and_time: string = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
   pet_type_list: any = [];
@@ -35,7 +36,7 @@ export class DoctorlistComponent implements OnInit {
   c_list: any = [];
 
   filter : any;
-  
+  @ViewChild("tt") table1: Table;
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
 
   constructor(
@@ -46,7 +47,7 @@ export class DoctorlistComponent implements OnInit {
     private _api: ApiService,
     private routes: ActivatedRoute,
     private datePipe: DatePipe,
-    private excelService: ExcelService,
+    private excelService: ExcelService,private cdRef: ChangeDetectorRef
 
   ) {
     // login_status
@@ -55,7 +56,7 @@ if(this.getFromLocal("login_status") === false)
   this.router.navigate(['login']);
 }
    }
-  @ViewChild('TABLE') table: ElementRef;
+
   ngOnInit(): void {
 
 
@@ -72,7 +73,14 @@ if(this.getFromLocal("login_status") === false)
       }
     );
   }
-
+  ngAfterViewChecked() {
+    if (this.table1._totalRecords === 0) {
+    this.table1.currentPageReportTemplate = this.table1.currentPageReportTemplate.replace("{first}", "0")
+    } else {
+    this.table1.currentPageReportTemplate = this.table1.currentPageReportTemplate.replace("0", "{first}")
+    }
+    this.cdRef.detectChanges();
+    }
   saveInLocal(key, val): void {
     this.storage.set(key, val);
   }
@@ -360,6 +368,8 @@ if(this.getFromLocal("login_status") === false)
         "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
         "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
       }
+      let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+      element.click();
       console.log(a);
       this._api.doctor_detailsfilter_date(a).subscribe(
         (response: any) => {
