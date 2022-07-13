@@ -224,7 +224,7 @@ element.click();
       this._api.sub_diagnosis_filter(a).subscribe(
         (response: any) => {
           console.log(response.Data);
-          this.rows = response.Data;
+          this.final = response.Data;
         }
       );
     }

@@ -122,7 +122,8 @@ if(this.getFromLocal("login_status") === false)
           if (response.Code === 200) {
             // alert('Added Successfully');
             this.ngOnInit();
-            this.img_path == ''
+            this.img_path = '';
+            this.img_title='';
             this.showSuccess("Added Successfully")
           } else {
             this.showError(response.Message)

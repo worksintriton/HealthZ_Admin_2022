@@ -45,3 +45,5 @@
   height: 100%;
   width: 100%;
 }
+.required:after { content:" *";
+  color: red; }

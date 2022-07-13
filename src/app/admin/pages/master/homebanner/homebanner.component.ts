@@ -221,21 +221,21 @@ if(this.getFromLocal("login_status") === false)
         let width = img.width;
         let height = img.height;
         console.log(width, height);
-        // if (width == 800 && height == 350) {
-        //   let d = this.selectedimgae.size / 100000;
-        //   if (d < 10) {
-        //     this.addfiles1();
-        //   } else {
-        //     // alert('Please upload the file below 1 MB');
-        //     this.showWarning("Please upload the file below 400 KB");
-        //     this.imgType.nativeElement.value = "";
-        //   }
-        // }
-        // else {
-        //   // alert('Please upload the file size 400 * 800');
-        //   this.showWarning("Please upload the file size 800 * 350");
-        //   this.imgType.nativeElement.value = "";
-        // }
+        if (width == 800 && height == 350) {
+          let d = this.selectedimgae.size / 400000;
+          if (d < 10) {
+            this.addfiles1();
+          } else {
+            // alert('Please upload the file below 1 MB');
+            this.showWarning("Please upload the file below 400 KB");
+            this.imgType.nativeElement.value = "";
+          }
+        }
+        else {
+          // alert('Please upload the file size 400 * 800');
+          this.showWarning("Please upload the file size 800 * 350");
+          this.imgType.nativeElement.value = "";
+        }
         this.addfiles1();
       };
       img.src = fr.result as string; // The data URL

@@ -22,6 +22,7 @@ export class DoctorlistComponent implements OnInit {
 
   @ViewChild('TABLE') table: ElementRef;
   specialzation: string = '';
+  shremove:boolean=false;
   date_and_time: string = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
   pet_type_list: any = [];
   pet_type_id: string = '';
@@ -360,8 +361,11 @@ if(this.getFromLocal("login_status") === false)
   }
 
   filter_date() {
+    var date=new Date()
     if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate=this.E_Date;
+      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
       let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
@@ -377,6 +381,12 @@ if(this.getFromLocal("login_status") === false)
           this.rows = response.Data;
         }
       );
+    }
+      
+    else{
+      alert("Please Select the Start date less than or Equal to End date");
+     
+    }
     }
     else {
       this.showWarning("Please select the Start Date and End Date");
@@ -408,6 +418,27 @@ if(this.getFromLocal("login_status") === false)
 
   showWarning(msg) {
       this.toastr.warningToastr(msg);
+  }
+  research(){
+    console.log(this.table)
+    if(this.searchQR!=''){
+      this.shremove=true;
+    }
+
+  
+  }
+  research1(){
+ 
+    if(this.searchQR==''){
+      this.shremove=false;
+      this.ngOnInit();
+    }
+
+   
+  }
+  remove(){
+    this.searchQR='';
+    this.shremove=false;
   }
 }
 

@@ -183,7 +183,8 @@ export class DoctorcreateComponent implements OnInit {
     }
   }
   cancel() {
-    this.router.navigateByUrl('/admin/Doctor')
+    this.location.back();
+    // this.router.navigateByUrl('/admin/Doctor')
   }
   addSpecialization() {
 
@@ -423,7 +424,7 @@ export class DoctorcreateComponent implements OnInit {
     this.validation_1();
     if (this.Validation == false) {
       // alert("Please enter valid inputs");
-      this.showWarning("Please enter valid inputs");
+       this.showWarning("Please enter valid inputs");
     } else {
       let a = {
         "first_name": this.tittle,
@@ -458,6 +459,8 @@ export class DoctorcreateComponent implements OnInit {
     }
   }
   create() {
+    if(this.clinic_number != '')
+    {
     let a = {
     "certificate_pic":this.certificate_arr,
     "city_name":this.city_name,
@@ -539,6 +542,11 @@ export class DoctorcreateComponent implements OnInit {
         }
       );
     }
+  }
+  else
+  {
+    this.showWarning("Please Enter the Clinic Number");
+  }
   }
 
   EmailidChange(data) {
@@ -641,5 +649,22 @@ export class DoctorcreateComponent implements OnInit {
 
   showWarning(msg) {
       this.toastr.warningToastr(msg);
+  }
+  keydown(e:any){
+    if (e.shiftKey || e.ctrlKey || e.altKey) {
+    
+      e.preventDefault();
+      
+    } else {
+    
+      var key = e.keyCode;
+      
+      if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
+      
+        e.preventDefault();
+        
+      }
+
+    }
   }
 }
