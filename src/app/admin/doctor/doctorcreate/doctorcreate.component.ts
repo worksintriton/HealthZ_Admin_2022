@@ -20,6 +20,7 @@ import { DatePipe } from '@angular/common';
 export class DoctorcreateComponent implements OnInit {
 
   @ViewChild("placesRef") placesRef: GooglePlaceDirective;
+  clinic_loc: any;
 
   public handleAddressChange(address: any) {
     this.zoom = 15;
@@ -67,7 +68,10 @@ export class DoctorcreateComponent implements OnInit {
   f_date: any;
   T_date: any;
   CName: any;
+
   Validation: any;
+
+
   thumbnail_image: any;
 
   selectedimgae: any;
@@ -193,16 +197,23 @@ export class DoctorcreateComponent implements OnInit {
         let obj = { "specialization": this.Specialization }
         this.Specializationarray.push(obj);
         this.Specialization = undefined;
+        this.showSuccess("Specialization Added Successfully");
+      } else {
+        this.showWarning("Please Select The Specialization");
       }
     } else {
       var checks = '0';
       for (let a = 0; a < this.Specializationarray.length; a++) {
         if (this.Specialization == this.Specializationarray[a].specialization) {
           checks = '1';
+
         }
         if (a == this.Specializationarray.length - 1) {
           if (checks == '1') {
-            alert('this specialization already exist')
+
+            // alert('this specialization already exist')
+            this.showWarning("This Specialization Already Exist");
+
           } else {
             if (this.Specialization != undefined && this.Specialization != '') {
               let obj = { "specialization": this.Specialization }
@@ -221,7 +232,7 @@ export class DoctorcreateComponent implements OnInit {
   }
   remove_Specialization(i) {
     this.Specializationarray.splice(i, 1);
-
+    this.showSuccess("Specialization Removed Successfully");
   }
   addcompletion() {
 
@@ -230,6 +241,7 @@ export class DoctorcreateComponent implements OnInit {
       this.Completionarray.push(obj);
       this.completion = undefined;
       this.Education = undefined;
+      this.showSuccess("Education Details Added Successfully");
     }
     else {
       // alert("Pleasefill all the fields")
@@ -238,6 +250,7 @@ export class DoctorcreateComponent implements OnInit {
   }
   remove_completion(i) {
     this.Completionarray.splice(i, 1);
+    this.showWarning("Education Details Deleted Successfully");
 
   }
   addExperience() {
@@ -253,18 +266,22 @@ export class DoctorcreateComponent implements OnInit {
         this.f_date = undefined;
         this.T_date = undefined;
       } else {
-        alert("Select valid date");
+
+        // alert("Select valid date");
+        this.showWarning("Select Valid date / Please Select The From Date Less Than The To Date");
+
       }
 
 
     }
     else {
-      this.toastr.warningToastr("Pleasefill all the fields")
+      // this.toastr.warningToastr("Pleasefill all the fields")
       this.showWarning("Please fill all the fields");
     }
   }
   remove_Experience(i) {
     this.Experiencearray.splice(i, 1);
+    this.showWarning("Experience Details Removed Successfully");
 
   }
   addhandled() {
@@ -331,6 +348,7 @@ export class DoctorcreateComponent implements OnInit {
         console.log(d);
         if (d < 21) {
           this.addfiles(str);
+          this.showSuccess(" Image Uploaded Successfully");
         } else {
           // alert('Please upload the file below 1 MB');
           this.showWarning("Please upload the file below 2 MB");
@@ -386,15 +404,19 @@ export class DoctorcreateComponent implements OnInit {
   }
   remove_clinic_img(i) {
     this.clinic_arr.splice(i, 1);
+    this.showSuccess("Clinic Image Deleted Successfully");
   }
   remove_govt_img(i) {
     this.govt_arr.splice(i, 1);
+    this.showSuccess("Govt ID Proof Deleted Successfully");
   }
   remove_photo_img(i) {
     this.photo_arr.splice(i, 1);
+    this.showSuccess("Photo ID Proof Deleted Successfully");
   }
   remove_Certificate_img(i) {
     this.certificate_arr.splice(i, 1);
+    this.showSuccess("Certificate Deleted Successfully");
   }
   validation_1() {
     if (this.tittle == undefined || this.tittle == '' || this.Name == undefined || this.Name == '' || this.Email == undefined || this.Phone == undefined || this.Email_idError == true || this.Phone == '' || this.Phone.length != 10) {
@@ -407,7 +429,7 @@ export class DoctorcreateComponent implements OnInit {
     }
   }
   validation_2() {
-    if (this.clinic_number == undefined || this.clinic_number == '' || this.Phone.length != 10 || this.doctor_id == undefined || this.doctor_id == '' || this.Clinic_Name == undefined || this.Clinic_Name == '') {
+    if (this.clinic_number == undefined || this.clinic_number == '' || this.certificate_arr.length == 0 || this.govt_arr.length == 0 || this.Specializationarray.length == 0 || this.thumbnail_image == undefined || this.clinic_arr.length == 0 || this.photo_arr.length == 0 || this.Phone.length != 10 || this.doctor_id == undefined || this.doctor_id == '' || this.Clinic_Name == undefined || this.Clinic_Name == '' || this.address == undefined || this.address == '' || this.city_name == undefined || this.city_name == '') {
       this.Validation2 = false;
       console.log(this.Validation)
     }
@@ -470,8 +492,8 @@ export class DoctorcreateComponent implements OnInit {
     }
   }
   create() {
- 
     this.validation_2();
+    console.log(this.thumbnail_image)
     this.Validation = true;
     if (this.Validation2 == false) {
       // alert("Please enter valid inputs");
@@ -494,6 +516,7 @@ export class DoctorcreateComponent implements OnInit {
         "dr_name": this.Name,
         "dr_title": "Dr",
         "education_details": this.Completionarray,
+        "Specialization": this.Specializationarray,
         "experience_details": this.Experiencearray,
         "govt_id_pic": this.govt_arr,
         "mobile_type": "Admin",
@@ -553,13 +576,14 @@ export class DoctorcreateComponent implements OnInit {
     //       "thumbnail_image": this.thumbnail_image,
     //     }
 
-       
+
     //   }
     //   else { this.showWarning("Please Enter Minimum 10 Characters "); }
     // }
     // else {
     //   this.showWarning("Please Enter the Clinic Number");
     // }
+
   }
 
   EmailidChange(data) {
