@@ -73,16 +73,32 @@
               </div>
               <div class="col-md-5">
                 <h5 class="form-lable">Clinic Number : <span style="color: red;font-size: large;">*</span></h5>
-                <input type="text" pInputText (keypress)=_keyPress($event) minlength="10" [(ngModel)]="clinic_number" placeholder="Clinic Number">
-              </div>
+                <input type="text" pInputText (keypress)=_keyPress($event) maxlength="10" minlength="10" [(ngModel)]="clinic_number" placeholder="Clinic Number" required>
+                <div *ngIf="Validation2 == false && (clinic_number == undefined || clinic_number.trim() == '') "
+                class="mt-1 error">
+                <div class="text-danger">Clinic Number is Required.</div>
+            </div>
+            <div *ngIf="Validation2 == false && ( clinic_number =='0000000000') "
+            class="mt-1 error">
+            <div class="text-danger">Vaild Clinic Number is Required.</div>
+        </div>
+            </div>
               <div class="col-md-5">
                 <h5 class="form-lable">Doctor ID : <span style="color: red;font-size: large;">*</span></h5>
                 <input type="text" pInputText [(ngModel)]="doctor_id" placeholder="Doctor ID">
+                <div *ngIf="Validation2 == false && (doctor_id == undefined || doctor_id.trim() == '') "
+                class="mt-1 error">
+                <div class="text-danger">Doctor ID is Required.</div>
+            </div>
               </div>
 
               <div class="col-md-5">
                 <h5 class="form-lable">Clinic Name : <span style="color: red;font-size: large;">*</span></h5>
-                <input type="text" pInputText [(ngModel)]="Clinic_Name" placeholder="Clinic Name">
+                <input type="text" pInputText maxlength="25" [(ngModel)]="Clinic_Name" placeholder="Clinic Name" (keydown)="keydown($event)">
+                <div *ngIf="Validation2 == false && (Clinic_Name == undefined || Clinic_Name.trim() == '') "
+                class="mt-1 error">
+                <div class="text-danger">Clinic Name is Required.</div>
+            </div>
             </div>
 
             <div class="col-md-5">
@@ -93,11 +109,19 @@
                 <option value="Visit">Visit</option>
                 <option value="Online Or Visit">Online Or Visit</option>
               </select>
+              <div *ngIf="Validation2 == false && (communication_type == undefined || communication_type.trim() == '') "
+              class="mt-1 error">
+              <div class="text-danger">Communication Type is Required.</div>
+          </div>
             </div>
 
             <div class="col-md-10">
               <h5 class="form-lable">About Doctor : <span style="color: red;font-size: large;">*</span></h5>
               <textarea type="text" pInputText [(ngModel)]="about_doctor" placeholder="About Doctor"></textarea>
+              <div *ngIf="Validation2 == false && (about_doctor == undefined || about_doctor.trim() == '') "
+              class="mt-1 error">
+              <div class="text-danger">About Doctor is Required.</div>
+          </div>
             </div>
 
 
@@ -114,9 +138,13 @@
                     <div class="col-md-5">
                         <h5 class="form-lable">Education: <span style="color: red;font-size: large;">*</span></h5>
                         <input type="text" pInputText [(ngModel)]="Education" placeholder="Education">
+                        <div *ngIf="Validation2 == false && (Completionarray.length == 0) "
+                        class="mt-1 error">
+                        <div class="text-danger">Education is Required.</div>
+                    </div>
                     </div>
                     <div class="col-md-5">
-                        <h5 class="form-lable">Year of completion:</h5>
+                        <h5 class="form-lable">Year Of Completion:</h5>
 
                         <select  [(ngModel)]="completion" >
                           <option value='undefined' disabled>Select year</option>
@@ -124,6 +152,10 @@
                               {{arr}}
                           </option>
                       </select>
+                      <div *ngIf="Validation2 == false && (Completionarray.length == 0) "
+                      class="mt-1 error">
+                      <div class="text-danger">Education Year  is Required.</div>
+                  </div>
                         <!-- <input type="" pInputText [(ngModel)]="completion" placeholder="Completion"> -->
                     </div>
                     <div class="col-md-2 text-right">
@@ -134,7 +166,7 @@
                     <thead>
                         <th>S.No</th>
                         <th>Education</th>
-                        <th>Year of completion</th>
+                        <th>Year Of Completion</th>
                         <th>Remove</th>
                     </thead>
                     <tbody>

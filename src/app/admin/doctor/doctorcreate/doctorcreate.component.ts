@@ -19,7 +19,7 @@ import { DatePipe } from '@angular/common';
 })
 export class DoctorcreateComponent implements OnInit {
 
-  @ViewChild("placesRef") placesRef : GooglePlaceDirective;
+  @ViewChild("placesRef") placesRef: GooglePlaceDirective;
 
   public handleAddressChange(address: any) {
     this.zoom = 15;
@@ -38,10 +38,10 @@ export class DoctorcreateComponent implements OnInit {
   stage2 = false;
 
 
-  options={
+  options = {
     types: [],
     componentRestrictions: { country: 'IN' }
-    }
+  }
 
   apiUrl = environment.apiUrl;
   imgUrl = environment.imageURL;
@@ -60,15 +60,15 @@ export class DoctorcreateComponent implements OnInit {
   years: any = [];
   address: any;
   tittle: any;
-  tittle_idError : any;
+  tittle_idError: any;
   Clinic_Name: any;
   Latitude: any;
   Longitude: any;
   f_date: any;
   T_date: any;
   CName: any;
-
-  thumbnail_image : any ;
+  Validation: any;
+  thumbnail_image: any;
 
   selectedimgae: any;
   Exp: any = [
@@ -94,29 +94,29 @@ export class DoctorcreateComponent implements OnInit {
   govt_arr: any = [];
   certificate_arr: any = [];
   photo_arr: any = [];
-  Validation: any;
+  Validation2: any;
   Email: any;
   Phone: any;
-  phone_idError : any;
+  phone_idError: any;
   Email_id: any;
   Email_idError: any;
   userid: any = undefined;
   type: any;
   detail: any;
-  dropdownslist:any;
-  consultancy_fees : any;
+  dropdownslist: any;
+  consultancy_fees: any;
 
 
   ///New Params///
 
-  clinic_number : any = '';
-  doctor_id : any = '';
+  clinic_number: any = '';
+  doctor_id: any = '';
   about_doctor: any = '';
-  communication_type : any = '';
+  communication_type: any = '';
   year_list = [];
   city_name = '';
   constructor(
-    private toastr:ToastrManager,
+    private toastr: ToastrManager,
     private location: Location,
     private router: Router,
     private ValidatorService: ValidatorService,
@@ -129,9 +129,9 @@ export class DoctorcreateComponent implements OnInit {
 
     let current_year = (new Date()).getFullYear();
     console.log(current_year);
-     current_year = current_year + 1;
-    for(let a = 0 ; a < 50 ; a++){
-      current_year =  current_year - 1;
+    current_year = current_year + 1;
+    for (let a = 0; a < 50; a++) {
+      current_year = current_year - 1;
       this.year_list.push(current_year);
     }
     console.log(this.year_list);
@@ -145,7 +145,7 @@ export class DoctorcreateComponent implements OnInit {
         console.log(this.dropdownslist);
       }
     );
-   }
+  }
 
   ngOnInit(): void {
     this.type = this.getFromLocal('fun_type');
@@ -175,7 +175,7 @@ export class DoctorcreateComponent implements OnInit {
       this.govt_arr = this.detail.govt_id_pic;
       this.photo_arr = this.detail.photo_id_pic;
       this.thumbnail_image = this.thumbnail_image;
-      this.consultancy_fees =  +this.detail.consultancy_fees;
+      this.consultancy_fees = +this.detail.consultancy_fees;
 
     }
     for (let i = 1980; i < 2020; i++) {
@@ -188,29 +188,29 @@ export class DoctorcreateComponent implements OnInit {
   }
   addSpecialization() {
 
-    if(this.Specializationarray.length == 0){
+    if (this.Specializationarray.length == 0) {
       if (this.Specialization != undefined && this.Specialization != '') {
         let obj = { "specialization": this.Specialization }
         this.Specializationarray.push(obj);
         this.Specialization = undefined;
       }
-    }else{
+    } else {
       var checks = '0';
-      for(let a  = 0 ; a < this.Specializationarray.length;a ++){
-        if(this.Specialization == this.Specializationarray[a].specialization){
+      for (let a = 0; a < this.Specializationarray.length; a++) {
+        if (this.Specialization == this.Specializationarray[a].specialization) {
           checks = '1';
         }
-         if(a == this.Specializationarray.length -1){
-          if(checks == '1'){
+        if (a == this.Specializationarray.length - 1) {
+          if (checks == '1') {
             alert('this specialization already exist')
-          }else{
+          } else {
             if (this.Specialization != undefined && this.Specialization != '') {
               let obj = { "specialization": this.Specialization }
               this.Specializationarray.push(obj);
               this.Specialization = undefined;
             }
           }
-         }
+        }
       }
     }
 
@@ -243,16 +243,16 @@ export class DoctorcreateComponent implements OnInit {
   addExperience() {
 
     if (this.CName != undefined && this.CName != '' && this.f_date != undefined && this.T_date != undefined) {
-      if(+this.f_date < +this.T_date){
+      if (+this.f_date < +this.T_date) {
         let temp = 0;
         temp = +this.T_date - +this.f_date;
         console.log(temp);
-        let obj = { "company": this.CName, "from": this.f_date, "to": this.T_date, "yearsofexperience" : temp }
+        let obj = { "company": this.CName, "from": this.f_date, "to": this.T_date, "yearsofexperience": temp }
         this.Experiencearray.push(obj);
         this.CName = undefined;
         this.f_date = undefined;
         this.T_date = undefined;
-      }else{
+      } else {
         alert("Select valid date");
       }
 
@@ -270,35 +270,35 @@ export class DoctorcreateComponent implements OnInit {
   addhandled() {
 
     console.log(this.handled);
-    if(this.handledarray.length == 0){
+    if (this.handledarray.length == 0) {
       if (this.handled != undefined && this.handled != '') {
         let obj = { "pet_handled": this.handled }
         this.handledarray.push(obj);
         this.handled = undefined;
       }
-    }else{
-    console.log("Test");
-     var checks = '0';
-     console.log(this.handledarray.length);
+    } else {
+      console.log("Test");
+      var checks = '0';
+      console.log(this.handledarray.length);
 
-     for(let a  = 0 ; a < this.handledarray.length;a ++){
-       console.log(this.handledarray[a].pet_handled,this.handled);
-      if(this.handledarray[a].pet_handled == this.handled){
-        checks = '1';
-      }
-      if(a == this.handledarray.length - 1){
-        console.log(checks);
-        if(checks == '1'){
-        alert('pethandle already added');
-        }else{
-          if (this.handled != undefined && this.handled != '') {
-            let obj = { "pet_handled": this.handled }
-            this.handledarray.push(obj);
-            this.handled = undefined;
+      for (let a = 0; a < this.handledarray.length; a++) {
+        console.log(this.handledarray[a].pet_handled, this.handled);
+        if (this.handledarray[a].pet_handled == this.handled) {
+          checks = '1';
+        }
+        if (a == this.handledarray.length - 1) {
+          console.log(checks);
+          if (checks == '1') {
+            alert('pethandle already added');
+          } else {
+            if (this.handled != undefined && this.handled != '') {
+              let obj = { "pet_handled": this.handled }
+              this.handledarray.push(obj);
+              this.handled = undefined;
+            }
           }
         }
       }
-     }
     }
   }
 
@@ -327,15 +327,15 @@ export class DoctorcreateComponent implements OnInit {
         let width = img.width;
         let height = img.height;
         console.log(width, height);
-          let d = this.selectedimgae.size / 100000;
-          console.log(d);
-          if (d < 21) {
-            this.addfiles(str);
-          } else {
-            // alert('Please upload the file below 1 MB');
-            this.showWarning("Please upload the file below 2 MB");
-            this.imgType.nativeElement.value = "";
-          }
+        let d = this.selectedimgae.size / 100000;
+        console.log(d);
+        if (d < 21) {
+          this.addfiles(str);
+        } else {
+          // alert('Please upload the file below 1 MB');
+          this.showWarning("Please upload the file below 2 MB");
+          this.imgType.nativeElement.value = "";
+        }
       };
       img.src = fr.result as string; // The data URL
     };
@@ -347,7 +347,7 @@ export class DoctorcreateComponent implements OnInit {
   addfiles(data: any) {
     const fd = new FormData();
     fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
-    this.http.post(this.imgUrl , fd)
+    this.http.post(this.imgUrl, fd)
       .subscribe((res: any) => {
         console.log(res);
         this.img_path = res.Data;
@@ -377,7 +377,7 @@ export class DoctorcreateComponent implements OnInit {
 
         }
         if (data == 'thumbnail_img') {
-          this.thumbnail_image = this.img_path ;
+          this.thumbnail_image = this.img_path;
           this.img_path = undefined;
         }
       });
@@ -406,6 +406,17 @@ export class DoctorcreateComponent implements OnInit {
       console.log(this.Validation)
     }
   }
+  validation_2() {
+    if (this.clinic_number == undefined || this.clinic_number == '' || this.Phone.length != 10 || this.doctor_id == undefined || this.doctor_id == '' || this.Clinic_Name == undefined || this.Clinic_Name == '') {
+      this.Validation2 = false;
+      console.log(this.Validation)
+    }
+    else {
+      this.Validation2 = true;
+      console.log(this.Validation)
+    }
+  }
+
   validation() {
 
     if (this.Name == undefined || this.Name == '' || this.tittle == undefined || this.tittle == '' || this.Completionarray.length == 0 || this.Specializationarray.length == 0 || this.handledarray.length == 0 || this.clinic_arr.length == 0 || this.photo_arr.length == 0 || this.govt_arr.length == 0 || this.certificate_arr.length == 0 || this.Clinic_Name == undefined || this.Clinic_Name == '' || this.address == undefined || this.address == '' || this.Latitude == undefined || this.Longitude == '' || this.Latitude == '' || this.Longitude == undefined) {
@@ -424,18 +435,18 @@ export class DoctorcreateComponent implements OnInit {
     this.validation_1();
     if (this.Validation == false) {
       // alert("Please enter valid inputs");
-       this.showWarning("Please enter valid inputs");
+      this.showWarning("Please enter valid inputs");
     } else {
       let a = {
         "first_name": this.tittle,
         "last_name": this.Name,
         "user_email": this.Email,
-        "user_email_verification" : false,
-        "ref_code":"",
+        "user_email_verification": false,
+        "ref_code": "",
         "user_phone": this.Phone,
         "otp": 123456,
         "user_type": 4,
-        "date_of_reg": ""+this.datepipe.transform(new Date(), 'dd-MM-yyyy hh:mm:ss'),
+        "date_of_reg": "" + this.datepipe.transform(new Date(), 'dd-MM-yyyy hh:mm:ss'),
         "mobile_type": 'Admin',
         "user_status": "complete"
       };
@@ -459,73 +470,41 @@ export class DoctorcreateComponent implements OnInit {
     }
   }
   create() {
-    if(this.clinic_number != '')
-    {
-    let a = {
-    "certificate_pic":this.certificate_arr,
-    "city_name":this.city_name,
-    "clinic_lat":this.Latitude,
-    "clinic_loc":this.address,
-    "clinic_long":this.Longitude,
-    "clinic_name":this.Clinic_Name,
-    "clinic_no":this.clinic_number,
-    "clinic_pic":this.clinic_arr,
-    "communication_type":this.communication_type,
-    "consultancy_fees": this.consultancy_fees,
-    "date_and_time": ""+this.datepipe.transform(new Date(), 'dd/MM/yyyy hh:mm:ss'),
-    "doctor_id": this.doctor_id,
-    "doctor_info": this.about_doctor,
-    "dr_name": this.Name,
-    "dr_title":"Dr",
-    "education_details":this.Completionarray,
-    "experience_details": this.Experiencearray,
-    "govt_id_pic":this.govt_arr,
-    "mobile_type":"Admin",
-    "pet_handled":this.handledarray,
-    "photo_id_pic":this.photo_arr,
-    "profile_status":true,
-    "profile_verification_status":"Not verified",
-    "signature":"",
-    "specialization":this.Specializationarray,
-    "user_id":this.userid,
-    "thumbnail_image" : this.thumbnail_image,
-  }
-
-    console.log(a);
-    // this.validation();
+ 
+    this.validation_2();
     this.Validation = true;
-    if (this.Validation == false) {
+    if (this.Validation2 == false) {
       // alert("Please enter valid inputs");
-      this.showWarning("Please enter valid inputs");
+      this.showWarning("Please Enter Valid inputs");
     } else {
       let a = {
-        "certificate_pic":this.certificate_arr,
-        "city_name":this.city_name,
-        "clinic_lat":this.Latitude,
-        "clinic_loc":this.address,
-        "clinic_long":this.Longitude,
-        "clinic_name":this.Clinic_Name,
-        "clinic_no":this.clinic_number,
-        "clinic_pic":this.clinic_arr,
-        "communication_type":this.communication_type,
+        "certificate_pic": this.certificate_arr,
+        "city_name": this.city_name,
+        "clinic_lat": this.Latitude,
+        "clinic_loc": this.address,
+        "clinic_long": this.Longitude,
+        "clinic_name": this.Clinic_Name,
+        "clinic_no": this.clinic_number,
+        "clinic_pic": this.clinic_arr,
+        "communication_type": this.communication_type,
         "consultancy_fees": this.consultancy_fees,
-        "date_and_time": ""+this.datepipe.transform(new Date(), 'dd/MM/yyyy hh:mm:ss'),
+        "date_and_time": "" + this.datepipe.transform(new Date(), 'dd/MM/yyyy hh:mm:ss'),
         "doctor_id": this.doctor_id,
         "doctor_info": this.about_doctor,
         "dr_name": this.Name,
-        "dr_title":"Dr",
-        "education_details":this.Completionarray,
+        "dr_title": "Dr",
+        "education_details": this.Completionarray,
         "experience_details": this.Experiencearray,
-        "govt_id_pic":this.govt_arr,
-        "mobile_type":"Admin",
-        "pet_handled":this.handledarray,
-        "photo_id_pic":this.photo_arr,
-        "profile_status":true,
-        "profile_verification_status":"Not verified",
-        "signature":"",
-        "specialization":this.Specializationarray,
-        "user_id":this.userid,
-        "thumbnail_image":this.thumbnail_image,
+        "govt_id_pic": this.govt_arr,
+        "mobile_type": "Admin",
+        "pet_handled": this.handledarray,
+        "photo_id_pic": this.photo_arr,
+        "profile_status": true,
+        "profile_verification_status": "Not verified",
+        "signature": "",
+        "specialization": this.Specializationarray,
+        "user_id": this.userid,
+        "thumbnail_image": this.thumbnail_image,
       }
       console.log(a);
       this._api.doctor_details_create(a).subscribe(
@@ -542,11 +521,45 @@ export class DoctorcreateComponent implements OnInit {
         }
       );
     }
-  }
-  else
-  {
-    this.showWarning("Please Enter the Clinic Number");
-  }
+    // if (this.clinic_number != '') {
+    //   if ((this.clinic_number.length >= 10) && (this.clinic_number == "0000000000")) {
+    //     let a = {
+    //       "certificate_pic": this.certificate_arr,
+    //       "city_name": this.city_name,
+    //       "clinic_lat": this.Latitude,
+    //       "clinic_loc": this.address,
+    //       "clinic_long": this.Longitude,
+    //       "clinic_name": this.Clinic_Name,
+    //       "clinic_no": this.clinic_number,
+    //       "clinic_pic": this.clinic_arr,
+    //       "communication_type": this.communication_type,
+    //       "consultancy_fees": this.consultancy_fees,
+    //       "date_and_time": "" + this.datepipe.transform(new Date(), 'dd/MM/yyyy hh:mm:ss'),
+    //       "doctor_id": this.doctor_id,
+    //       "doctor_info": this.about_doctor,
+    //       "dr_name": this.Name,
+    //       "dr_title": "Dr",
+    //       "education_details": this.Completionarray,
+    //       "experience_details": this.Experiencearray,
+    //       "govt_id_pic": this.govt_arr,
+    //       "mobile_type": "Admin",
+    //       "pet_handled": this.handledarray,
+    //       "photo_id_pic": this.photo_arr,
+    //       "profile_status": true,
+    //       "profile_verification_status": "Not verified",
+    //       "signature": "",
+    //       "specialization": this.Specializationarray,
+    //       "user_id": this.userid,
+    //       "thumbnail_image": this.thumbnail_image,
+    //     }
+
+       
+    //   }
+    //   else { this.showWarning("Please Enter Minimum 10 Characters "); }
+    // }
+    // else {
+    //   this.showWarning("Please Enter the Clinic Number");
+    // }
   }
 
   EmailidChange(data) {
@@ -593,14 +606,14 @@ export class DoctorcreateComponent implements OnInit {
     this.base_lng = this.location_lng;
     this.Latitude = this.location_lat;
     this.Longitude = this.location_lng;
-    this._api.location_details(this.location_lat,this.location_lng).subscribe(async data=>{
+    this._api.location_details(this.location_lat, this.location_lng).subscribe(async data => {
       this.address = await data['results'][0]['formatted_address'];
     });
   }
 
   edit() {
     let a = {
-      "_id" : this.detail._id,
+      "_id": this.detail._id,
       "user_id": this.userid,
       "dr_title": this.tittle,
       "dr_name": this.Name,
@@ -616,11 +629,11 @@ export class DoctorcreateComponent implements OnInit {
       "certificate_pic": this.certificate_arr,
       "govt_id_pic": this.govt_arr,
       "photo_id_pic": this.photo_arr,
-      "thumbnail_image" : this.thumbnail_image,
+      "thumbnail_image": this.thumbnail_image,
       // "profile_status": 0,
       // "profile_verification_status": "Not verified",
       "date_and_time": "" + new Date(),
-      "consultancy_fees" : this.consultancy_fees
+      "consultancy_fees": this.consultancy_fees
 
     }
     console.log(a);
@@ -644,25 +657,25 @@ export class DoctorcreateComponent implements OnInit {
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
-  keydown(e:any){
+  keydown(e: any) {
     if (e.shiftKey || e.ctrlKey || e.altKey) {
-    
+
       e.preventDefault();
-      
+
     } else {
-    
+
       var key = e.keyCode;
-      
+
       if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
-      
+
         e.preventDefault();
-        
+
       }
 
     }
