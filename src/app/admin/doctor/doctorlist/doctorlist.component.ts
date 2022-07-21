@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef,ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +22,7 @@ export class DoctorlistComponent implements OnInit {
 
   @ViewChild('TABLE') table: ElementRef;
   specialzation: string = '';
-  shremove:boolean=false;
+  shremove: boolean = false;
   date_and_time: string = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
   pet_type_list: any = [];
   pet_type_id: string = '';
@@ -36,27 +36,26 @@ export class DoctorlistComponent implements OnInit {
   excelData: any[] = [];
   c_list: any = [];
 
-  filter : any;
+  filter: any;
   @ViewChild("tt") table1: Table;
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
 
   constructor(
-    private toastr:ToastrManager,
+    private toastr: ToastrManager,
     private router: Router,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private http: HttpClient,
     private _api: ApiService,
     private routes: ActivatedRoute,
     private datePipe: DatePipe,
-    private excelService: ExcelService,private cdRef: ChangeDetectorRef
+    private excelService: ExcelService, private cdRef: ChangeDetectorRef
 
   ) {
     // login_status
-if(this.getFromLocal("login_status") === false)
-{
-  this.router.navigate(['login']);
-}
-   }
+    if (this.getFromLocal("login_status") === false) {
+      this.router.navigate(['login']);
+    }
+  }
 
   ngOnInit(): void {
 
@@ -76,12 +75,12 @@ if(this.getFromLocal("login_status") === false)
   }
   ngAfterViewChecked() {
     if (this.table1._totalRecords === 0) {
-    this.table1.currentPageReportTemplate = this.table1.currentPageReportTemplate.replace("{first}", "0")
+      this.table1.currentPageReportTemplate = this.table1.currentPageReportTemplate.replace("{first}", "0")
     } else {
-    this.table1.currentPageReportTemplate = this.table1.currentPageReportTemplate.replace("0", "{first}")
+      this.table1.currentPageReportTemplate = this.table1.currentPageReportTemplate.replace("0", "{first}")
     }
     this.cdRef.detectChanges();
-    }
+  }
   saveInLocal(key, val): void {
     this.storage.set(key, val);
   }
@@ -213,7 +212,7 @@ if(this.getFromLocal("login_status") === false)
     );
   }
 
-  verify(status, id,item) {
+  verify(status, id, item) {
     // this.insert_live_doctor(item);
     let a = {
       '_id': id,
@@ -222,7 +221,22 @@ if(this.getFromLocal("login_status") === false)
     this._api.doctor_details_edit1(a).subscribe(
       (response: any) => {
         console.log(response.Data);
-        this.showSuccess("Updated Successfully")
+        this.showSuccess("Approved Successfully")
+        // alert("Updated Successfully");
+        this.ngOnInit();
+      }
+    );
+  }
+  verify1(status, id, item) {
+    // this.insert_live_doctor(item);
+    let a = {
+      '_id': id,
+      'profile_verification_status': status,
+    };
+    this._api.doctor_details_edit1(a).subscribe(
+      (response: any) => {
+        console.log(response.Data);
+        this.showSuccess("Rejected Successfully")
         // alert("Updated Successfully");
         this.ngOnInit();
       }
@@ -353,7 +367,7 @@ if(this.getFromLocal("login_status") === false)
 
 
 
- 
+
 
   doc_form() {
     this.saveInLocal('fun_type', 'create');
@@ -361,45 +375,47 @@ if(this.getFromLocal("login_status") === false)
   }
 
   filter_date() {
-    var date=new Date()
+    var date = new Date()
     if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
-      var edate=this.E_Date;
-      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
-      let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
+      var edate = this.E_Date;
+      if ((this.S_Date.getTime() <= date.getTime()) && (this.S_Date.getTime() <= edate.getTime())) {
+        let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
 
-      let a = {
-        "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
-        "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
-      }
-      let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
-      element.click();
-      console.log(a);
-      this._api.doctor_detailsfilter_date(a).subscribe(
-        (response: any) => {
-          console.log(response.Data);
-          this.rows = response.Data;
+        let a = {
+          "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
+          "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
         }
-      );
-    }
-      
-    else{
-      alert("Please Select the Start date less than or Equal to End date");
-     
-    }
+        let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+        element.click();
+        console.log(a);
+        this._api.doctor_detailsfilter_date(a).subscribe(
+          (response: any) => {
+            console.log(response.Data);
+            this.rows = response.Data;
+          }
+        );
+      }
+
+      else {
+        // alert("Please Select the Start date less than or Equal to End date");
+        this.showWarning("Start Date Should Be Less Than Or Equal To The End Date")
+
+      }
     }
     else {
-      this.showWarning("Please select the Start Date and End Date");
+      this.showWarning("Please Select The Start Date And End Date");
       // alert('Please select the Start Date and End Date');
     }
 
   }
   refersh() {
     this.listdoctorsall(); this.E_Date = undefined; this.S_Date = undefined;
+
   }
 
   ExportTOExcel() {
-    const ws: XLSX.WorkSheet=XLSX.utils.table_to_sheet(this.table.nativeElement);
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.table.nativeElement);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
@@ -413,32 +429,32 @@ if(this.getFromLocal("login_status") === false)
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
-  research(){
+  research() {
     console.log(this.table)
-    if(this.searchQR!=''){
-      this.shremove=true;
+    if (this.searchQR != '') {
+      this.shremove = true;
     }
 
-  
+
   }
-  research1(){
- 
-    if(this.searchQR==''){
-      this.shremove=false;
+  research1() {
+
+    if (this.searchQR == '') {
+      this.shremove = false;
       this.ngOnInit();
     }
 
-   
+
   }
-  remove(){
-    this.searchQR='';
-    this.shremove=false;
+  remove() {
+    this.searchQR = '';
+    this.shremove = false;
   }
 }
 

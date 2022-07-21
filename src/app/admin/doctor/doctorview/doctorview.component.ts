@@ -72,8 +72,8 @@ export class DoctorviewComponent implements OnInit {
           this.previous_doctor_spec_details = JSON.stringify(this.preview_doctor_Details.specialization)
           this.doctor_pet_handle_details = JSON.stringify(this.doctor_details.pet_handled);
           this.previous_doctor_pet_handle_details = JSON.stringify(this.preview_doctor_Details.pet_handled);
-          this.doctor_experience_details= JSON.stringify(this.doctor_details.experience_details);
-          this.previous_doctor_experience_details= JSON.stringify(this.preview_doctor_Details.experience_details);
+          this.doctor_experience_details = JSON.stringify(this.doctor_details.experience_details);
+          this.previous_doctor_experience_details = JSON.stringify(this.preview_doctor_Details.experience_details);
 
 
           console.log(this.doctor_experience_details);
@@ -221,7 +221,7 @@ export class DoctorviewComponent implements OnInit {
     this.toastr.warningToastr(msg);
   }
 
-  makelive(){
+  makelive() {
     console.log(this.doctor_details);
     console.log(this.preview_doctor_Details);
     // makelivedoctor

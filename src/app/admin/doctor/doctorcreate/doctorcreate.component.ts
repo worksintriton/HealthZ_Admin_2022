@@ -21,6 +21,7 @@ export class DoctorcreateComponent implements OnInit {
 
   @ViewChild("placesRef") placesRef: GooglePlaceDirective;
   clinic_loc: any;
+  thumbnail_img: any;
 
   public handleAddressChange(address: any) {
     this.zoom = 15;
@@ -238,19 +239,26 @@ export class DoctorcreateComponent implements OnInit {
 
     if (this.completion != undefined && this.completion != '' && this.Education != undefined && this.Education != '') {
       let obj = { "education": this.Education, "year": this.completion }
-      this.Completionarray.push(obj);
-      this.completion = undefined;
-      this.Education = undefined;
-      this.showSuccess("Education Details Added Successfully");
+      if (this.Completionarray.length < 3) {
+        this.Completionarray.push(obj);
+
+        this.completion = undefined;
+        this.Education = undefined;
+        this.showSuccess("Education Details Added Successfully");
+      } else {
+        this.showWarning(" Sorry You Cannot Add More Than 3 ");
+      }
+
     }
     else {
       // alert("Pleasefill all the fields")
       this.showWarning("Please fill all the fields");
     }
+
   }
   remove_completion(i) {
     this.Completionarray.splice(i, 1);
-    this.showWarning("Education Details Deleted Successfully");
+    this.showSuccess("Education Details Deleted Successfully");
 
   }
   addExperience() {
@@ -261,14 +269,20 @@ export class DoctorcreateComponent implements OnInit {
         temp = +this.T_date - +this.f_date;
         console.log(temp);
         let obj = { "company": this.CName, "from": this.f_date, "to": this.T_date, "yearsofexperience": temp }
-        this.Experiencearray.push(obj);
-        this.CName = undefined;
-        this.f_date = undefined;
-        this.T_date = undefined;
+        if (this.Experiencearray.length < 3) {
+          this.Experiencearray.push(obj);
+          this.CName = undefined;
+          this.f_date = undefined;
+          this.T_date = undefined;
+          this.showSuccess(" Experience Added Successfully");
+        } else {
+          this.showWarning(" Sorry You Cannot Add More than 3");
+        }
+
       } else {
 
         // alert("Select valid date");
-        this.showWarning("Select Valid date / Please Select The From Date Less Than The To Date");
+        this.showWarning(" Please Select The From Date Less Than The To Date");
 
       }
 
@@ -281,7 +295,7 @@ export class DoctorcreateComponent implements OnInit {
   }
   remove_Experience(i) {
     this.Experiencearray.splice(i, 1);
-    this.showWarning("Experience Details Removed Successfully");
+    this.showSuccess("Experience Details Removed Successfully");
 
   }
   addhandled() {
@@ -418,6 +432,12 @@ export class DoctorcreateComponent implements OnInit {
     this.certificate_arr.splice(i, 1);
     this.showSuccess("Certificate Deleted Successfully");
   }
+  remove_thumb_img() {
+    this.thumbnail_image = undefined;
+    this.thumbnail_img = '';
+    this.showSuccess("Thumb Image Deleted Successfully");
+
+  }
   validation_1() {
     if (this.tittle == undefined || this.tittle == '' || this.Name == undefined || this.Name == '' || this.Email == undefined || this.Phone == undefined || this.Email_idError == true || this.Phone == '' || this.Phone.length != 10) {
       this.Validation = false;
@@ -429,7 +449,7 @@ export class DoctorcreateComponent implements OnInit {
     }
   }
   validation_2() {
-    if (this.clinic_number == undefined || this.clinic_number == '' || this.certificate_arr.length == 0 || this.govt_arr.length == 0 || this.Specializationarray.length == 0 || this.thumbnail_image == undefined || this.clinic_arr.length == 0 || this.photo_arr.length == 0 || this.Phone.length != 10 || this.doctor_id == undefined || this.doctor_id == '' || this.Clinic_Name == undefined || this.Clinic_Name == '' || this.address == undefined || this.address == '' || this.city_name == undefined || this.city_name == '') {
+    if (this.clinic_number == undefined || this.clinic_number == '' || this.certificate_arr.length == 0 || this.govt_arr.length == 0 || this.Specializationarray.length == 0 || this.thumbnail_image == undefined || this.Experiencearray.length == 0 || this.clinic_arr.length == 0 || this.photo_arr.length == 0 || this.Phone.length != 10 || this.doctor_id == undefined || this.doctor_id == '' || this.Clinic_Name == undefined || this.Clinic_Name == '' || this.address == undefined || this.address == '' || this.city_name == undefined || this.city_name == '') {
       this.Validation2 = false;
       console.log(this.Validation)
     }
@@ -535,7 +555,7 @@ export class DoctorcreateComponent implements OnInit {
           console.log(response.Data);
           if (response.Code === 200) {
             // alert('Added Successfully');
-            this.showSuccess("Added Successfully");
+            this.showSuccess("Doctor Details Added Successfully");
             this.router.navigateByUrl('/admin/doctor/doctor_list')
           } else {
             this.showError(response.Message);

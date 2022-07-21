@@ -24,7 +24,7 @@
             <div class="row" *ngIf="stage1">
                 <div class="col-md-6">
                     <h5 class="form-lable required">First Name :</h5>
-                    <input type="text" pInputText [(ngModel)]="tittle" placeholder="First Name"
+                    <input type="text" autofocus="autofocus" pInputText [(ngModel)]="tittle" placeholder="First Name"
                         (keydown)="keydown($event)">
                     <div *ngIf="Validation == false && (tittle == undefined || tittle.trim() == '') "
                         class="mt-1 error">
@@ -75,8 +75,9 @@
                             <div class="col-md-5">
                                 <h5 class="form-lable">Clinic Number : <span
                                         style="color: red;font-size: large;">*</span></h5>
-                                <input type="text" pInputText (keypress)=_keyPress($event) maxlength="10" minlength="10"
-                                    [(ngModel)]="clinic_number" placeholder="Clinic Number" required>
+                                <input type="text" autofocus="autofocus" pInputText (keypress)=_keyPress($event)
+                                    maxlength="10" minlength="10" [(ngModel)]="clinic_number"
+                                    placeholder="Clinic Number" required>
                                 <div *ngIf="Validation2 == false && (clinic_number == undefined || clinic_number.trim() == '') "
                                     class="mt-1 error">
                                     <div class="text-danger">Clinic Number is Required.</div>
@@ -162,7 +163,7 @@
                                     </option>
                                 </select>
                                 <div *ngIf="Validation2 == false && (Completionarray.length == 0) " class="mt-1 error">
-                                    <div class="text-danger">Education Year is Required.</div>
+                                    <div class="text-danger">Year Of Completion is Required.</div>
                                 </div>
                                 <!-- <input type="" pInputText [(ngModel)]="completion" placeholder="Completion"> -->
                             </div>
@@ -211,6 +212,7 @@
                                     </option>
                                 </select>
 
+
                                 <!-- <p-calendar [(ngModel)]="f_date" [showIcon]="true" inputId="icon"></p-calendar> -->
                             </div>
                             <div class="col-md-3">
@@ -221,6 +223,10 @@
                                         {{arr}}
                                     </option>
                                 </select>
+                                <div *ngIf="Validation2 == false && (
+                                    Experiencearray.length == 0) " class="mt-1 error">
+                                    <div class="text-danger">Please Fill All The Fields</div>
+                                </div>
 
                                 <!-- <p-calendar [(ngModel)]="T_date" [showIcon]="true" inputId="icon"></p-calendar> -->
                             </div>
@@ -387,8 +393,26 @@
                                 </div>
 
                                 <!-- <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with 100 * 100 (Max 200 kB)</div> -->
-                                <img *ngIf="thumbnail_image != undefined" src="{{thumbnail_image}}" style="width: 25%;">
+
+
                                 <!-- <i class="fa fa-plus add-icon" (click)="addhandled()" aria-hidden="true" pTooltip="Add"></i> -->
+                                <table *ngIf="thumbnail_image != undefined" class="spec-table" style="margin-top: 8px;">
+
+                                    <thead>
+                                        <th>S.No</th>
+                                        <th>Thumb Image</th>
+                                        <th>Remove</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{"1"}}</td>
+                                            <td><img src="{{thumbnail_image}}" style="width: 20px;"></td>
+
+                                            <td><i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true"
+                                                    pTooltip="Delete" (click)=remove_thumb_img()></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
 
                             <div class="col-md-6" style="margin-bottom: 15px;">
