@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef,ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
 import { ApiService } from '../../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -19,7 +19,7 @@ export class SubDiagnosisComponent implements OnInit {
   final = [];
   rows1 = [];
   @ViewChild("td") table: Table;
-  shremove:boolean=false;
+  shremove: boolean = false;
   searchQR: any;
   value1: any;
   S_Date: any;
@@ -39,19 +39,18 @@ export class SubDiagnosisComponent implements OnInit {
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
 
   constructor(
-    private toastr:ToastrManager,
+    private toastr: ToastrManager,
     private router: Router,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private http: HttpClient,
     private _api: ApiService,
     private routes: ActivatedRoute,
-    private datePipe: DatePipe,private cdRef: ChangeDetectorRef
-  ) { 
+    private datePipe: DatePipe, private cdRef: ChangeDetectorRef
+  ) {
     // login_status
-if(this.getFromLocal("login_status") === false)
-{
-  this.router.navigate(['login']);
-}
+    if (this.getFromLocal("login_status") === false) {
+      this.router.navigate(['login']);
+    }
   }
 
   ngOnInit(): void {
@@ -67,12 +66,12 @@ if(this.getFromLocal("login_status") === false)
   }
   ngAfterViewChecked() {
     if (this.table._totalRecords === 0) {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
     } else {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
     }
     this.cdRef.detectChanges();
-    }
+  }
   saveInLocal(key, val): void {
     this.storage.set(key, val);
   }
@@ -82,8 +81,8 @@ if(this.getFromLocal("login_status") === false)
   }
   cancel() {
     this.update_button = true;
-   this.Diagnosis= undefined;
-   this.Sub_Diagnosis= undefined;
+    this.Diagnosis = undefined;
+    this.Sub_Diagnosis = undefined;
   }
 
   listpettype() {
@@ -114,7 +113,7 @@ if(this.getFromLocal("login_status") === false)
   ////// Inserting Data ///
   Insert_Sub_Diagnosis_details() {
 
-    if(this.Diagnosis==null){
+    if (this.Diagnosis == null) {
       this.showWarning(" Please Select the Dignosis")
     }
     if (this.Sub_Diagnosis.trim() == '') {
@@ -195,12 +194,12 @@ if(this.getFromLocal("login_status") === false)
     this.update_button = false;
     this.Sub_Diagnosis = data.sub_diagnosis
     this.pet_type_id = data.diagnosis_id._id;
-    console.log( this.pet_type_id)
-    console.log( this.rows1)
+    console.log(this.pet_type_id)
+    console.log(this.rows1)
     for (let a = 0; a < this.rows1.length; a++) {
-      if ( this.pet_type_id == this.rows1[a]._id) {
+      if (this.pet_type_id == this.rows1[a]._id) {
         this.Diagnosis = this.rows1[a];
-        console.log( this.rows1[a]._id)
+        console.log(this.rows1[a]._id)
         break
       }
     }
@@ -208,40 +207,41 @@ if(this.getFromLocal("login_status") === false)
 
 
   filter_date() {
-    var date=new Date();
-    if ( this.E_Date != undefined && this.S_Date != undefined) {
+    var date = new Date();
+    if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
-      var edate=this.E_Date;
-      if((this.S_Date.getTime()<=date.getTime()) && (this.S_Date.getTime()<=edate.getTime())){
-      let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
-   let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
-element.click();
-      let a = {
-        "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
-        "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')
+      var edate = this.E_Date;
+      if ((this.S_Date.getTime() <= date.getTime()) && (this.S_Date.getTime() <= edate.getTime())) {
+        let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
+        let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+        element.click();
+        let a = {
+          "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
+          "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
         }
-      console.log(a);
-      this._api.sub_diagnosis_filter(a).subscribe(
-        (response: any) => {
-          console.log(response.Data);
-          this.final = response.Data;
-        }
-      );
+        console.log(a);
+        this._api.sub_diagnosis_filter(a).subscribe(
+          (response: any) => {
+            console.log(response.Data);
+            this.final = response.Data;
+          }
+        );
+      }
+      else {
+        // alert("Please Select the Start date less than or Equal to End date");
+        this.showWarning("Please Select the Start date less than or Equal to End date");
+
+      }
     }
-    else{
-      alert("Please Select the Start date less than or Equal to End date");
-     
-    }
-    }
-    else{
+    else {
       //alert('Please select the Start Date and End Date');
       this.showWarning("Please select the Start Date and End Date")
     }
 
   }
-  refersh(){
+  refersh() {
     this.listpetbreed();
-    this.E_Date = undefined ; this.S_Date = undefined;
+    this.E_Date = undefined; this.S_Date = undefined;
   }
 
 
@@ -250,29 +250,29 @@ element.click();
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
-  research(){
-    if(this.searchQR!=''){
-      this.shremove=true;
+  research() {
+    if (this.searchQR != '') {
+      this.shremove = true;
     }
 
-  
+
   }
-  research1(){
-    if(this.searchQR==''){
-      this.shremove=false;
+  research1() {
+    if (this.searchQR == '') {
+      this.shremove = false;
     }
 
-   
+
   }
-  remove(){
-    this.searchQR='';
-      this.shremove=false;
+  remove() {
+    this.searchQR = '';
+    this.shremove = false;
   }
 
 

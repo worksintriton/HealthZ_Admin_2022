@@ -155,17 +155,21 @@
                                         {{item.user_id.user_phone}}</td>
 
                                     <td>
-                                        <ng-container *ngFor="let edu of item.education_details">
+                                        <ng-container *ngFor="let edu of item.education_details"
+                                            pTooltip="{{edu.education}}-{{edu.year}}">
                                             {{edu.education}}-{{edu.year}} ,
                                         </ng-container>
                                     </td>
                                     <td class="truncate-cell">
-                                        <ng-container *ngFor="let exp of item.experience_details">
-                                            {{exp.company}}({{exp.from}}-{{exp.to}}) ,
+                                        <ng-container *ngFor="let exp of item.experience_details"
+                                            pTooltip=" {{exp.company}} ({{exp.from}}-{{exp.to}})">
+                                            {{exp.company}} ({{exp.from}}-{{exp.to}}) ,
                                         </ng-container>
+
                                     </td>
                                     <td class="truncate-cell">
-                                        <ng-container *ngFor="let spec of item.specialization">
+                                        <ng-container *ngFor="let spec of item.specialization"
+                                            pTooltip="{{spec.specialization}}">
                                             {{spec.specialization}} ,
                                         </ng-container>
                                     </td>

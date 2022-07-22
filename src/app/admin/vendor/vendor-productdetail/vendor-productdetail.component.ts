@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Location } from '@angular/common';
 import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
@@ -26,16 +26,16 @@ export class VendorProductdetailComponent implements OnInit {
   list: any;
 
 
-constructor(
-    private formBuilder:FormBuilder,
-    private toastr:ToastrManager,
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrManager,
     private router: Router,
     private location: Location,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private _api: ApiService,
     private http: HttpClient,
-    private datePipe: DatePipe,private cdRef: ChangeDetectorRef
-    ){}
+    private datePipe: DatePipe, private cdRef: ChangeDetectorRef
+  ) { }
 
 
 
@@ -47,16 +47,19 @@ constructor(
         this.list = response.Data.reverse();
       }
     );
-    
+
   }
   ngAfterViewChecked() {
     if (this.table._totalRecords === 0) {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
     } else {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
     }
     this.cdRef.detectChanges();
-    }
+  }
+  back() {
+    this.location.back();
+  }
 
   filter_date() {
     if (this.E_Date != undefined && this.S_Date != undefined) {
@@ -83,16 +86,16 @@ constructor(
 
   }
   refersh() {
-     this.E_Date = undefined; this.S_Date = undefined;
+    this.E_Date = undefined; this.S_Date = undefined;
   }
 
 
 
   update() {
-   
+
   }
   cancel() {
- 
+
   }
 
   delete(data) {
@@ -115,34 +118,34 @@ constructor(
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
 
 
-  makeTDeal(_id, today_deal){
+  makeTDeal(_id, today_deal) {
     const data = {
-      _id : _id,
-      today_deal : today_deal
+      _id: _id,
+      today_deal: today_deal
     }
-    this._api.product_details_edit(data).subscribe(data=>{
-      if(data['Code'] == 200){
+    this._api.product_details_edit(data).subscribe(data => {
+      if (data['Code'] == 200) {
         this.showSuccess(data['Message']);
         this.refersh();
-      }else {
+      } else {
         this.showError(data['Message']);
       }
     });
   }
 
-  addproduct_details(){
+  addproduct_details() {
     this.router.navigateByUrl('/admin/vendor/vendor_add_productdetail');
   }
 
-  editproduct_details(data){
+  editproduct_details(data) {
     this.saveInLocal('product_detail', data);
     this.router.navigateByUrl('/admin/vendor/vendor_edit_productdetail');
   }

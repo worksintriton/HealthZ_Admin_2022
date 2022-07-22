@@ -1,7 +1,89 @@
 @import "../../../../assets/css/style.css";
+
 :host::ng-deep .ven-table .ui-table table {
     width: 1600px !important;
 }
-:host::ng-deep .ui-table-wrapper{
-overflow-x: scroll;
+
+:host::ng-deep .ui-table-wrapper {
+    overflow-x: scroll;
+}
+
+.th2 {
+    width: 220px !important;
+}
+
+.th3 {
+    width: 200px !important;
+}
+
+.btn-danger1 {
+    background-color: #d32424;
+    color: #fff;
+    /* height: 30px; */
+    min-width: 56px;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.go {
+    height: 32px;
+    width: 80px;
+}
+
+
+
+@import "../../../../assets/css/style.css";
+
+:host::ng-deep .doc-table .ui-table table {
+    width: 1600px !important;
+}
+
+:host::ng-deep .ui-table-wrapper {
+    overflow-x: scroll;
+}
+
+:host::ng-deep .btn-primary {
+
+    min-width: 78px !important;
+
+}
+
+.clearable {
+    position: relative;
+    display: inline-block;
+}
+
+.clearable input[type=text] {
+    padding-right: 24px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.clearable__clear {
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 11px 8px;
+    font-style: normal;
+    font-size: 1.4em;
+    user-select: none;
+    cursor: pointer;
+}
+
+.clearable input::-ms-clear {
+    /* Remove IE default X */
+    display: none;
+}
+
+#city {
+    height: 42px !important;
+}
+
+.imgthumcontainer img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    border-radius: 3px;
 }

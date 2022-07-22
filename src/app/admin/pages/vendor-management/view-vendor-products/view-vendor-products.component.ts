@@ -17,14 +17,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ViewVendorProductsComponent implements OnInit {
   apiUrl = environment.apiUrl;
   imgUrl = environment.imageURL;
-  thumbnail_image : any;
+  thumbnail_image: any;
   rows = [];
   searchQR: any;
   Tittle: any;
   Description: any;
   selectedtype: any;
   type: any = [];
-  threshould: any;
+  threshold: any;
   Validation: any;
   selectedimgae: any;
   img_path: string = undefined;
@@ -60,16 +60,16 @@ export class ViewVendorProductsComponent implements OnInit {
   VendorID: any;
   vendorFilter: any = { user_id: '' };
   constructor(
-    private formBuilder:FormBuilder,
-    private toastr:ToastrManager,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrManager,
     private router: Router,
     private location: Location,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private _api: ApiService,
     private http: HttpClient,
     private datePipe: DatePipe,
-    ){
-   }
+  ) {
+  }
 
   ngOnInit(): void {
     this.listpettype();
@@ -145,54 +145,72 @@ export class ViewVendorProductsComponent implements OnInit {
   // }
 
 
-    //////Additional Calling Funcation//////
-    fileupload1(event, str) {
-      this.selectedimgae = event.target.files[0];
-      let fr = new FileReader();
-      fr.onload = () => { // when file has loaded
-        var img = new Image();
-        img.onload = () => {
-          let width = img.width;
-          let height = img.height;
-          if (width > 100 && height > 100) {
-            let d = this.selectedimgae.size / 100000;
-            if (d < 10) {
-              this.addfiles(str);
-            } else {
-              // alert('Please upload the file below 1 MB');
-              this.showWarning("Please upload the file below 1 MB");
-              this.imgType.nativeElement.value = "";
-            }
-          }
-          else {
-            // alert('Please upload the file size 100 * 100');
-            this.showWarning("Please upload the file size 200 * 120");
+  //////Additional Calling Funcation//////
+  fileupload1(event, str) {
+    this.selectedimgae = event.target.files[0];
+    let fr = new FileReader();
+    fr.onload = () => { // when file has loaded
+      var img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        if (width > 100 && height > 100) {
+          let d = this.selectedimgae.size / 100000;
+          if (d < 10) {
+            this.addfiles(str);
+          } else {
+            // alert('Please upload the file below 1 MB');
+            this.showWarning("Please upload the file below 1 MB");
             this.imgType.nativeElement.value = "";
           }
-        };
-        img.src = fr.result as string; // The data URL
+        }
+        else {
+          // alert('Please upload the file size 100 * 100');
+          this.showWarning("Please upload the file size 200 * 120");
+          this.imgType.nativeElement.value = "";
+        }
       };
-      fr.readAsDataURL(this.selectedimgae);
-      // clear the value after upload
+      img.src = fr.result as string; // The data URL
+    };
+    fr.readAsDataURL(this.selectedimgae);
+    // clear the value after upload
+  }
+  _keyPress1(event: any) {
+    const pattern = /[a-z,A-Z]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+
     }
+  }
+  back() {
+    this.location.back();
+  }
+  _keyPress(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
 
+    }
+  }
 
-    addfiles(data: any) {
-      const fd = new FormData();
-      fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
-      this.http.post(this.imgUrl , fd)
-        .subscribe((res: any) => {
+  addfiles(data: any) {
+    const fd = new FormData();
+    fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
+    this.http.post(this.imgUrl, fd)
+      .subscribe((res: any) => {
         if (data == 'thumbnail_img') {
-            this.thumbnail_image = res.Data;
-            this.img_path = undefined;
-          }
-        });
+          this.thumbnail_image = res.Data;
+          this.img_path = undefined;
+        }
+      });
 
-    }
+  }
 
 
   validation() {
-    if (this.threshould == '' || this.threshould == undefined || this.Thmp_list.length == 0 || this.VendorID == undefined || this.Category == undefined || this.pettype == undefined || this.Age == undefined || this.Product_Name == undefined || this.Product_Name == '' || this.Cost == undefined || this.Cost == ''  || this.Description == undefined || this.Description == '') {
+    if (this.threshold == '' || this.threshold == undefined || this.Thmp_list.length == 0 || this.VendorID == undefined || this.Category == undefined || this.pettype == undefined || this.Age == undefined || this.Product_Name == undefined || this.Product_Name == '' || this.Cost == undefined || this.Cost == '' || this.Description == undefined || this.Description == '') {
       this.Validation = false;
     }
     else {
@@ -228,7 +246,7 @@ export class ViewVendorProductsComponent implements OnInit {
         "pet_type": obj2,
         "age": obj3,
         "cost": this.Cost,
-        "threshould": +this.threshould,
+        "threshould": +this.threshold,
         "product_discription": this.Description,
         "product_name": this.Product_Name,
         "product_img": this.Thmp_list,
@@ -238,7 +256,7 @@ export class ViewVendorProductsComponent implements OnInit {
         "date_and_time": '' + new Date(),
         "mobile_type": 'Admin',
         "verification_status": "Not Verified",
-        "thumbnail_image":this.thumbnail_image,
+        "thumbnail_image": this.thumbnail_image,
         "status": true,
         "delete_status": false
       }
@@ -260,7 +278,7 @@ export class ViewVendorProductsComponent implements OnInit {
             this.Product_Name = undefined;
             this.Cost = undefined;
             this.Discount = undefined;
-            this.threshould = undefined;
+            this.threshold = undefined;
             this.petBreed = undefined;
 
             this.ngOnInit();
@@ -281,7 +299,8 @@ export class ViewVendorProductsComponent implements OnInit {
       img.onload = () => {
         let width = img.width;
         let height = img.height;
-        if (width == 200 && height == 200) {
+        let d = this.selectedimgae.size / 100000;
+        if (d < 21) {
           let d = this.selectedimgae.size / 100000;
           if (d < 10) {
             this.addfiles1();
@@ -307,7 +326,7 @@ export class ViewVendorProductsComponent implements OnInit {
   addfiles1() {
     const fd = new FormData();
     fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
-    this.http.post(this.imgUrl , fd)
+    this.http.post(this.imgUrl, fd)
       .subscribe((res: any) => {
         this.img_path = res.Data;
       });
@@ -345,7 +364,7 @@ export class ViewVendorProductsComponent implements OnInit {
     let d = c.filter((x: any) => item.breed_type.some((y: any) => y._id == x._id))
     this.petBreed = d;
     console.log(this.petBreed)
-    this.threshould = item.threshould
+    this.threshold = item.threshould
     this.Description = item.product_discription
     this.Product_Name = item.product_name
     this.Thmp_list = item.product_img
@@ -379,12 +398,12 @@ export class ViewVendorProductsComponent implements OnInit {
         "pet_type": obj2,
         "age": obj3,
         "cost": this.Cost,
-        "threshould": +this.threshould,
+        "threshould": +this.threshold,
         "product_discription": this.Description,
         "product_name": this.Product_Name,
         "product_img": this.Thmp_list,
         "discount": this.Discount,
-        "thumbnail_image":this.thumbnail_image,
+        "thumbnail_image": this.thumbnail_image,
         "related": '',
         "count": 0,
         "date_and_time": '' + new Date(),
@@ -415,7 +434,7 @@ export class ViewVendorProductsComponent implements OnInit {
             this.Product_Name = undefined;
             this.Cost = undefined;
             this.Discount = undefined;
-            this.threshould = undefined;
+            this.threshold = undefined;
             this.petBreed = undefined;
             this.thumbnail_image = undefined;
           } else {
@@ -452,6 +471,7 @@ export class ViewVendorProductsComponent implements OnInit {
   }
   refersh() {
     this.listpettype(); this.E_Date = undefined; this.S_Date = undefined;
+
   }
 
   onUpload(event) {
@@ -476,7 +496,7 @@ export class ViewVendorProductsComponent implements OnInit {
     this.Product_Name = undefined;
     this.Cost = undefined;
     this.Discount = undefined;
-    this.threshould = undefined;
+    this.threshold = undefined;
     this.petBreed = undefined;
   }
 
@@ -499,17 +519,17 @@ export class ViewVendorProductsComponent implements OnInit {
     }
   }
 
-  makeTDeal(_id, today_deal){
+  makeTDeal(_id, today_deal) {
 
     const data = {
-      _id : _id,
-      today_deal : today_deal
+      _id: _id,
+      today_deal: today_deal
     }
-    this._api.product_details_edit(data).subscribe(data=>{
-      if(data['Code'] == 200){
+    this._api.product_details_edit(data).subscribe(data => {
+      if (data['Code'] == 200) {
         this.showSuccess(data['Message']);
         this.refersh();
-      }else {
+      } else {
         this.showError(data['Message']);
       }
     });
@@ -529,10 +549,10 @@ export class ViewVendorProductsComponent implements OnInit {
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
 }

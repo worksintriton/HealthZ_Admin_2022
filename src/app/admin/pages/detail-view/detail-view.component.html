@@ -76,7 +76,8 @@
                                     *ngIf="doctor_education_details !== previous_doctor_education_details">* NEW DATA
                                 </div>
                                 <ng-container *ngFor="let edu of doctor_details.education_details">
-                                    <div class="badge badge--light d-block mb-2 red_color">{{edu.education}}-{{edu.year}}</div>
+                                    <div class="badge badge--light d-block mb-2 red_color">
+                                        {{edu.education}}-{{edu.year}}</div>
                                 </ng-container>
                             </div>
 
@@ -270,7 +271,8 @@
                                         <div class="resume_item resume_work">
 
                                             <ul>
-                                                <ng-container *ngFor="let exp of preview_doctor_Details.experience_details">
+                                                <ng-container
+                                                    *ngFor="let exp of preview_doctor_Details.experience_details">
                                                     <li>
                                                         <div class="date">({{exp.from}}-{{exp.to}})</div>
                                                         <h3>{{exp.company}}</h3>
@@ -319,8 +321,7 @@
                                             </ng-container>
                                         </td>
                                         <td class="act">
-                                            <ng-container
-                                                *ngFor="let certificate_pic of doctor_details.govt_id_pic">
+                                            <ng-container *ngFor="let certificate_pic of doctor_details.govt_id_pic">
                                                 <i (click)="goToLink1(certificate_pic.certificate_pic)"
                                                     class="fas fa-file-pdf text-danger"></i>
                                             </ng-container>
@@ -341,10 +342,9 @@
                                 <div class="row" *ngIf="this.view_detail != 'liveDoctor'">
                                     <div class="col-md-4">
                                         <ng-container *ngIf="view_detail_data.profile_verification_status =='Verified'">
-                                          <button type="button" class="btn btn-primary"
-                                          *ngIf="view_detail_data.live_status == 'Not Live' "
-                                          (click)="makelive()"><i
-                                              class="fas fa-user-check"></i>Make Live</button>
+                                            <button type="button" class="btn btn-primary"
+                                                *ngIf="view_detail_data.live_status == 'Not Live' "
+                                                (click)="makelive()"><i class="fas fa-user-check"></i>Make Live</button>
 
 
                                             <!-- <button type="button" class="btn btn-primary"
@@ -1216,7 +1216,7 @@
 
             <div class="d-flex">
                 <button class="btn btn-sm btn-secondary " (click)="back()">Back <i
-                        class="fas fa-arrow-right ml-1"></i></button>
+                        class="fas fa-arrow-left ml-1"></i></button>
             </div>
         </div>
 
@@ -1228,9 +1228,9 @@
             <div class=" box shadow pb-0 sticky-column">
 
 
-                <div style="display: block;margin-left: auto;margin-right: auto;margin-bottom: .25rem;" class="avatar avatar--180">
-                    <div
-                        class="avatar__box" *ngFor="let item of view_detail_data.bussiness_gallery">
+                <div style="display: block;margin-left: auto;margin-right: auto;margin-bottom: .25rem;"
+                    class="avatar avatar--180">
+                    <div class="avatar__box" *ngFor="let item of view_detail_data.bussiness_gallery">
                         <img src="{{item.bussiness_gallery}}" class="pro-pic" height="100%" width="100%">
                     </div>
 
@@ -1261,7 +1261,7 @@
 
                     </ul>
                     <div class="text-center mb-4">
-                        <h4 class="mb-1 text-theme"><strong>Profile Stauts:</strong></h4>
+                        <h4 class="mb-1 text-theme"><strong>Profile Status:</strong></h4>
 
                         <div class="badge badge--aqua d-block mb-2">
                             {{view_detail_data.profile_status}}

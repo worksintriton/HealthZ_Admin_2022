@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef,ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -21,24 +21,24 @@ export class VendorManagementComponent implements OnInit {
   S_Date: any;
   E_Date: any;
   rows = [];
-  searchQR:any;
-  value1:any;
-  Main_list:any;
+  searchQR: any;
+  value1: any;
+  Main_list: any;
   @ViewChild("tt") table: Table;
+  shremove: boolean = false;
   constructor(
-    private toastr:ToastrManager,
+    private toastr: ToastrManager,
     private router: Router,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private http: HttpClient,
     private _api: ApiService,
     private routes: ActivatedRoute,
-    private datePipe: DatePipe,private cdRef: ChangeDetectorRef
-  ) { 
+    private datePipe: DatePipe, private cdRef: ChangeDetectorRef
+  ) {
     // login_status
-if(this.getFromLocal("login_status") === false)
-{
-  this.router.navigate(['login']);
-}
+    if (this.getFromLocal("login_status") === false) {
+      this.router.navigate(['login']);
+    }
   }
 
   ngOnInit(): void {
@@ -47,12 +47,12 @@ if(this.getFromLocal("login_status") === false)
   }
   ngAfterViewChecked() {
     if (this.table._totalRecords === 0) {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
     } else {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
     }
     this.cdRef.detectChanges();
-    }
+  }
   listpettype() {
     this._api.vendor_details_list1().subscribe(
       (response: any) => {
@@ -78,11 +78,11 @@ if(this.getFromLocal("login_status") === false)
       }
     );
   }
-  vendor_form(){
+  vendor_form() {
     this.router.navigateByUrl('/admin_panel/Vendor_form')
   }
 
-  addnewVendor(){
+  addnewVendor() {
     this.router.navigateByUrl('/admin/Vendor_form');
   }
 
@@ -99,33 +99,72 @@ if(this.getFromLocal("login_status") === false)
     this.saveInLocal('fun_type', 'create');
   }
 
-  filter_date() {
-    if ( this.E_Date != undefined && this.S_Date != undefined) {
-      // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
-      let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
+  // filter_date() {
+  //   if (this.E_Date != undefined && this.S_Date != undefined) {
+  //     // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+  //     let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
 
-      let a = {
-        "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
-        "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')
+  //     let a = {
+  //       "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
+  //       "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
+  //     }
+  //     let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+  //     element.click();
+  //     this._api.vendor_detailsfilter_date(a).subscribe(
+  //       (response: any) => {
+  //         console.log(response.Data);
+  //         this.rows = response.Data;
+  //       }
+  //     );
+  //   }
+  //   else {
+  //     this.showWarning("Please select the Start Date and End Date");
+  //     //alert('Please select the Start Date and End Date');
+  //   }
+
+  // }
+
+
+  filter_date() {
+    var date = new Date()
+    if (this.E_Date != undefined && this.S_Date != undefined) {
+      // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
+      var edate = this.E_Date;
+      if ((this.S_Date.getTime() <= date.getTime()) && (this.S_Date.getTime() <= edate.getTime())) {
+        let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
+
+        let a = {
+          "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
+          "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
         }
         let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
         element.click();
-      this._api.vendor_detailsfilter_date(a).subscribe(
-        (response: any) => {
-          console.log(response.Data);
-          this.rows = response.Data;
-        }
-      );
+        console.log(a);
+        this._api.doctor_detailsfilter_date(a).subscribe(
+          (response: any) => {
+            console.log(response.Data);
+            this.rows = response.Data;
+          }
+        );
+      }
+
+      else {
+        // alert("Please Select the Start date less than or Equal to End date");
+        this.showWarning("Start Date Should Be Less Than Or Equal To The End Date")
+
+      }
     }
-    else{
-      this.showWarning("Please select the Start Date and End Date");
-      //alert('Please select the Start Date and End Date');
+    else {
+      this.showWarning("Please Select The Start Date And End Date");
+      // alert('Please select the Start Date and End Date');
     }
 
   }
-  refersh(){
+
+
+  refersh() {
     this.listpettype();
-    this.E_Date = undefined ; this.S_Date = undefined;
+    this.E_Date = undefined; this.S_Date = undefined;
   }
   del(data) {
     let a = {
@@ -144,16 +183,37 @@ if(this.getFromLocal("login_status") === false)
   goToLink1(url: string) {
     window.open(url, "_blank");
   }
+  research() {
+    console.log(this.table)
+    if (this.searchQR != '') {
+      this.shremove = true;
+    }
 
-  viewProduct(id){
-    this.saveInLocal("Vendor_id",id);
+
+  }
+  research1() {
+
+    if (this.searchQR == '') {
+      this.shremove = false;
+      this.ngOnInit();
+    }
+
+
+  }
+  remove() {
+    this.searchQR = '';
+    this.shremove = false;
+  }
+
+  viewProduct(id) {
+    this.saveInLocal("Vendor_id", id);
     this.router.navigateByUrl('admin/view-vendor-products');
   }
   view_details(item) {
     this.saveInLocal('fun_type', 'create');
     this.saveInLocal('view_detail_data', item);
     this.saveInLocal('view_detail', 'vendor');
-        this.router.navigateByUrl('/admin/View_details')
+    this.router.navigateByUrl('/admin/View_details')
     window.scrollTo(0, 0);
 
 
@@ -164,10 +224,10 @@ if(this.getFromLocal("login_status") === false)
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
 }
