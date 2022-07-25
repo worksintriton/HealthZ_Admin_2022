@@ -1,5 +1,5 @@
 <section>
-    <div class="page-header  justify-content-center">
+    <div class="page-header  ">
         <div>
             <h2 class="main-content-title tx-24 mb-1 ">User Type</h2>
             <!-- <ol class="breadcrumb">
@@ -13,30 +13,31 @@
 
     <ng-template #addedDialog>
         <div class="text-center">
-          <i class="fas fa-check-circle text-success fa-5x"></i>
-          <p class="lead mt-3 mb-3 font-weight-bold">Added Successfully</p>
-          <button class="btn btn-primary btn-sm" style="height: inherit;" matDialogClose >Close</button>
+            <i class="fas fa-check-circle text-success fa-5x"></i>
+            <p class="lead mt-3 mb-3 font-weight-bold">Added Successfully</p>
+            <button class="btn btn-primary btn-sm" style="height: inherit;" matDialogClose>Close</button>
         </div>
-      </ng-template>
+    </ng-template>
 
-      <ng-template #updateDialog>
-          <div class="text-center">
+    <ng-template #updateDialog>
+        <div class="text-center">
             <i class="far fa-check-circle text-success fa-5x"></i>
             <p class="lead mt-3 mb-3 font-weight-bold">Updated Successfully</p>
-            <button class="btn btn-primary btn-sm" style="height: inherit;" matDialogClose >Close</button>
-          </div>
-        </ng-template>
+            <button class="btn btn-primary btn-sm" style="height: inherit;" matDialogClose>Close</button>
+        </div>
+    </ng-template>
 
     <div class="row row-sm">
 
         <div class="col-lg-12">
-         <div class="card custom-card">
+            <div class="card custom-card">
                 <div class="card-body">
                     <div class="card-item">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5 class="form-lable">User Type</h5>
-                                <input type="text" pInputText name="user_type_title" [(ngModel)]="user_type_title" placeholder="Enter user type">
+                                <input type="text" pInputText name="user_type_title" [(ngModel)]="user_type_title"
+                                    placeholder="Enter user type">
                             </div>
                             <!-- <div class="col-md-3">
                                 <h5 class="form-lable">User Type Value</h5>
@@ -45,8 +46,9 @@
                             <div class="col-md-4">
                                 <h5 class="form-lable">User Type Icon</h5>
                                 <div class="custom-file">
-                                 <input type="file" #imgType (change)="fileupload($event)" id="imgfile"
-                                  accept=".png, .jpg, .jpeg" class="form-control" id="city" placeholder="User type icon">
+                                    <input type="file" #imgType (change)="fileupload($event)" id="imgfile"
+                                        accept=".png, .jpg, .jpeg" class="form-control" id="city"
+                                        placeholder="User type icon">
                                 </div>
                                 <!-- <div class="custom-file">
                                     <input type="file" #imgType (change)="fileupload($event)" id="imgfile" accept=".png, .jpg, .jpeg" class="form-control" id="city" placeholder="User type icon">
@@ -54,18 +56,22 @@
                                        Choose file...
                                     </label>
                                   </div> -->
-                                  <div class="font-11 mt-2 text-secondary">Upload the user type icon with 200 * 200 (Max 60 kB)</div>
-                                  <div class="imgthumcontainer"><img src="{{user_type_img}}"></div>
+                                <div class="font-11 mt-2 text-secondary">Upload the user type icon with 200 * 200 (Max
+                                    60 kB)</div>
+                                <div class="imgthumcontainer"><img src="{{user_type_img}}"></div>
 
 
 
-                                 </div>
+                            </div>
                             <div class="col-md-2" style="display:flex">
-                                <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4" (click)="Insert_user_type_details()"><i class="fas fa-plus-circle"></i> Add</button>
-                                <button *ngIf="update_button == false" type="button" class="btn btn-primary mt-4" (click)="Edit_user_type_details()">
+                                <button *ngIf="update_button == true" type="button" class="btn btn-primary mt-4"
+                                    (click)="Insert_user_type_details()"><i class="fas fa-plus-circle"></i> Add</button>
+                                <button *ngIf="update_button == false" type="button" class="btn btn-primary mt-4"
+                                    (click)="Edit_user_type_details()">
                                     <i class="fas fa-pen"></i> Update</button>
-                                    <button *ngIf="update_button == false" type="button" class="btn btn-danger mt-4" (click)="cancel()">
-                                      Cancel</button>
+                                <button *ngIf="update_button == false" type="button" class="btn btn-danger mt-4"
+                                    (click)="cancel()">
+                                    Cancel</button>
                             </div>
                         </div>
                     </div>
@@ -77,40 +83,47 @@
     <div class="row row-sm">
 
         <div class="col-lg-12">
-<div class="card custom-card">
-        <div class="card-body">
-            <div class="card-item">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="card-item">
 
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="search-hero">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="search-hero">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fas fa-search"></i></span>
+                                        </div>
+                                        <span class="clearable">
+                                            <input class="form-control" type="text" name="search2"
+                                                [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..."
+                                                (keypress)='research()' (blur)='research1()'>
+                                            <i *ngIf="shremove" class="clearable__clear" (click)="remove()">&times;</i>
+                                        </span>
                                     </div>
-                                    <span class="clearable">
-                                    <input class="form-control" type="text" name="search2"
-                                [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..." (keypress) = 'research()' (blur) = 'research1()'>
-                                <i *ngIf="shremove" class="clearable__clear" (click)="remove()">&times;</i>
-                            </span>
                                 </div>
+                            </div>
+                            <div class="col-md-8 text-lg-right text-sm-left">
+                                <p-calendar placeholder="Start Date" [(ngModel)]="S_Date" [showIcon]="true"
+                                    inputId="icon" class="mr-2" [readonlyInput]="true"></p-calendar>
+                                <p-calendar placeholder="End Date" [(ngModel)]="E_Date" [showIcon]="true" inputId="icon"
+                                    class="mr-3" [readonlyInput]="true"></p-calendar>
+                                <button type="button" class="btn btn-primary mr-2" (click)="usertype_filter_date()"><i
+                                        class="fas fa-search"></i> Search</button>
+                                <button type="button" class="btn btn-secondary" (click)="refersh()"><i
+                                        class="fas fa-sync-alt"></i> Refresh</button>
+                            </div>
+
                         </div>
-                    </div>
-                    <div class="col-md-8 text-lg-right text-sm-left">
-                        <p-calendar placeholder="Start Date" [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" class="mr-2" [readonlyInput]="true"></p-calendar>
-                        <p-calendar placeholder="End Date" [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" class="mr-3" [readonlyInput]="true"></p-calendar>
-                        <button type="button" class="btn btn-primary mr-2"
-                            (click)="usertype_filter_date()"><i class="fas fa-search"></i> Search</button>
-                            <button type="button" class="btn btn-secondary" (click)="refersh()"><i class="fas fa-sync-alt"></i> Refresh</button>
-                    </div>
 
-                </div>
-
-                <p-table [value]="rows | filter:searchQR" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="20"
-                    [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['type']">
-                    <!-- <ng-template pTemplate="caption">
+                        <p-table [value]="rows | filter:searchQR" styleClass="ui-table-customers" #tt [paginator]="true"
+                            [rows]="20" [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]"
+                            [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            [globalFilterFields]="['type']">
+                            <!-- <ng-template pTemplate="caption">
                         <div fxLayout="row" fxLayoutAlign="space-around center">
                             <div fxFlex="50">
                                 <h5 style="color:#fff;">Entry Type List</h5>
@@ -124,58 +137,61 @@
                             </div>
                         </div>
                     </ng-template> -->
-                    <ng-template pTemplate="header">
-                        <tr class="thhead">
-                            <th class="th-1">
-                                S.No
-                            </th>
-                            <th>
-                            User Type
-                            </th>
-                            <th>
-                            User Type Icon
-                            </th>
-                            <!-- <th>
+                            <ng-template pTemplate="header">
+                                <tr class="thhead">
+                                    <th class="th-1">
+                                        S.No
+                                    </th>
+                                    <th>
+                                        User Type
+                                    </th>
+                                    <th>
+                                        User Type Icon
+                                    </th>
+                                    <!-- <th>
                                 User type Value
                             </th> -->
-                            <th>Created By</th>
-                            <!-- <th>Modified by</th> -->
-                            <th>Modified At</th>
-                            <!-- <th>Modified at</th> -->
-                            <th style="width: 140px;text-align:center">
-                                Action
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-item  let-i="rowIndex">
-                    <!-- <ng-container *ngFor="let item of user_type_list ; let i = index;"> -->
-                    <tr class="tdrow">
-                            <td>{{i+1}}</td>
+                                    <th>Created By</th>
+                                    <!-- <th>Modified by</th> -->
+                                    <th>Modified At</th>
+                                    <!-- <th>Modified at</th> -->
+                                    <th style="width: 140px;text-align:center">
+                                        Action
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-item let-i="rowIndex">
+                                <!-- <ng-container *ngFor="let item of user_type_list ; let i = index;"> -->
+                                <tr class="tdrow">
+                                    <td>{{i+1}}</td>
 
-                            <td>{{item.user_type_title}}</td>
-                            <td>
-                                <div class="imgthumcontainer"><img _ngcontent-dah-c159="" src="{{item.user_type_img}}" alt="Denim Jeans"></div>
+                                    <td>{{item.user_type_title}}</td>
+                                    <td>
+                                        <div class="imgthumcontainer"><img _ngcontent-dah-c159=""
+                                                src="{{item.user_type_img}}" alt="Denim Jeans"></div>
 
-                        </td>
-                        <!-- <td>{{item.user_type_value}}</td> -->
-                            <td>
-                                Admin
-                            </td>
-                            <td>
-                            {{item.date_and_time}}
-                            </td>
-                            <td class="act text-center">
-                                <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" (click)="Editcompanydetailsdata(item)" pTooltip="Edit"></i>
-                                <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true" pTooltip="Delete" (click)="Deletecompanydetails(item._id)"></i>
-                                <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->
-                            </td>
-                        </tr>
-                    <!-- </ng-container> -->
-                    </ng-template>
-                </p-table>
+                                    </td>
+                                    <!-- <td>{{item.user_type_value}}</td> -->
+                                    <td>
+                                        Admin
+                                    </td>
+                                    <td>
+                                        {{item.date_and_time}}
+                                    </td>
+                                    <td class="act text-center">
+                                        <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true"
+                                            (click)="Editcompanydetailsdata(item)" pTooltip="Edit"></i>
+                                        <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true"
+                                            pTooltip="Delete" (click)="Deletecompanydetails(item._id)"></i>
+                                        <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->
+                                    </td>
+                                </tr>
+                                <!-- </ng-container> -->
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
- </div>
     </div>
 </section>

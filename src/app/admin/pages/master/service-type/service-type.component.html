@@ -1,4 +1,13 @@
-<h4 class="title text-center">Service Type</h4>
+<div class="page-header ">
+    <div>
+        <h2 class="main-content-title tx-24 mb-1">Service Type</h2>
+        <!-- <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="dashboard">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> Details</li>
+        </ol> -->
+    </div>
+
+</div>
 
 <div class="card-box">
     <div class="row" style="padding: 0px 0px 23px 10px;">
@@ -13,26 +22,30 @@
 
         <div class="col-md-3">
             <h5 class="form-lable">Icon Image:</h5>
-            <input type="file" #imgType (change)="fileupload($event)" id="imgfile" accept=".png, .jpg, .jpeg" class="form-control" id="city"
-                placeholder="User type icon">
-            <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with 80 * 80 (Max 64 kB)</div>
+            <input type="file" #imgType (change)="fileupload($event)" id="imgfile" accept=".png, .jpg, .jpeg"
+                class="form-control" id="city" placeholder="User type icon">
+            <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with
+                80 * 80 (Max 64 kB)</div>
             <img *ngIf="img_path != undefined" src="{{img_path}}" style="width: 20px;">
         </div>
 
         <div class="col-md-3">
             <h5 class="form-lable">Banner Image:</h5>
-            <input type="file" #imgType (change)="fileupload1($event)" id="imgfile" accept=".png, .jpg, .jpeg" class="form-control" id="city"
-                placeholder="User type icon">
-            <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with 800 * 350 (Max 400 kB)</div>
+            <input type="file" #imgType (change)="fileupload1($event)" id="imgfile" accept=".png, .jpg, .jpeg"
+                class="form-control" id="city" placeholder="User type icon">
+            <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with
+                800 * 350 (Max 400 kB)</div>
             <img *ngIf="img_path != undefined" src="{{banner_img}}" style="width: 20px;">
 
         </div>
 
 
         <div class="col-md-2" style="display:flex">
-            <button type="button" *ngIf="edit_t == false" class="btn btn-primary" style="margin-left: 10px;margin-top: 24px;" (click)="create()">
+            <button type="button" *ngIf="edit_t == false" class="btn btn-primary"
+                style="margin-left: 10px;margin-top: 24px;" (click)="create()">
                 <i class="fas fa-plus-circle"></i> Add</button>
-            <button *ngIf="edit_t == true" type="button" class="btn btn-primary" style="margin-left: 10px;margin-top: 24px;" (click)="update()">
+            <button *ngIf="edit_t == true" type="button" class="btn btn-primary"
+                style="margin-left: 10px;margin-top: 24px;" (click)="update()">
                 <i class="fas fa-edit"></i>Update</button>
             <button *ngIf="edit_t == true" type="button" class="btn btn-danger mt-4" (click)="cancel()">
                 Cancel</button>
@@ -55,31 +68,39 @@
                                         </span>
                                     </div>
                                     <span class="clearable">
-                                        <input class="form-control" type="text" name="search2"
-                                    [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..."   (input)="tt.filterGlobal($event.target.value, 'contains')" (keypress) = 'research()' (blur) = 'research1()'>
-                                    <i *ngIf="shremove" class="clearable__clear" (click)="tt.filterGlobal('', 'contains');remove()" >&times;</i>
-                                </span>
+                                        <input class="form-control" type="text" name="search2" [(ngModel)]="searchQR"
+                                            autocomplete="off" placeholder="Search..."
+                                            (input)="tt.filterGlobal($event.target.value, 'contains')"
+                                            (keypress)='research()' (blur)='research1()'>
+                                        <i *ngIf="shremove" class="clearable__clear"
+                                            (click)="tt.filterGlobal('', 'contains');remove()">&times;</i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    <!-- </div>
+                        <!-- </div>
                     <div class="row"> -->
                         <div class="col-md-3">
                             <!-- <h5 class="form-lable">Start Date</h5> -->
-                            <p-calendar [(ngModel)]="S_Date" [showIcon]="true" placeholder="Start Date" inputId="icon" [readonlyInput]="true"></p-calendar>
+                            <p-calendar [(ngModel)]="S_Date" [showIcon]="true" placeholder="Start Date" inputId="icon"
+                                [readonlyInput]="true"></p-calendar>
                         </div>
                         <div class="col-md-3">
                             <!-- <h5 class="form-lable">End Date</h5> -->
-                            <p-calendar [(ngModel)]="E_Date" [showIcon]="true" placeholder="End Date" inputId="icon" [readonlyInput]="true"></p-calendar>
+                            <p-calendar [(ngModel)]="E_Date" [showIcon]="true" placeholder="End Date" inputId="icon"
+                                [readonlyInput]="true"></p-calendar>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" class="btn btn-primary"  (click)="filter_date()"><i class="fas fa-search"></i> Search</button>
-                            <button type="button" class="btn btn-primary"  (click)="refersh()"><i class="fas fa-sync-alt"></i> Refresh</button>
+                            <button type="button" class="btn btn-primary" (click)="filter_date()"><i
+                                    class="fas fa-search"></i> Search</button>
+                            <button type="button" class="btn btn-primary" (click)="refersh()"><i
+                                    class="fas fa-sync-alt"></i> Refresh</button>
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <p-table [value]="list" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="5" [rowHover]="true"
-                            [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                        <p-table [value]="list" styleClass="ui-table-customers" #tt [paginator]="true" [rows]="5"
+                            [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                             [globalFilterFields]="['img_title','img_subtitle']">
                             <!-- <ng-template pTemplate="caption">
         <div fxLayout="row" fxLayoutAlign="space-around center">
@@ -139,11 +160,13 @@
                                         {{item.img_subtitle}}
                                     </td>
                                     <td>
-                                        {{item.date_and_time |  date: 'short'}}
+                                        {{item.date_and_time | date: 'short'}}
                                     </td>
                                     <td class="act text-center">
-                                        <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" pTooltip="Edit" (click)="edit(item)"></i>
-                                        <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true" pTooltip="Delete" (click)="delete(item._id)"></i>
+                                        <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true"
+                                            pTooltip="Edit" (click)="edit(item)"></i>
+                                        <i style="color: #fd2c3a;" class="fa fa-trash" aria-hidden="true"
+                                            pTooltip="Delete" (click)="delete(item._id)"></i>
                                         <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->
                                     </td>
                                 </tr>

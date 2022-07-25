@@ -21,7 +21,8 @@
                         <div class="row">
 
                             <div class="col-md-4" style="margin-bottom: 15px;">
-                                <h5 class="form-lable">Category:</h5>
+                                <h5 class="form-lable">Category: <span style="color: red;font-size: large;">*</span>
+                                </h5>
                                 <p-dropdown [options]="Catagories_list" [(ngModel)]="Category"
                                     placeholder="Select Category" optionLabel="product_cate" (ngModelChange)="subcate()"
                                     [showClear]="true"></p-dropdown>
@@ -41,13 +42,14 @@
 
                     </div> -->
                             <div class="col-md-4">
-                                <h5 class="form-lable">Age:</h5>
+                                <h5 class="form-lable">Age: <span style="color: red;font-size: large;">*</span></h5>
                                 <p-multiSelect [options]="Ages" [(ngModel)]="Age" defaultLabel="Select" optionLabel="y">
                                 </p-multiSelect>
 
                             </div>
                             <div class="col-md-4" style="margin-bottom: 15px;">
-                                <h5 class="form-lable">Product Name:</h5>
+                                <h5 class="form-lable">Product Name: <span style="color: red;font-size: large;">*</span>
+                                </h5>
                                 <input type="text" (keypress)=_keyPress1($event) pInputText [(ngModel)]="Product_Name"
                                     placeholder="Enter Product Name" maxlength="25">
                             </div>
@@ -56,16 +58,18 @@
                         <input type="text" pInputText [(ngModel)]="product_code" placeholder="Enter Product Code">
                     </div> -->
                             <div class="col-md-4">
-                                <h5 class="form-lable">Cost:</h5>
+                                <h5 class="form-lable">Cost: <span style="color: red;font-size: large;">*</span></h5>
                                 <input type="text" (keypress)=_keyPress($event) pInputText [(ngModel)]="Cost"
                                     placeholder="Cost">
                             </div>
                             <div class="col-md-4">
-                                <h5 class="form-lable">Discount:</h5>
+                                <h5 class="form-lable">Discount: <span style="color: red;font-size: large;">*</span>
+                                </h5>
                                 <input type="text" pInputText [(ngModel)]="Discount" placeholder="Discount %">
                             </div>
                             <div class="col-md-4">
-                                <h5 class="form-lable">Threshold:</h5>
+                                <h5 class="form-lable">Threshold: <span style="color: red;font-size: large;">*</span>
+                                </h5>
                                 <input type="text" pInputText [(ngModel)]="threshold" placeholder="Threshould">
                             </div>
                             <!-- <div class="col-md-4">
@@ -73,11 +77,13 @@
                         <input type="text" pInputText [(ngModel)]="Count" placeholder="Count">
                     </div> -->
                             <div class="col-md-12">
-                                <h5 class="form-lable">Description:</h5>
+                                <h5 class="form-lable">Description: <span style="color: red;font-size: large;">*</span>
+                                </h5>
                                 <textarea pInputTextarea [(ngModel)]="Description" rows="5" cols="50"></textarea>
                             </div>
                             <div class="col-md-6">
-                                <h5 class="form-lable">Thumb Image:</h5>
+                                <h5 class="form-lable">Thumb Image: <span style="color: red;font-size: large;">*</span>
+                                </h5>
                                 <input type="file" #imgType (change)="fileupload1($event,'thumbnail_img')" id="imgfile"
                                     accept=".png, .jpg, .jpeg" class="form-control" id="city"
                                     placeholder="User type icon">
@@ -87,7 +93,8 @@
                             </div>
 
                             <div class="col-md-6">
-                                <h5 class="form-lable">Product Image:</h5>
+                                <h5 class="form-lable">Product Image: <span
+                                        style="color: red;font-size: large;">*</span></h5>
                                 <div class="form-group row">
                                     <div class="col-md-4">
                                         <input type="file" class="form-control" #imgType1 (change)="fileupload($event)"
@@ -216,13 +223,13 @@
                                         <th class="th-1">
                                             S.No
                                         </th>
-                                        <th pSortableColumn="code">
+                                        <th class="h2" pSortableColumn="code">
                                             Product Image <p-sortIcon field="code"></p-sortIcon>
                                         </th>
-                                        <th pSortableColumn="code">
+                                        <th class="h2" pSortableColumn="Product Name">
                                             Product Name <p-sortIcon field="code"></p-sortIcon>
                                         </th>
-                                        <th pSortableColumn="code">
+                                        <th pSortableColumn="Category">
                                             Category <p-sortIcon field="code"></p-sortIcon>
                                         </th>
                                         <th>Device Type</th>

@@ -1,5 +1,5 @@
 <section style="text-transform:capitalize">
-    <div class="page-header justify-content-center">
+    <div class="page-header ">
         <div>
             <h2 class="main-content-title tx-24 mb-1">Doctor Details</h2>
             <!-- <ol class="breadcrumb">
@@ -44,9 +44,9 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date"
-                                class="mr-3"></p-calendar>
+                                [readonlyInput]="true" class="mr-3"></p-calendar>
                             <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date"
-                                class="mr-3"></p-calendar>
+                                [readonlyInput]="true" class="mr-3"></p-calendar>
 
                         </div>
                         <div class="col-md-3 text-center">
@@ -155,15 +155,14 @@
                                         {{item.user_id.user_phone}}</td>
 
                                     <td>
-                                        <ng-container *ngFor="let edu of item.education_details"
-                                            pTooltip="{{edu.education}}-{{edu.year}}">
+                                        <ng-container *ngFor="let edu of item.education_details">
                                             {{edu.education}}-{{edu.year}} ,
                                         </ng-container>
                                     </td>
                                     <td class="truncate-cell">
-                                        <ng-container *ngFor="let exp of item.experience_details"
-                                            pTooltip=" {{exp.company}} ({{exp.from}}-{{exp.to}})">
+                                        <ng-container *ngFor="let exp of item.experience_details">
                                             {{exp.company}} ({{exp.from}}-{{exp.to}}) ,
+                                            [title]="{{exp.company}} ({{exp.from}}-{{exp.to}})"
                                         </ng-container>
 
                                     </td>

@@ -33,7 +33,8 @@
                 </div>
                 <div class="col-md-6">
                     <h5 class="form-lable required">Last Name:</h5>
-                    <input type="text" pInputText [(ngModel)]="Name" placeholder="Last Name">
+                    <input type="text" pInputText [(ngModel)]="Name" placeholder="Last Name"
+                        (keydown)="keydown($event)">
                     <div *ngIf="Validation == false && (Name == undefined || Name.trim() == '' )" class="mt-1 error">
                         <div class="text-danger">Last Nameis Required.</div>
                     </div>

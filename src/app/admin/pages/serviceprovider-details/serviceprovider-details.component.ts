@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef,ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angular/core'; import { Router } from '@angular/router';
 import { ApiService } from '../../../api.service';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -36,20 +36,19 @@ export class ServiceproviderDetailsComponent implements OnInit {
   @ViewChild("tt") table: Table;
 
   constructor(
-    private toastr:ToastrManager,
+    private toastr: ToastrManager,
     private router: Router,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private http: HttpClient,
     private _api: ApiService,
     private routes: ActivatedRoute,
-    private datePipe: DatePipe,private cdRef: ChangeDetectorRef
+    private datePipe: DatePipe, private cdRef: ChangeDetectorRef
   ) {
     // login_status
-if(this.getFromLocal("login_status") === false)
-{
-  this.router.navigate(['login']);
-}
-   }
+    if (this.getFromLocal("login_status") === false) {
+      this.router.navigate(['login']);
+    }
+  }
 
   ngOnInit(): void {
 
@@ -68,12 +67,12 @@ if(this.getFromLocal("login_status") === false)
   }
   ngAfterViewChecked() {
     if (this.table._totalRecords === 0) {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("{first}", "0")
     } else {
-    this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
+      this.table.currentPageReportTemplate = this.table.currentPageReportTemplate.replace("0", "{first}")
     }
     this.cdRef.detectChanges();
-    }
+  }
 
 
   listpettype() {
@@ -225,7 +224,7 @@ if(this.getFromLocal("login_status") === false)
     console.log(this.rows)
 
   }
-  Refresh(){
+  Refresh() {
     this.specialzation_f = undefined;
     this.rows = this.Main_list;
   }
@@ -293,36 +292,61 @@ if(this.getFromLocal("login_status") === false)
   }
 
   filter_date() {
-    if ( this.E_Date != undefined && this.S_Date != undefined) {
+    var date = new Date()
+    if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
-      let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
+      let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
-        "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
-        "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')
-        }
-        let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
-element.click();
+        "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
+        "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
+      }
+      let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+      element.click();
       this._api.service_providerfilter_date(a).subscribe(
         (response: any) => {
           console.log(response.Data);
           this.rows = response.Data;
         }
       );
+      var edate = this.E_Date;
+      if ((this.S_Date.getTime() <= date.getTime()) && (this.S_Date.getTime() <= edate.getTime())) {
+        let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
+
+        let a = {
+          "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
+          "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
+        }
+        let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+        element.click();
+        console.log(a);
+        this._api.doctor_detailsfilter_date(a).subscribe(
+          (response: any) => {
+            console.log(response.Data);
+            this.rows = response.Data;
+          }
+        );
+      }
+
+      else {
+        // alert("Please Select the Start date less than or Equal to End date");
+        this.showWarning("Start Date Should Be Less Than Or Equal To The End Date")
+
+      }
     }
-    else{
+    else {
       this.showWarning("Please select the Start Date and End Date");
       //alert('Please select the Start Date and End Date');
     }
 
   }
-  refersh(){
-    this.listpettype();this.E_Date = undefined ; this.S_Date = undefined;
-    this.searchQR='';
+  refersh() {
+    this.listpettype(); this.E_Date = undefined; this.S_Date = undefined;
+    this.searchQR = '';
   }
 
 
-service_form() {
+  service_form() {
     this.router.navigateByUrl('/admin_panel/Service_Provider_form')
   }
 
@@ -331,10 +355,10 @@ service_form() {
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
 }

@@ -49,7 +49,7 @@
             </div>
             <div class="col-md-6">
                 <h5 class="form-lable required">Last Name:</h5>
-                <input type="text" pInputText [(ngModel)]="Name" placeholder="Last Name">
+                <input type="text" pInputText [(ngModel)]="Name" placeholder="Last Name" (keydown)="keydown($event)">
                 <div *ngIf="Validation == false && (Name == undefined || Name.trim() == '' )" class="mt-1 error">
                     <div class="text-danger">Last Nameis Required.</div>
                 </div>
@@ -87,29 +87,30 @@
         <div class="form-row">
             <div class="form-group col-6">
                 <label for="">Business Name</label>
-                <input type="text" class="form-control" formControlName="business_name">
+                <input type="text" class="form-control" [(ngModel)]="business_name" (keydown)="keydown($event)">
             </div>
             <div class="form-group col-6">
                 <label for="">Business Email</label>
-                <input type="text" class="form-control" formControlName="business_email">
+                <input type="email" class="form-control" [(ngModel)]="business_email">
             </div>
             <div class="form-group col-6">
                 <label for="">Business</label>
-                <input type="text" class="form-control" formControlName="business">
+                <input type="text" class="form-control" [(ngModel)]="business">
             </div>
             <div class="form-group col-6">
                 <label for="">Phone</label>
-                <input type="text" class="form-control" formControlName="business_phone">
+                <input type="text" class="form-control" [(ngModel)]="business_phone" maxlength="10"
+                    (keypress)=_keyPress($event)>
             </div>
             <div class="form-group col-6">
                 <label for="">Business Registration Details</label>
-                <textarea cols="30" rows="10" class="form-control" formControlName="business_reg"></textarea>
+                <textarea cols="30" rows="10" class="form-control" [(ngModel)]="business_reg"></textarea>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <h5 class="form-lable">Business Location:</h5>
-                <input class="form-control" [(ngModel)]="address" style="padding:10px; width:75%"
+                <input class="form-control" [(ngModel)]="address1" style="padding:10px; width:75%"
                     ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
                     (onAddressChange)="handleAddressChange($event)" />
             </div>
@@ -130,7 +131,7 @@
     </form>
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary" (click)="addVendor()">ADD</button>
+            <button class="btn btn-sm btn-primary" (click)="addVendor1()">ADD1</button>
         </div>
     </div>
 </div>

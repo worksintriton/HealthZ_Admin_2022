@@ -35,6 +35,12 @@ export class VendorFormComponent implements OnInit {
   Email_id: any;
   Email_idError: any;
   type: any;
+  business_name: any;
+  business_email: any;
+  business: string;
+  business_phone: any;
+  business_reg: any;
+  address1: any;
 
   public handleAddressChange(address: any) {
     this.zoom = 15;
@@ -69,7 +75,7 @@ export class VendorFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrManager) {
     this.addVendorForm = this.formBuilder.group({
-      _id: ['', Validators.required],
+      _id: [''],
       business_reg: ['', Validators.required],
       business: ['', Validators.required],
       business_email: ['', Validators.required],
@@ -150,6 +156,17 @@ export class VendorFormComponent implements OnInit {
           }
         }
       );
+    }
+  }
+  validation() {
+
+    if (this.business_name == undefined || this.business_name == '' || this.business_email == undefined || this.business_email == '' || this.business == undefined || this.business == '' || this.business_phone == '' || this.business_phone == undefined || this.business_reg == '' || this.business_reg == undefined || this.address1 == '' || this.address1 == undefined || this.address == undefined || this.address == '' || this.Latitude == undefined || this.Longitude == '' || this.Latitude == '' || this.Longitude == undefined) {
+      this.Validation = false;
+      console.log(this.Validation)
+    }
+    else {
+      this.Validation = true;
+      console.log(this.Validation)
     }
   }
 
@@ -251,6 +268,40 @@ export class VendorFormComponent implements OnInit {
       this.showError("Please all fields");
     }
   }
+
+  addVendor1() {
+    this.validation();
+    if (this.Validation == false) {
+      // alert("Please enter valid inputs");
+      this.showWarning("Please enter valid inputs");
+    } else {
+      let a = {
+        "business_name": this.business_name,
+        "business_email": this.business_email,
+        "business": this.business,
+        "business_phone": this.business_phone,
+        "ref_code": "",
+        "business_reg": this.business_reg,
+        "address1": this.address1,
+      };
+      console.log(a);
+      this._api.create_Vendor(a).subscribe(
+        (response: any) => {
+          console.log(response.Data);
+          if (response.Code === 200) {
+            this.userid = response.Data.create_Vendor._id;
+            console.log(this.userid)
+            // alert('Added Successfully');
+            this.showSuccess("Added Successfully")
+          } else {
+            this.showError(response.Message);
+            //alert(response.Message);
+          }
+        }
+      );
+    }
+  }
+
 
 
   updateVendor() {

@@ -59,6 +59,7 @@ export class ViewVendorProductsComponent implements OnInit {
   productForm: FormGroup;
   VendorID: any;
   vendorFilter: any = { user_id: '' };
+  obj3: any;
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrManager,
@@ -210,7 +211,8 @@ export class ViewVendorProductsComponent implements OnInit {
 
 
   validation() {
-    if (this.threshold == '' || this.threshold == undefined || this.Thmp_list.length == 0 || this.VendorID == undefined || this.Category == undefined || this.pettype == undefined || this.Age == undefined || this.Product_Name == undefined || this.Product_Name == '' || this.Cost == undefined || this.Cost == '' || this.Description == undefined || this.Description == '') {
+    if (this.threshold == '' || this.Age == '' || this.Age == undefined || this.Category == '' || this.Category == undefined || this.threshold == undefined || this.Thmp_list.length == 0 || this.VendorID == undefined || this.Category == undefined || this.Category == "" || this.pettype == undefined || this.Age == undefined || this.Age == "" || this.Product_Name == undefined || this.Product_Name == '' || this.Cost == undefined
+      || this.Cost == '' || this.Discount == undefined || this.Discount == '' || this.img_path == undefined || this.img_path == '' || this.Description == undefined || this.Description == '' || this.thumbnail_image == undefined || this.thumbnail_image == '') {
       this.Validation = false;
     }
     else {
@@ -229,12 +231,12 @@ export class ViewVendorProductsComponent implements OnInit {
       let obj1 = [];
       let obj2 = [];
       let obj3 = [];
-      for (let i = 0; i < this.petBreed.length; i++) {
-        obj1.push(this.petBreed[i]._id)
-      }
-      for (let i = 0; i < this.pettype.length; i++) {
-        obj2.push(this.pettype[i]._id)
-      }
+      // for (let i = 0; i < this.petBreed.length; i++) {
+      //   obj1.push(this.petBreed[i]._id)
+      // }
+      // for (let i = 0; i < this.pettype.length; i++) {
+      //   obj2.push(this.pettype[i]._id)
+      // }
       for (let i = 0; i < this.Age.length; i++) {
         obj3.push(this.Age[i].y)
       }
@@ -244,12 +246,13 @@ export class ViewVendorProductsComponent implements OnInit {
         "cat_id": this.Category._id,
         "breed_type": obj1,
         "pet_type": obj2,
-        "age": obj3,
+        "age": this.obj3,
+        " sub_cate_list": this.Category,
         "cost": this.Cost,
         "threshould": +this.threshold,
         "product_discription": this.Description,
         "product_name": this.Product_Name,
-        "product_img": this.Thmp_list,
+        "product_img": this.img_path,
         "discount": this.Discount,
         "related": '',
         "count": 0,
@@ -260,6 +263,7 @@ export class ViewVendorProductsComponent implements OnInit {
         "status": true,
         "delete_status": false
       }
+      console.log(this.obj3)
       console.log(a);
       this._api.product_details_create(a).subscribe(
         (response: any) => {

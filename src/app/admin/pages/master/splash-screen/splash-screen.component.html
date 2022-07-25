@@ -1,5 +1,5 @@
 <section style="text-transform:capitalize">
-    <div class="page-header justify-content-center">
+    <div class="page-header ">
         <div>
             <h2 class="main-content-title tx-24 mb-1">Splash Screen Banner</h2>
             <!-- <ol class="breadcrumb">
@@ -7,84 +7,98 @@
                 <li class="breadcrumb-item active" aria-current="page"> Details</li>
             </ol> -->
         </div>
-  
+
     </div>
 
 
     <div class="row row-sm">
 
         <div class="col-lg-12">
-<div class="card custom-card">
-        <div class="card-body">
-            <div class="card-item">
-                <div class="row">
-                    <div class="col-md-3">
-                        <h5 class="form-lable">Splash Screen Banner Title:</h5>
-                        <input type="text" pInputText [(ngModel)]="Tittle" placeholder="Enter Splash Screen Banner Title">
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="card-item">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5 class="form-lable">Splash Screen Banner Title:</h5>
+                                <input type="text" pInputText [(ngModel)]="Tittle"
+                                    placeholder="Enter Splash Screen Banner Title">
+                            </div>
+                            <div class="col-md-3">
+                                <h5 class="form-lable">Splash Screen Banner Image:</h5>
+                                <input type="file" #imgType (change)="fileupload($event)" id="imgfile"
+                                    accept=".png, .jpg, .jpeg" class="form-control" id="city"
+                                    placeholder="User type icon">
+                                <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the
+                                    user type icon with
+                                    800 * 350 (Max 400 kB)</div>
+                                <div class="imgthumcontainer"><img *ngIf="img_path != undefined" src="{{img_path}}">
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" *ngIf="edit_t == false" class="btn btn-primary mt-4"
+                                    (click)="create()"><i class="fas fa-plus-circle"></i> Add</button>
+                                <button *ngIf="edit_t == true" type="button" class="btn btn-primary mt-4"
+                                    (click)="update()"><i class="fas fa-edit"></i> Update</button>
+                                <button *ngIf="edit_t == true" type="button" class="btn btn-danger mt-4"
+                                    (click)="cancel()">
+                                    Cancel</button>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col-md-3">
-                        <h5 class="form-lable">Splash Screen Banner Image:</h5>
-                        <input type="file" #imgType (change)="fileupload($event)" id="imgfile" accept=".png, .jpg, .jpeg"
-                            class="form-control" id="city" placeholder="User type icon">
-                        <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with
-                            800 * 350 (Max 400 kB)</div>
-                            <div class="imgthumcontainer"><img *ngIf="img_path != undefined" src="{{img_path}}"></div>
-            
-                    </div>
-                    <div class="col-md-2">
-                        <button type="button" *ngIf="edit_t == false" class="btn btn-primary mt-4"
-                            (click)="create()"><i class="fas fa-plus-circle"></i> Add</button>
-                            <button *ngIf="edit_t == true" type="button" class="btn btn-primary mt-4" 
-                            (click)="update()"><i class="fas fa-edit"></i> Update</button>
-                            <button *ngIf="edit_t == true" type="button" class="btn btn-danger mt-4" (click)="cancel()">
-                                Cancel</button>
-                    </div>
-            
                 </div>
             </div>
         </div>
     </div>
- </div>
-    </div>
 
 
     <div class="row row-sm">
 
         <div class="col-lg-12">
-<div class="card custom-card">
-        <div class="card-body">
-            <div class="card-item">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="search-hero">
-                            <div class="input-group mb-3">
-                               <div class="input-group-prepend">
-                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
-                               </div>
-                               <span class="clearable">
-                                <input class="form-control" type="text" name="search2"  (input)="tt.filterGlobal($event.target.value, 'contains')"
-                            [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..." (keypress) = 'research()' (blur) = 'research1()'>
-                            <i *ngIf="shremove" class="clearable__clear" (click)="tt.filterGlobal('', 'contains');remove()">&times;</i>
-                        </span>
-                             </div>
-                          </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date" class="mr-3"  [readonlyInput]="true"></p-calendar>
-                        <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date" class="mr-3"  [readonlyInput]="true"></p-calendar>
-                        <button type="button" class="btn btn-primary" (click)="filter_date()"><i class="fas fa-search"></i> Search</button>
-                    </div>
-                    <div class="col-md-3 text-right">
-                        <button type="button" class="btn btn-secondary" (click)="refersh()"><i class="fas fa-sync-alt"></i> Refresh</button>
-                    </div>
-                </div>
+            <div class="card custom-card">
+                <div class="card-body">
+                    <div class="card-item">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="search-hero">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i
+                                                    class="fas fa-search"></i></span>
+                                        </div>
+                                        <span class="clearable">
+                                            <input class="form-control" type="text" name="search2"
+                                                (input)="tt.filterGlobal($event.target.value, 'contains')"
+                                                [(ngModel)]="searchQR" autocomplete="off" placeholder="Search..."
+                                                (keypress)='research()' (blur)='research1()'>
+                                            <i *ngIf="shremove" class="clearable__clear"
+                                                (click)="tt.filterGlobal('', 'contains');remove()">&times;</i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon"
+                                    placeholder="Start Date" class="mr-3" [readonlyInput]="true"></p-calendar>
+                                <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date"
+                                    class="mr-3" [readonlyInput]="true"></p-calendar>
+                                <button type="button" class="btn btn-primary" (click)="filter_date()"><i
+                                        class="fas fa-search"></i> Search</button>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <button type="button" class="btn btn-secondary" (click)="refersh()"><i
+                                        class="fas fa-sync-alt"></i> Refresh</button>
+                            </div>
+                        </div>
 
-                <!-- search -->
-                <div class="table-responsive">
-                    <p-table [value]="list " styleClass="ui-table-customers" #tt [paginator]="true" [rows]="5"
-    [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [globalFilterFields]="['img_title']">
-    <!-- <ng-template pTemplate="caption">
+                        <!-- search -->
+                        <div class="table-responsive">
+                            <p-table [value]="list " styleClass="ui-table-customers" #tt [paginator]="true" [rows]="5"
+                                [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]" [showCurrentPageReport]="true"
+                                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                                [globalFilterFields]="['img_title']">
+                                <!-- <ng-template pTemplate="caption">
         <div fxLayout="row" fxLayoutAlign="space-around center">
             <div fxFlex="50">
                 <h5 style="color:#fff;">Entry Type List</h5>
@@ -100,56 +114,58 @@
         </div>
 
     </ng-template> -->
-    <ng-template pTemplate="header">
-        <tr class="thhead">
-            <th class="th-1">
-                S.No
-            </th>
-            <th>
-                Splash Screen Banner Image
-            </th>
-            <th>
-                Splash Screen Banner Title
-            </th>
-            <th>Modified  At</th>
-                  <th style="width: 163px;text-align:center">
-                Action
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-item let-i="rowIndex">
-        <tr class="tdrow">
-            <td>{{i+1}}</td>
-            <td>
-                <div class="imgthumcontainer"> <img src="{{item.img_path}}" alt=""></div>
-            </td>
-            <td>
-                {{item.img_title}}
-            </td>
-            <td>
-                {{item.date_and_time  |  date: 'short'}}
-            </td>
-            <td class="act text-center">
-                <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true" pTooltip="Edit" (click)="edit(item)"></i>
-                <i style="color: #fd2c3a;" class="fas fa-trash" aria-hidden="true" pTooltip="Delete" (click)="delete(item._id)"></i>
-                <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+                                <ng-template pTemplate="header">
+                                    <tr class="thhead">
+                                        <th class="th-1">
+                                            S.No
+                                        </th>
+                                        <th>
+                                            Splash Screen Banner Image
+                                        </th>
+                                        <th>
+                                            Splash Screen Banner Title
+                                        </th>
+                                        <th>Modified At</th>
+                                        <th style="width: 163px;text-align:center">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-item let-i="rowIndex">
+                                    <tr class="tdrow">
+                                        <td>{{i+1}}</td>
+                                        <td>
+                                            <div class="imgthumcontainer"> <img src="{{item.img_path}}" alt=""></div>
+                                        </td>
+                                        <td>
+                                            {{item.img_title}}
+                                        </td>
+                                        <td>
+                                            {{item.date_and_time | date: 'short'}}
+                                        </td>
+                                        <td class="act text-center">
+                                            <i style="color: #2196f3;" class="fas fa-edit" aria-hidden="true"
+                                                pTooltip="Edit" (click)="edit(item)"></i>
+                                            <i style="color: #fd2c3a;" class="fas fa-trash" aria-hidden="true"
+                                                pTooltip="Delete" (click)="delete(item._id)"></i>
+                                            <!-- <i style="color: #4CAF50;" class="fa fa-info-circle" aria-hidden="true" pTooltip="View"></i> -->
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
 
+                        </div>
+
+                    </div>
                 </div>
-
             </div>
         </div>
     </div>
- </div>
-    </div>
 
 
 
 
-<!-- <div class="row">
+    <!-- <div class="row">
     <div class="col-md-4">
         <div class="search-hero">
             <div class="input-group mb-3">
