@@ -27,7 +27,7 @@ export class ViewVendorProductsComponent implements OnInit {
   threshold: any;
   Validation: any;
   selectedimgae: any;
-  img_path: string = undefined;
+  img_path: any;
   list: any;
   edit_t: boolean = false;
   id: any;
@@ -220,16 +220,42 @@ export class ViewVendorProductsComponent implements OnInit {
     }
   }
 
+  validation11() {
+    if (this.threshold == '' || this.Age == '' || this.Age == undefined || this.Category == ''
+      || this.Category == undefined || this.threshold == undefined
+      || this.Product_Name == undefined || this.Product_Name == '' || this.Cost == undefined
+      || this.Cost == '' || this.Discount == undefined || this.Discount == '' ||
+      this.Thmp_list == undefined
+      || this.Thmp_list == '' ||
+      this.Description == undefined || this.Description == ''
+      || this.thumbnail_image == undefined || this.thumbnail_image == '') {
+      this.Validation = false;
+    }
+    else {
+      this.Validation = true;
+    }
+  }
+
 
   create() {
-
-    this.validation();
+    console.log(this.Category)
+    console.log(this.Age)
+    console.log(this.Cost)
+    console.log(this.threshold)
+    console.log(this.Discount)
+    console.log(this.Product_Name)
+    console.log(this.thumbnail_image)
+    console.log(this.img_path)
+    this.validation11();
     if (this.Validation == false) {
+
+
+
       //alert("Please enter valid inputs")
       this.showWarning("Please enter valid inputs")
     } else {
-      let obj1 = [];
-      let obj2 = [];
+      // let obj1 = [];
+      // let obj2 = [];
       let obj3 = [];
       // for (let i = 0; i < this.petBreed.length; i++) {
       //   obj1.push(this.petBreed[i]._id)
@@ -244,24 +270,24 @@ export class ViewVendorProductsComponent implements OnInit {
       let a = {
         "user_id": this.VendorID,
         "cat_id": this.Category._id,
-        "breed_type": obj1,
-        "pet_type": obj2,
-        "age": this.obj3,
+        // "breed_type": obj1,
+        // "pet_type": obj2,
+        "age": obj3,
         " sub_cate_list": this.Category,
         "cost": this.Cost,
         "threshould": +this.threshold,
         "product_discription": this.Description,
         "product_name": this.Product_Name,
-        "product_img": this.img_path,
+        "product_img": this.Thmp_list,
         "discount": this.Discount,
-        "related": '',
-        "count": 0,
-        "date_and_time": '' + new Date(),
-        "mobile_type": 'Admin',
-        "verification_status": "Not Verified",
+        // "related": '',
+        // "count": 0,
+        // "date_and_time": '' + new Date(),
+        // "mobile_type": 'Admin',
+        // "verification_status": "Not Verified",
         "thumbnail_image": this.thumbnail_image,
-        "status": true,
-        "delete_status": false
+        // "status": true,
+        // "delete_status": false
       }
       console.log(this.obj3)
       console.log(a);
@@ -271,19 +297,19 @@ export class ViewVendorProductsComponent implements OnInit {
           if (response.Code === 200) {
             //alert('Added Successfully');
             this.showSuccess("Added Successfully")
-            this.Description = undefined;
-            this.Thmp_list = [];
-            this.img_path = undefined;
-            this.Vendor = undefined;
-            this.Category = undefined;
-            this.Sub_Category = undefined;
-            this.pettype = undefined;
-            this.Age = undefined;
-            this.Product_Name = undefined;
-            this.Cost = undefined;
-            this.Discount = undefined;
-            this.threshold = undefined;
-            this.petBreed = undefined;
+            // this.Description = undefined;
+            // this.Thmp_list = [];
+            // this.img_path = undefined;
+            // this.Vendor = undefined;
+            // this.Category = undefined;
+            // this.Sub_Category = undefined;
+            // this.pettype = undefined;
+            // this.Age = undefined;
+            // this.Product_Name = undefined;
+            // this.Cost = undefined;
+            // this.Discount = undefined;
+            // this.threshold = undefined;
+            // this.petBreed = undefined;
 
             this.ngOnInit();
           } else {

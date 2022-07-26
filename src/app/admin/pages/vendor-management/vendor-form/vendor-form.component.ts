@@ -15,6 +15,29 @@ import { ValidatorService } from '../../../../../app/validator.services';
 })
 export class VendorFormComponent implements OnInit {
   @ViewChild("placesRef") placesRef: GooglePlaceDirective;
+
+
+  public handleAddressChange(address: any) {
+    this.zoom = 15;
+    this.location_lat = Number(address.geometry.location.lat());
+    this.location_lng = Number(address.geometry.location.lng());
+    this.base_lat = this.location_lat;
+    this.base_lng = this.location_lng;
+    this.Latitude = this.location_lat;
+    this.Longitude = this.location_lng;
+    this.address = address.formatted_address;
+    this.addVendorForm.patchValue({
+      business_lat: this.location_lat,
+      business_long: this.location_lng
+    });
+    console.log(this.address);
+  }
+
+  options = {
+    types: [],
+    componentRestrictions: { country: 'IN' }
+  }
+
   userid: any = undefined;
   Latitude: any;
   Longitude: any;
@@ -41,28 +64,6 @@ export class VendorFormComponent implements OnInit {
   business_phone: any;
   business_reg: any;
   address1: any;
-
-  public handleAddressChange(address: any) {
-    this.zoom = 15;
-    this.location_lat = Number(address.geometry.location.lat());
-    this.location_lng = Number(address.geometry.location.lng());
-    this.base_lat = this.location_lat;
-    this.base_lng = this.location_lng;
-    this.Latitude = this.location_lat;
-    this.Longitude = this.location_lng;
-    this.address = address.formatted_address;
-    this.addVendorForm.patchValue({
-      business_lat: this.location_lat,
-      business_long: this.location_lng
-    });
-    console.log(this.address);
-  }
-
-  options = {
-    types: [],
-    componentRestrictions: { country: 'IN' }
-  }
-
   Name: any;
   email: any;
   Contact: any;
@@ -74,29 +75,30 @@ export class VendorFormComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private toastr: ToastrManager) {
-    this.addVendorForm = this.formBuilder.group({
-      _id: [''],
-      business_reg: ['', Validators.required],
-      business: ['', Validators.required],
-      business_email: ['', Validators.required],
-      business_gallery: [''],
-      business_lat: ['', Validators.required],
-      business_loc: ['', Validators.required],
-      business_long: ['', Validators.required],
-      business_name: ['', Validators.required],
-      business_phone: ['', Validators.required],
-      certifi: [''],
-      date_and_time: [''],
-      delete_status: [''],
-      gov_id_proof: [''],
-      mobile_type: [''],
-      photo_id_proof: [''],
-      profile_status: [''],
-      profile_verification_status: [''],
-      user_email: [''],
-      user_id: [''],
-      user_name: ['']
-    });
+    // this.addVendorForm = this.formBuilder.group({
+    //   _id: [''],
+    //   business_reg: ['', Validators.required],
+    //   business: ['', Validators.required],
+    //   business_email: ['', Validators.required],
+    //   business_address: ['', Validators.required],
+    //   business_gallery: [''],
+    //   business_lat: ['',],
+    //   business_loc: ['',],
+    //   business_long: ['',],
+    //   business_name: ['', Validators.required],
+    //   business_phone: ['', Validators.required],
+    //   certifi: [''],
+    //   date_and_time: [''],
+    //   delete_status: [''],
+    //   gov_id_proof: [''],
+    //   mobile_type: [''],
+    //   photo_id_proof: [''],
+    //   profile_status: [''],
+    //   profile_verification_status: [''],
+    //   user_email: [''],
+    //   user_id: [''],
+    //   user_name: ['']
+    // });
     this.userForm = this.formBuilder.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -146,7 +148,7 @@ export class VendorFormComponent implements OnInit {
           if (response.Code === 200) {
             this.userid = response.Data.user_details._id;
             console.log(this.userid)
-            // alert('Added Successfully');
+
             this.showSuccess("Added Successfully")
             this.addfirst = false;
             this.addmore = true;
@@ -160,7 +162,7 @@ export class VendorFormComponent implements OnInit {
   }
   validation() {
 
-    if (this.business_name == undefined || this.business_name == '' || this.business_email == undefined || this.business_email == '' || this.business == undefined || this.business == '' || this.business_phone == '' || this.business_phone == undefined || this.business_reg == '' || this.business_reg == undefined || this.address1 == '' || this.address1 == undefined || this.address == undefined || this.address == '' || this.Latitude == undefined || this.Longitude == '' || this.Latitude == '' || this.Longitude == undefined) {
+    if (this.business_name == undefined || this.business_name == '' || this.business_email == undefined || this.business_email == '' || this.business == undefined || this.business == '' || this.business_phone == '' || this.business_phone == undefined || this.business_reg == '' || this.business_reg == undefined || this.address1 == '' || this.address1 == undefined) {
       this.Validation = false;
       console.log(this.Validation)
     }
@@ -255,8 +257,8 @@ export class VendorFormComponent implements OnInit {
 
     }
   }
-  addVendor() {
-    if (this.addVendorForm.valid) {
+  addVendor1() {
+    if (this.Validation == true) {
       this._api.create_Vendor(this.addVendorForm.value).subscribe(data => {
         if (data['Code'] == 200) {
           this.showSuccess(data['Message']);
@@ -269,7 +271,11 @@ export class VendorFormComponent implements OnInit {
     }
   }
 
-  addVendor1() {
+
+  addVendor() {
+
+
+
     this.validation();
     if (this.Validation == false) {
       // alert("Please enter valid inputs");
@@ -280,25 +286,27 @@ export class VendorFormComponent implements OnInit {
         "business_email": this.business_email,
         "business": this.business,
         "business_phone": this.business_phone,
-        "ref_code": "",
         "business_reg": this.business_reg,
         "address1": this.address1,
+
       };
       console.log(a);
       this._api.create_Vendor(a).subscribe(
         (response: any) => {
           console.log(response.Data);
           if (response.Code === 200) {
-            this.userid = response.Data.create_Vendor._id;
-            console.log(this.userid)
+            // this.userid = response.Data.user_details._id;
+            // console.log(this.userid)
             // alert('Added Successfully');
             this.showSuccess("Added Successfully")
+
           } else {
             this.showError(response.Message);
             //alert(response.Message);
           }
         }
       );
+
     }
   }
 

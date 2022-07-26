@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,ViewChild,ElementRef } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +18,7 @@ import { UserService } from '../provider/user.service';
 
 export class LoginComponent implements OnInit {
   @ViewChild("user") focusField: ElementRef;
+  public showPassword: boolean;
   email_id: string;
   passwords: string;
   phone_number: number;
@@ -37,42 +38,44 @@ export class LoginComponent implements OnInit {
   email: any;
   emailError = false;
   emailErrorMsg: any;
-  checkbox:any;
-show:boolean;
+  checkbox: any;
+  show: boolean;
   password: any;
   passwordError = false;
   passwordErrorMsg: any;
-   isChecked :any =false;
-rember: boolean
+  isChecked: any = false;
+  rember: boolean
+  input: any;
   constructor(
     private router: Router,
-    private user:UserService,
+    private user: UserService,
 
     private http: HttpClient,
 
     private _api: ApiService,
     @Inject(SESSION_STORAGE) private storage: StorageService,
-    
 
-    
+
+
   ) {
 
   }
 
+
   ngOnInit() {
     this.saveInLocal("login_status", false);
-   this.user.gUserLoggedIn();
-  
-   this.email_id=localStorage.getItem('Name');
-   this.passwords= localStorage.getItem('password');
-   this.isChecked=localStorage.getItem('rem');
-   
-   
-   console.log(this.email)
-   this.checkbox=false;
-    setTimeout(()=>{
+    this.user.gUserLoggedIn();
+
+    this.email_id = localStorage.getItem('Name');
+    this.passwords = localStorage.getItem('password');
+    this.isChecked = localStorage.getItem('rem');
+
+
+    console.log(this.email)
+    this.checkbox = false;
+    setTimeout(() => {
       this.focusField.nativeElement.focus();
-      },500)
+    }, 500)
 
   }
   emailValidator() {
@@ -81,11 +84,11 @@ rember: boolean
     if (this.email_id === '' || this.email_id === undefined || this.email_id === null) {
       this.emailError = true;
       this.emailErrorMsg = 'Email Address Required.'
-    } 
+    }
     else if (!emailcheck) {
       this.emailError = true;
       this.emailErrorMsg = 'Enter Valid Email Address.'
-    } 
+    }
     else {
       this.emailError = false;
     }
@@ -100,13 +103,13 @@ rember: boolean
   }
 
   emailChange(data) {
-  
+
     //console.log(data);
     this.email_id = data;
     // this.emailValidator();
     this.emailError = false;
   }
-  focusUser(){
+  focusUser() {
     this.emailError = false;
   }
 
@@ -114,9 +117,9 @@ rember: boolean
     //console.log(data);
     this.passwords = data;
     this.passwordValidator();
-  
+
   }
-  focusPassword(){
+  focusPassword() {
     this.emailValidator();
   }
 
@@ -129,41 +132,41 @@ rember: boolean
       this.validation = false;
     }
   }
-  remChange(data){
+  remChange(data) {
     console.log(data)
-    this.checkbox=data
+    this.checkbox = data
   }
   logintest1() {
-    
-    if(this.isChecked == false){
+
+    if (this.isChecked == false) {
       localStorage.removeItem('Name');
-    localStorage.removeItem('password');
-    localStorage.removeItem('rem');
+      localStorage.removeItem('password');
+      localStorage.removeItem('rem');
     }
     this.validator();
     if (this.validation) {
       console.log(this.rember);
-      if ((this.email_id == 'healthz@gmail.com') && (this.passwords == '12345') ) {
-       //&& (this.checkbox == true)
-   
-      console.log("rem",this.isChecked)
-       this.saveInLocal("login_status", true);
+      if ((this.email_id == 'healthz@gmail.com') && (this.passwords == '12345')) {
+        //&& (this.checkbox == true)
+
+        console.log("rem", this.isChecked)
+        this.saveInLocal("login_status", true);
         this.router.navigateByUrl('/admin/dashboard');
-        if(this.isChecked == true){
+        if (this.isChecked == true) {
           localStorage.setItem('Name', this.email_id);
           localStorage.setItem('password', this.passwords);
           localStorage.setItem('rem', this.isChecked);
         }
-        
-      
+
+
         // localStorage.setItem("this.email", this.email)
-  
-      
-     
-    }else {
+
+
+
+      } else {
         alert('Invalid Account');
       }
-    
+
     }
   }
 
@@ -174,9 +177,9 @@ rember: boolean
   getFromLocal(key): any {
     return this.storage.get(key);
   }
-  toogle(){
-    this.show=!this.show;
+  toogle() {
+    this.show = !this.show;
   }
-  
+
 }
 

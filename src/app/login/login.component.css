@@ -20,7 +20,7 @@
   background-color: #fff;
   padding: 50px;
   border-radius: 8px;
-  box-shadow: 0 0 35px 0 rgba(154,161,171,.15);
+  box-shadow: 0 0 35px 0 rgba(154, 161, 171, .15);
 }
 
 .form-control {
@@ -29,13 +29,17 @@
   color: #3e4954;
   height: 50px !important;
   padding: .375rem .75rem !important;
-    font-size: .875rem !important;
-    font-weight: 400;
-    line-height: 1.5;border-radius: .50rem !important;
+  font-size: .875rem !important;
+  font-weight: 400;
+  line-height: 1.5;
+  border-radius: .50rem !important;
 }
+
 .login_form {
-  margin: 10px 0px; width: 400px;
+  margin: 10px 0px;
+  width: 400px;
 }
+
 .card .card-body {
   text-align: left !important;
   /* // padding: 0px !important;
@@ -43,9 +47,10 @@
 }
 
 .logo img {
-   width: 150px;
-   text-align: center;
+  width: 150px;
+  text-align: center;
 }
+
 .justify-center {
   display: flex;
   justify-content: center;
@@ -53,7 +58,8 @@
 
 .login_form .btn {
   height: 50px;
-  font-weight: 700;border-radius: .50rem !important;
+  font-weight: 700;
+  border-radius: .50rem !important;
 }
 
 /* // .logo {
@@ -78,4 +84,12 @@
   right: .75em;
   top: .75em;
   z-index: 9;
+}
+
+
+
+
+
+.type-toggle {
+  padding-inline-start: 0.5rem;
 }

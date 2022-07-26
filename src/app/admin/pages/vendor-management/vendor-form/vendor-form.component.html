@@ -83,55 +83,59 @@
 </div>
 
 <div class="card-box" *ngIf="addmore">
-    <form [formGroup]="addVendorForm">
-        <div class="form-row">
-            <div class="form-group col-6">
-                <label for="">Business Name</label>
-                <input type="text" class="form-control" [(ngModel)]="business_name" (keydown)="keydown($event)">
-            </div>
-            <div class="form-group col-6">
-                <label for="">Business Email</label>
-                <input type="email" class="form-control" [(ngModel)]="business_email">
-            </div>
-            <div class="form-group col-6">
-                <label for="">Business</label>
-                <input type="text" class="form-control" [(ngModel)]="business">
-            </div>
-            <div class="form-group col-6">
-                <label for="">Phone</label>
-                <input type="text" class="form-control" [(ngModel)]="business_phone" maxlength="10"
-                    (keypress)=_keyPress($event)>
-            </div>
-            <div class="form-group col-6">
-                <label for="">Business Registration Details</label>
-                <textarea cols="30" rows="10" class="form-control" [(ngModel)]="business_reg"></textarea>
-            </div>
+    <!-- <form [formGroup]="addVendorForm"> -->
+    <div class="form-row">
+        <div class="form-group col-6">
+            <label for="">Business Name:</label><span style="color: red;font-size: large;">*</span>
+            <input type="text" class="form-control" [(ngModel)]="business_name" (keydown)="keydown($event)">
+            <!-- <div *ngIf="validation == false && (business_name == undefined || business_name.trim() == '') "
+                                    class="mt-1 error">
+                                    <div class="text-danger">Business Name is Required.</div>
+                                </div> -->
         </div>
-        <div class="row">
-            <div class="col-12">
-                <h5 class="form-lable">Business Location:</h5>
-                <input class="form-control" [(ngModel)]="address1" style="padding:10px; width:75%"
-                    ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
-                    (onAddressChange)="handleAddressChange($event)" />
-            </div>
-            <div class="map">
-                <agm-map [latitude]="base_lat" [longitude]="base_lng" [zoom]="zoom" [disableDefaultUI]="false"
-                    [zoomControl]="false">
-
-                    <agm-marker [latitude]="location_lat" [longitude]="location_lng" [markerDraggable]="true"
-                        (dragEnd)="markerDragEnd($event)">
-
-                        <agm-info-window>
-                            <strong>{{address}}</strong>
-                        </agm-info-window>
-                    </agm-marker>
-                </agm-map>
-            </div>
+        <div class="form-group col-6">
+            <label for="">Business Email:</label><span style="color: red;font-size: large;">*</span>
+            <input type="email" class="form-control" [(ngModel)]="business_email">
         </div>
-    </form>
+        <div class="form-group col-6">
+            <label for="">Business:</label><span style="color: red;font-size: large;">*</span>
+            <input type="text" class="form-control" [(ngModel)]="business">
+        </div>
+        <div class="form-group col-6">
+            <label for="">Phone:</label><span style="color: red;font-size: large;">*</span>
+            <input type="text" class="form-control" [(ngModel)]="business_phone" maxlength="10"
+                (keypress)=_keyPress($event)>
+        </div>
+        <div class="form-group col-6">
+            <label for="">Business Registration Details:</label><span style="color: red;font-size: large;">*</span>
+            <textarea cols="30" rows="10" class="form-control" [(ngModel)]="business_reg"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h5 class="form-lable">Business Location:<span style="color: red;font-size: large;">*</span></h5>
+            <input class="form-control" [(ngModel)]="address1" style="padding:10px; width:75%"
+                ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
+                (onAddressChange)="handleAddressChange($event)" />
+        </div>
+        <div class="map">
+            <agm-map [latitude]="base_lat" [longitude]="base_lng" [zoom]="zoom" [disableDefaultUI]="false"
+                [zoomControl]="false">
+
+                <agm-marker [latitude]="location_lat" [longitude]="location_lng" [markerDraggable]="true"
+                    (dragEnd)="markerDragEnd($event)">
+
+                    <agm-info-window>
+                        <strong>{{address}}</strong>
+                    </agm-info-window>
+                </agm-marker>
+            </agm-map>
+        </div>
+    </div>
+    <!-- </form> -->
     <div class="row">
         <div class="col-12 d-flex justify-content-end">
-            <button class="btn btn-sm btn-primary" (click)="addVendor1()">ADD1</button>
+            <button class="btn btn-sm btn-primary" (click)="addVendor()">ADD</button>
         </div>
     </div>
 </div>
