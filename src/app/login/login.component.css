@@ -93,3 +93,11 @@
 .type-toggle {
   padding-inline-start: 0.5rem;
 }
+
+
+.ri {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  cursor: pointer;
+}

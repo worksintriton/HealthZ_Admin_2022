@@ -51,7 +51,7 @@
                 <h5 class="form-lable required">Last Name:</h5>
                 <input type="text" pInputText [(ngModel)]="Name" placeholder="Last Name" (keydown)="keydown($event)">
                 <div *ngIf="Validation == false && (Name == undefined || Name.trim() == '' )" class="mt-1 error">
-                    <div class="text-danger">Last Nameis Required.</div>
+                    <div class="text-danger">Last Name is Required.</div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="col-md-12 mt-20" *ngIf="userid == undefined">
-                <button type="button" class="btn btn-primary" (click)="create_1()">Add</button>
+                <button type="button" class="btn btn-primary" (click)="create_1()">Save</button>
                 <button type="button" class=" btn btn-danger" (click)="cancel1()">Cancel</button>
             </div>
         </div>

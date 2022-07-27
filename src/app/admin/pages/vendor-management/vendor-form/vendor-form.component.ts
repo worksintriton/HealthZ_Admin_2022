@@ -26,6 +26,7 @@ export class VendorFormComponent implements OnInit {
     this.Latitude = this.location_lat;
     this.Longitude = this.location_lng;
     this.address = address.formatted_address;
+    this.address1 = address.formatted_address;
     this.addVendorForm.patchValue({
       business_lat: this.location_lat,
       business_long: this.location_lng

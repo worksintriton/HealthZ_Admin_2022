@@ -1,3 +1,4 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <div class="">
     <div class="row justify-content-center h-100 align-items-center">
         <div class="login_box">
@@ -43,12 +44,40 @@
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Password</strong></label>
-                                            <input class="form-control" placeholder="Password" type="password"
-                                                [type]="showPassword ? 'text' : 'password'"
-                                                style="height:30px; font-size:12px;" [(ngModel)]="passwords"
-                                                name="passwords" (ngModelChange)="passwordChange($event)"
-                                                (focus)="focusPassword()" [ngModelOptions]="{standalone: true}">
+                                            <!-- <span class="input-placeholder">
+                                                <input class="form-control" placeholder="Password" type="password"
+                                                    [type]="showPassword ? 'text' : 'password'"
+                                                    style="height:30px; font-size:12px;" [(ngModel)]="passwords"
+                                                    name="passwords" (ngModelChange)="passwordChange($event)"
+                                                    (focus)="focusPassword()" [ngModelOptions]="{standalone: true}"
+                                                    [type]="hide ? 'password' : 'text'">
+                                                
+                                            </span> -->
+                                            <div class="input-group  mb-3">
 
+
+                                                <input class="form-control" placeholder="Password" type="password"
+                                                    [type]="showPassword ? 'text' : 'password'"
+                                                    style="height:30px; font-size:12px;" [(ngModel)]="passwords"
+                                                    name="passwords" (ngModelChange)="passwordChange($event)"
+                                                    maxlength="25" (focus)="focusPassword()"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    [type]="hide ? 'password' : 'text'">
+                                                <!-- <div class="input-group-prepend"> -->
+                                                <span id="basic-addon1">
+                                                    <!-- <mat-icon class="placeholder" (click)="myFunction()">
+                                                        {{hide ?
+                                                        'visibility_off' : 'visibility'}}
+
+
+
+                                                    </mat-icon> -->
+                                                    <i class="material-icons ri" (click)="myFunction()"> {{hide ?
+                                                        'visibility_off' : 'visibility'}}</i>
+
+                                                </span>
+
+                                            </div>
                                             <!-- <button type="button" id="btnToggle" class="toggle" (click)="toogle()"> -->
                                             <!-- <span *ngIf="show"class="material-icons">
                           visibility

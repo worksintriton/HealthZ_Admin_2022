@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   loginDetails: any;
   userData: any;
   validation = false;
-
+  hide: boolean = true;
   loginError = false;
   loginErrorMsg: any;
 
@@ -101,7 +101,9 @@ export class LoginComponent implements OnInit {
       this.passwordError = false;
     }
   }
-
+  myFunction() {
+    this.hide = !this.hide;
+  }
   emailChange(data) {
 
     //console.log(data);

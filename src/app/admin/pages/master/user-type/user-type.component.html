@@ -118,8 +118,8 @@
 
                         </div>
 
-                        <p-table [value]="rows | filter:searchQR" styleClass="ui-table-customers" #tt [paginator]="true"
-                            [rows]="20" [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]"
+                        <p-table [value]="rows | filter:searchQR" styleClass="ui-table-customers " #tt
+                            [paginator]="true" [rows]="20" [rowHover]="true" [rowsPerPageOptions]="[5,10,25,50]"
                             [showCurrentPageReport]="true"
                             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                             [globalFilterFields]="['type']">
@@ -138,7 +138,7 @@
                         </div>
                     </ng-template> -->
                             <ng-template pTemplate="header">
-                                <tr class="thhead">
+                                <tr class="thhead cen">
                                     <th class="th-1">
                                         S.No
                                     </th>
