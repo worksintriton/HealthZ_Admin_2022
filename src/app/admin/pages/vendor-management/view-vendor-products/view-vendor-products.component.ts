@@ -49,7 +49,7 @@ export class ViewVendorProductsComponent implements OnInit {
   Age: any;
   Cost: any;
   Count: any;
-  Discount: any;
+  discount: any;
   petBreed: any;
   Sub_Category: any;
   Ages: any = [{ 'y': 1 }, { 'y': 2 }, { 'y': 3 }, { 'y': 4 }, { 'y': 5 }, { 'y': 6 }, { 'y': 7 }, { 'y': 8 }, { 'y': 9 }, { 'y': 10 }, { 'y': 11 }, { 'y': 12 }, { 'y': 13 }, { 'y': 14 }, { 'y': 15 }, { 'y': 16 }, { 'y': 17 }, { 'y': 18 }, { 'y': 19 }, { 'y': 20 }]
@@ -212,7 +212,7 @@ export class ViewVendorProductsComponent implements OnInit {
 
   validation() {
     if (this.threshold == '' || this.Age == '' || this.Age == undefined || this.Category == '' || this.Category == undefined || this.threshold == undefined || this.Thmp_list.length == 0 || this.VendorID == undefined || this.Category == undefined || this.Category == "" || this.pettype == undefined || this.Age == undefined || this.Age == "" || this.Product_Name == undefined || this.Product_Name == '' || this.Cost == undefined
-      || this.Cost == '' || this.Discount == undefined || this.Discount == '' || this.img_path == undefined || this.img_path == '' || this.Description == undefined || this.Description == '' || this.thumbnail_image == undefined || this.thumbnail_image == '') {
+      || this.Cost == '' || this.discount == undefined || this.discount == '' || this.img_path == undefined || this.img_path == '' || this.Description == undefined || this.Description == '' || this.thumbnail_image == undefined || this.thumbnail_image == '') {
       this.Validation = false;
     }
     else {
@@ -224,7 +224,7 @@ export class ViewVendorProductsComponent implements OnInit {
     if (this.threshold == '' || this.Age == '' || this.Age == undefined || this.Category == ''
       || this.Category == undefined || this.threshold == undefined
       || this.Product_Name == undefined || this.Product_Name == '' || this.Cost == undefined
-      || this.Cost == '' || this.Discount == undefined || this.Discount == '' ||
+      || this.Cost == '' || this.discount == undefined || this.discount == '' ||
       this.Thmp_list == undefined
       || this.Thmp_list == '' ||
       this.Description == undefined || this.Description == ''
@@ -242,7 +242,7 @@ export class ViewVendorProductsComponent implements OnInit {
     console.log(this.Age)
     console.log(this.Cost)
     console.log(this.threshold)
-    console.log(this.Discount)
+    console.log(this.discount)
     console.log(this.Product_Name)
     console.log(this.thumbnail_image)
     console.log(this.img_path)
@@ -279,7 +279,7 @@ export class ViewVendorProductsComponent implements OnInit {
         "product_discription": this.Description,
         "product_name": this.Product_Name,
         "product_img": this.Thmp_list,
-        "discount": this.Discount,
+        "discount": this.discount,
         // "related": '',
         // "count": 0,
         // "date_and_time": '' + new Date(),
@@ -398,7 +398,7 @@ export class ViewVendorProductsComponent implements OnInit {
     this.Description = item.product_discription
     this.Product_Name = item.product_name
     this.Thmp_list = item.product_img
-    this.Discount = item.discount
+    this.discount = item.discount
     this.thumbnail_image = item.thumbnail_image
   }
   update() {
@@ -432,7 +432,7 @@ export class ViewVendorProductsComponent implements OnInit {
         "product_discription": this.Description,
         "product_name": this.Product_Name,
         "product_img": this.Thmp_list,
-        "discount": this.Discount,
+        "discount": this.discount,
         "thumbnail_image": this.thumbnail_image,
         "related": '',
         "count": 0,
@@ -463,7 +463,7 @@ export class ViewVendorProductsComponent implements OnInit {
             this.Age = undefined;
             this.Product_Name = undefined;
             this.Cost = undefined;
-            this.Discount = undefined;
+            this.discount = undefined;
             this.threshold = undefined;
             this.petBreed = undefined;
             this.thumbnail_image = undefined;
@@ -525,7 +525,7 @@ export class ViewVendorProductsComponent implements OnInit {
     this.Age = undefined;
     this.Product_Name = undefined;
     this.Cost = undefined;
-    this.Discount = undefined;
+    this.discount = undefined;
     this.threshold = undefined;
     this.petBreed = undefined;
   }

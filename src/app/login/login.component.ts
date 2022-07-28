@@ -120,9 +120,12 @@ export class LoginComponent implements OnInit {
     this.passwords = data;
     this.passwordValidator();
 
+
+
   }
   focusPassword() {
     this.emailValidator();
+    // this.hide = !this.hide;
   }
 
   validator() {
@@ -138,6 +141,39 @@ export class LoginComponent implements OnInit {
     console.log(data)
     this.checkbox = data
   }
+  // logintest1() {
+
+  //   if (this.isChecked == false) {
+  //     localStorage.removeItem('Name');
+  //     localStorage.removeItem('password');
+  //     localStorage.removeItem('rem');
+  //   }
+  //   this.validator();
+  //   if (this.validation) {
+  //     console.log(this.rember);
+  //     if ((this.email_id == 'healthz@gmail.com') && (this.passwords == '12345')) {
+  //       //&& (this.checkbox == true)
+
+  //       console.log("rem", this.isChecked)
+  //       this.saveInLocal("login_status", true);
+  //       this.router.navigateByUrl('/admin/dashboard');
+  //       if (this.isChecked == true) {
+  //         localStorage.setItem('Name', this.email_id);
+  //         localStorage.setItem('password', this.passwords);
+  //         localStorage.setItem('rem', this.isChecked);
+  //       }
+
+
+  //       // localStorage.setItem("this.email", this.email)
+
+
+
+  //     } else {
+  //       alert('Invalid Account');
+  //     }
+
+  //   }
+  // }
   logintest1() {
 
     if (this.isChecked == false) {
@@ -148,26 +184,22 @@ export class LoginComponent implements OnInit {
     this.validator();
     if (this.validation) {
       console.log(this.rember);
-      if ((this.email_id == 'healthz@gmail.com') && (this.passwords == '12345')) {
-        //&& (this.checkbox == true)
-
-        console.log("rem", this.isChecked)
-        this.saveInLocal("login_status", true);
-        this.router.navigateByUrl('/admin/dashboard');
+      if ((this.email_id == 'healthz@gmail.com')) {
+        if ((this.passwords == '12345')) {
+          console.log("rem", this.isChecked)
+          this.saveInLocal("login_status", true);
+          this.router.navigateByUrl('/admin/dashboard');
+        } else { alert('Invalid Password'); }
         if (this.isChecked == true) {
           localStorage.setItem('Name', this.email_id);
           localStorage.setItem('password', this.passwords);
           localStorage.setItem('rem', this.isChecked);
         }
-
-
-        // localStorage.setItem("this.email", this.email)
-
-
-
       } else {
-        alert('Invalid Account');
+        alert('Invalid Email Address');
       }
+
+
 
     }
   }

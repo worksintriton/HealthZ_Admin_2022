@@ -16,13 +16,18 @@
     width: 200px !important;
 }
 
-.btn-danger1 {
-    background-color: #d32424;
+.btnd {
+
+    margin-right: 0px !important;
+}
+
+.btn-success1 {
+    background-color: #3c93c1;
     color: #fff;
     /* height: 30px; */
     min-width: 56px;
     font-size: 12px;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 .go {

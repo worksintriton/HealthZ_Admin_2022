@@ -26,7 +26,10 @@
                                 <p-dropdown [options]="Catagories_list" [(ngModel)]="Category"
                                     placeholder="Select Category" optionLabel="product_cate" (ngModelChange)="subcate()"
                                     [showClear]="true"></p-dropdown>
-
+                                <div *ngIf="Validation == false && (Category == undefined || Category == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Category is Required.</div>
+                                </div>
                             </div>
 
                             <!-- <div class="col-md-4" style="margin-bottom: 15px;">
@@ -45,6 +48,10 @@
                                 <h5 class="form-lable">Age: <span style="color: red;font-size: large;">*</span></h5>
                                 <p-multiSelect [options]="Ages" [(ngModel)]="Age" defaultLabel="Select" optionLabel="y">
                                 </p-multiSelect>
+                                <div *ngIf="Validation == false && (Category == undefined || Category == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Category is Required.</div>
+                                </div>
 
                             </div>
                             <div class="col-md-4" style="margin-bottom: 15px;">
@@ -52,6 +59,10 @@
                                 </h5>
                                 <input type="text" (keypress)=_keyPress1($event) pInputText [(ngModel)]="Product_Name"
                                     placeholder="Enter Product Name" maxlength="25">
+                                <div *ngIf="Validation == false && (Product_Name == undefined || Product_Name == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Product Name is Required.</div>
+                                </div>
                             </div>
                             <!-- <div class="col-md-4">
                         <h5 class="form-lable">Product Code:</h5>
@@ -61,16 +72,28 @@
                                 <h5 class="form-lable">Cost: <span style="color: red;font-size: large;">*</span></h5>
                                 <input type="text" (keypress)=_keyPress($event) pInputText [(ngModel)]="Cost"
                                     placeholder="Cost">
+                                <div *ngIf="Validation == false && (Cost == undefined || Cost == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Cost is Required.</div>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <h5 class="form-lable">Discount: <span style="color: red;font-size: large;">*</span>
                                 </h5>
-                                <input type="text" pInputText [(ngModel)]="Discount" placeholder="Discount %">
+                                <input type="text" pInputText [(ngModel)]="discount" placeholder="Discount %">
+                                <div *ngIf="Validation == false && (discount == undefined || discount == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Discount is Required.</div>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <h5 class="form-lable">Threshold: <span style="color: red;font-size: large;">*</span>
                                 </h5>
-                                <input type="text" pInputText [(ngModel)]="threshold" placeholder="Threshould">
+                                <input type="text" pInputText [(ngModel)]="threshold" placeholder="Threshold">
+                                <div *ngIf="Validation == false && (threshold == undefined || threshold == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Threshold is Required.</div>
+                                </div>
                             </div>
                             <!-- <div class="col-md-4">
                         <h5 class="form-lable">Count:</h5>
@@ -80,6 +103,10 @@
                                 <h5 class="form-lable">Description: <span style="color: red;font-size: large;">*</span>
                                 </h5>
                                 <textarea pInputTextarea [(ngModel)]="Description" rows="5" cols="50"></textarea>
+                                <div *ngIf="Validation == false && (Description == undefined || Description == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Description is Required.</div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <h5 class="form-lable">Thumb Image: <span style="color: red;font-size: large;">*</span>
@@ -87,10 +114,15 @@
                                 <input type="file" #imgType (change)="fileupload1($event,'thumbnail_img')" id="imgfile"
                                     accept=".png, .jpg, .jpeg" class="form-control" id="city"
                                     placeholder="User type icon">
+                                <div *ngIf="Validation == false && (thumbnail_image == undefined || thumbnail_image == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Thumb Image is Required.</div>
+                                </div>
                                 <!-- <div style="font-size: 11px;text-align: right;color: gray;font-weight: 600;">Upload the user type icon with 100 * 100 (Max 200 kB)</div> -->
                                 <img *ngIf="thumbnail_image != undefined" src="{{thumbnail_image}}" style="width: 25%;">
                                 <!-- <i class="fa fa-plus add-icon" (click)="addhandled()" aria-hidden="true" pTooltip="Add"></i> -->
                             </div>
+
 
                             <div class="col-md-6">
                                 <h5 class="form-lable">Product Image: <span
@@ -100,11 +132,19 @@
                                         <input type="file" class="form-control" #imgType1 (change)="fileupload($event)"
                                             id="imgFile" accept=".png, .jpg, .jpeg">
                                         <span class="img-size">Image Size Should be 200*200</span>
+                                        <div *ngIf="Validation == false && Thmp_list.length == 0 " class="mt-1 error">
+                                            <div class="text-danger">Product Image is Required.</div>
+                                        </div>
+                                        <!-- <div *ngIf="Validation == false && (img_path == undefined || img_path == '' )"
+                                            class="mt-1 error">
+                                            <div class="text-danger">Product Image is Required.</div>
+                                        </div> -->
                                     </div>
                                     <div class="col-md-2">
                                         <div class="imgthumcontainer"><img *ngIf="img_path != undefined"
                                                 src="{{img_path}}"></div>
                                     </div>
+
                                     <div class="col-md-2">
                                         <div class="">
                                             <button (click)="addimg()" class="btn btn-sm btn-primary"><i

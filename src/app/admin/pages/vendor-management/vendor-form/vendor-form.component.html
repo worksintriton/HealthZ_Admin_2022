@@ -62,7 +62,7 @@
                     <div class="text-danger">Valid Email Address Required.</div>
                 </div>
                 <div *ngIf="Validation == false && Email_id == undefined" class="mt-1 error">
-                    <div class="text-danger">Valid Email Address Required.</div>
+                    <div class="text-danger"> Email Address Required.</div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -88,27 +88,43 @@
         <div class="form-group col-6">
             <label for="">Business Name:</label><span style="color: red;font-size: large;">*</span>
             <input type="text" class="form-control" [(ngModel)]="business_name" (keydown)="keydown($event)">
-            <!-- <div *ngIf="validation == false && (business_name == undefined || business_name.trim() == '') "
-                                    class="mt-1 error">
-                                    <div class="text-danger">Business Name is Required.</div>
-                                </div> -->
+            <div *ngIf="Validation == false && (business_name == undefined || business_name == '' )" class="mt-1 error">
+                <div class="text-danger">Business Name is Required.</div>
+            </div>
         </div>
         <div class="form-group col-6">
             <label for="">Business Email:</label><span style="color: red;font-size: large;">*</span>
-            <input type="email" class="form-control" [(ngModel)]="business_email">
+            <input type="email" class="form-control" [(ngModel)]="business_email"
+                (ngModelChange)="EmailidChange($event)">
+            <div *ngIf="Email_idError" class="mt-1 error">
+                <div class="text-danger">Enter Valid Email Address</div>
+            </div>
+            <div *ngIf="Validation == false && (business_name == undefined || business_name == '' )" class="mt-1 error">
+                <div class="text-danger">Business Name is Required.</div>
+            </div>
         </div>
         <div class="form-group col-6">
             <label for="">Business:</label><span style="color: red;font-size: large;">*</span>
             <input type="text" class="form-control" [(ngModel)]="business">
+            <div *ngIf="Validation == false && (business == undefined || business == '' )" class="mt-1 error">
+                <div class="text-danger">Business is Required.</div>
+            </div>
         </div>
         <div class="form-group col-6">
             <label for="">Phone:</label><span style="color: red;font-size: large;">*</span>
             <input type="text" class="form-control" [(ngModel)]="business_phone" maxlength="10"
                 (keypress)=_keyPress($event)>
+            <div *ngIf="Validation == false && (business_phone == undefined || business_phone == '' )"
+                class="mt-1 error">
+                <div class="text-danger">Phone Name is Required.</div>
+            </div>
         </div>
         <div class="form-group col-6">
             <label for="">Business Registration Details:</label><span style="color: red;font-size: large;">*</span>
             <textarea cols="30" rows="10" class="form-control" [(ngModel)]="business_reg"></textarea>
+            <div *ngIf="Validation == false && (business_reg == undefined || business_reg == '' )" class="mt-1 error">
+                <div class="text-danger">Business Registration Details is Required.</div>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -117,6 +133,9 @@
             <input class="form-control" [(ngModel)]="address1" style="padding:10px; width:75%"
                 ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
                 (onAddressChange)="handleAddressChange($event)" />
+            <div *ngIf="Validation == false && (address1 == undefined || address1 == '' )" class="mt-1 error">
+                <div class="text-danger">Business Location is Required.</div>
+            </div>
         </div>
         <div class="map">
             <agm-map [latitude]="base_lat" [longitude]="base_lng" [zoom]="zoom" [disableDefaultUI]="false"

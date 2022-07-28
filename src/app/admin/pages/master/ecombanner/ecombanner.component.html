@@ -125,6 +125,7 @@
                                         <th>
                                             E-Commerce Banner Title
                                         </th>
+                                        <th>Created At</th>
                                         <th>Modified At</th>
                                         <th style="width: 163px;text-align:center">
                                             Action
@@ -139,6 +140,9 @@
                                         </td>
                                         <td>
                                             {{item.img_title}}
+                                        </td>
+                                        <td>
+                                            {{item.createdAt | date: 'dd/MM/yyyy , hh:mm a' }}
                                         </td>
                                         <td>
                                             {{item.date_and_time}}

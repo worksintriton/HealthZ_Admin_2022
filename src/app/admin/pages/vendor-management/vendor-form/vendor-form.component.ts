@@ -163,7 +163,7 @@ export class VendorFormComponent implements OnInit {
   }
   validation() {
 
-    if (this.business_name == undefined || this.business_name == '' || this.business_email == undefined || this.business_email == '' || this.business == undefined || this.business == '' || this.business_phone == '' || this.business_phone == undefined || this.business_reg == '' || this.business_reg == undefined || this.address1 == '' || this.address1 == undefined) {
+    if (this.business_name == undefined || this.business_name == '' || this.Email_idError == true || this.business_email == undefined || this.business_email == '' || this.business == undefined || this.business == '' || this.business_phone == '' || this.business_phone == undefined || this.business_reg == '' || this.business_reg == undefined || this.address1 == '' || this.address1 == undefined) {
       this.Validation = false;
       console.log(this.Validation)
     }

@@ -29,45 +29,45 @@ export class VendorAddProductdetailComponent implements OnInit {
   Catagories_list: any;
 
 
-  cat_id : any;
-  condition : any;
-  cost : any;
-  price_type : any;
-  product_discription : any;
-  product_img : any;
+  cat_id: any;
+  condition: any;
+  cost: any;
+  price_type: any;
+  product_discription: any;
+  product_img: any;
   product_name: any;
-  threshould : any;
-  thumbnail_image : any;
-  vendor_id : any;
-  addition_detail : any;
+  threshold: any;
+  thumbnail_image: any;
+  vendor_id: any;
+  addition_detail: any;
   addtion_info_text = '';
 
   Thmp_list: any = [];
 
 
   selectedimgae: any;
-  img_path: string = undefined;
+  img_path: any;
 
-  @ViewChild('imgType1', { static:false}) imgType: ElementRef;
-  @ViewChild('imgType2', { static:false}) imgType2: ElementRef;
+  @ViewChild('imgType1', { static: false }) imgType: ElementRef;
+  @ViewChild('imgType2', { static: false }) imgType2: ElementRef;
+  Validation: any;
 
 
-constructor(
-    private formBuilder:FormBuilder,
-    private toastr:ToastrManager,
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrManager,
     private router: Router,
     private location: Location,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private _api: ApiService,
     private http: HttpClient,
     private datePipe: DatePipe,
-    ){
-// login_status
-if(this.getFromLocal("login_status") === false)
-{
-  this.router.navigate(['login']);
-}
+  ) {
+    // login_status
+    if (this.getFromLocal("login_status") === false) {
+      this.router.navigate(['login']);
     }
+  }
 
 
 
@@ -77,7 +77,7 @@ if(this.getFromLocal("login_status") === false)
     this.addition_detail = [];
 
   }
- saveInLocal(key, val): void {
+  saveInLocal(key, val): void {
     this.storage.set(key, val);
   }
 
@@ -108,91 +108,140 @@ if(this.getFromLocal("login_status") === false)
     );
   }
 
-        //////Additional Calling Funcation//////
-        fileupload2(event) {
-          console.log("this.width")
-          this.selectedimgae = event.target.files[0];
-          console.log(this.selectedimgae.size / 100000);
-          let fr = new FileReader();
-          fr.onload = () => { // when file has loaded
-            var img = new Image();
-            img.onload = () => {
-              let width = img.width;
-              let height = img.height;
-              console.log(width, height);
-              if (width == 200 && height == 200) {
-                let d = this.selectedimgae.size / 100000;
-                if (d < 10) {
-                  this.addfiles2();
-                } else {
-                  //alert('Please upload the file below 1 MB');
-                  this.showWarning("Please upload the file below 1 MB");
-                  this.imgType2.nativeElement.value = "";
-                }
-              }
-              else {
-                this.showWarning("Please upload the file size 200 * 200");
-                // alert('Please upload the file size 100 * 100');
-                this.imgType2.nativeElement.value = "";
-              }
-            };
-            img.src = fr.result as string; // The data URL
-          };
-          fr.readAsDataURL(this.selectedimgae);
-          // clear the value after upload
+  //////Additional Calling Funcation//////
+  fileupload2(event) {
+    console.log("this.width")
+    this.selectedimgae = event.target.files[0];
+    console.log(this.selectedimgae.size / 100000);
+    let fr = new FileReader();
+    fr.onload = () => { // when file has loaded
+      var img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        console.log(width, height);
+        if (width == 200 && height == 200) {
+          let d = this.selectedimgae.size / 100000;
+          if (d < 10) {
+            this.addfiles2();
+          } else {
+            //alert('Please upload the file below 1 MB');
+            this.showWarning("Please upload the file below 1 MB");
+            this.imgType2.nativeElement.value = "";
+          }
         }
-  
-  
-        addfiles2() {
-          const fd = new FormData();
-          fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
-          this.http.post(this.imgUrl , fd)
-            .subscribe((res: any) => {
-              console.log(res);
-              this.thumbnail_image = res.Data;
-              this.imgType.nativeElement.value = "";
-            });
+        else {
+          this.showWarning("Please upload the file size 200 * 200");
+          // alert('Please upload the file size 100 * 100');
+          this.imgType2.nativeElement.value = "";
         }
+      };
+      img.src = fr.result as string; // The data URL
+    };
+    fr.readAsDataURL(this.selectedimgae);
+    // clear the value after upload
+  }
 
-  create(){
-    let a  = {
-      "addition_detail": this.addition_detail,
-      "cat_id": this.cat_id._id,
-      "condition":this.condition,
-      "cost": +this.cost,
-      "date_and_time": ""+new Date(),
-      "mobile_type": "Admin",
-      "price_type": this.price_type,
-      "product_discription": this.product_discription,
-      "product_img": this.Thmp_list,
-      "product_name": this.product_name,
-      "threshould":""+this.threshould,
-      "thumbnail_image": this.thumbnail_image,
-      "vendor_id": this.vendor_id._id
+
+  addfiles2() {
+    const fd = new FormData();
+    fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
+    this.http.post(this.imgUrl, fd)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.thumbnail_image = res.Data;
+        this.imgType.nativeElement.value = "";
+      });
+  }
+  _keyPress(event: any) {
+    const pattern = /[0-9]/;
+    let inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+
     }
-    console.log(a);
+  }
+  validation() {
 
-    this._api.product_details_create(a).subscribe(
-      (response: any) => {
-        console.log(response);
-        if(response.Code == 500){
-          this.showError('Something went wrong. pls refresh and try again');
-        }else{
-          this.showSuccess('Product Added successfully');
-          this.router.navigateByUrl('/admin/vendor/vendor_productdetail');
-        }
+    if (
+      this.vendor_id == undefined || this.vendor_id == '' ||
+      this.thumbnail_image == undefined || this.thumbnail_image == '' ||
+      this.threshold == undefined || this.threshold == '' ||
+      this.product_name == undefined || this.product_name == '' ||
+      this.Thmp_list == undefined || this.Thmp_list == '' ||
+      this.product_discription == undefined || this.product_discription == '' ||
+      this.price_type == undefined || this.price_type == '' ||
+      this.cost == undefined || this.cost == '' ||
+      this.condition == undefined || this.condition == '' ||
+      this.cat_id == undefined || this.cat_id == '' ||
+      this.addition_detail == undefined || this.addition_detail == '') {
+      this.Validation = false;
+      console.log(this.Validation)
+    }
+    else {
+      this.Validation = true;
+      console.log(this.Validation)
+    }
+  }
+  create() {
+    console.log(this.vendor_id);
+    console.log(this.thumbnail_image);
+    console.log(this.product_name);
+    console.log(this.threshold);
+    console.log(this.product_img);
+    console.log(this.product_discription);
+    console.log(this.price_type);
+    console.log(this.cost);
+    console.log(this.condition);
+    console.log(this.cat_id);
+    console.log(this.addition_detail);
+
+
+    this.validation();
+    if (this.Validation == false) {
+      // alert("Please enter valid inputs");
+      this.showWarning("Please enter valid inputs");
+    } else {
+
+      let a = {
+        "addition_detail": this.addition_detail,
+        "cat_id": this.cat_id._id,
+        "condition": this.condition,
+        "cost": this.cost,
+        "date_and_time": "" + new Date(),
+        "mobile_type": "Admin",
+        "price_type": this.price_type,
+        "product_discription": this.product_discription,
+        "product_img": this.Thmp_list,
+        "product_name": this.product_name,
+        "threshould": "" + this.threshold,
+        "thumbnail_image": this.thumbnail_image,
+        "vendor_id": this.vendor_id._id
       }
+      console.log(a);
+
+      this._api.product_details_create(a).subscribe(
+        (response: any) => {
+          console.log(response);
+          if (response.Code == 500) {
+            this.showError('Something went wrong. pls refresh and try again');
+          } else {
+            this.showSuccess('Product Added successfully');
+            this.router.navigateByUrl('/admin/vendor/vendor_productdetail');
+          }
+        }
       );
+    }
   }
 
   addimg() {
-    if (this.img_path != undefined) {
+    if (this.img_path != undefined || this.img_path != '') {
       this.Thmp_list.push(
         {
           "product_img": this.img_path
         }
-        );
-      this.img_path = undefined
+      );
+      this.img_path = ''
       console.log(this.Thmp_list);
     }
     else {
@@ -218,71 +267,71 @@ if(this.getFromLocal("login_status") === false)
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
 
 
-    //////Additional Calling Funcation//////
-    fileupload(event) {
-      console.log("this.width")
-      this.selectedimgae = event.target.files[0];
-      console.log(this.selectedimgae.size / 100000);
-      let fr = new FileReader();
-      fr.onload = () => { // when file has loaded
-        var img = new Image();
-        img.onload = () => {
-          let width = img.width;
-          let height = img.height;
-          console.log(width, height);
-          if (width == 700   && height == 350) {
-            let d = this.selectedimgae.size / 100000;
-            if (d < 10) {
-              this.addfiles1();
-            } else {
-              //alert('Please upload the file below 1 MB');
-              this.showWarning("Please upload the file below 1 MB");
-              this.imgType.nativeElement.value = "";
-            }
-          }
-          else {
-            this.showWarning("Please upload the file size 350 * 700");
-            // alert('Please upload the file size 100 * 100');
+  //////Additional Calling Funcation//////
+  fileupload(event) {
+    console.log("this.width")
+    this.selectedimgae = event.target.files[0];
+    console.log(this.selectedimgae.size / 100000);
+    let fr = new FileReader();
+    fr.onload = () => { // when file has loaded
+      var img = new Image();
+      img.onload = () => {
+        let width = img.width;
+        let height = img.height;
+        console.log(width, height);
+        if (width == 700 && height == 350) {
+          let d = this.selectedimgae.size / 100000;
+          if (d < 10) {
+            this.addfiles1();
+          } else {
+            //alert('Please upload the file below 1 MB');
+            this.showWarning("Please upload the file below 1 MB");
             this.imgType.nativeElement.value = "";
           }
-        };
-        img.src = fr.result as string; // The data URL
-      };
-      fr.readAsDataURL(this.selectedimgae);
-      // clear the value after upload
-    }
-  
-  
-    addfiles1() {
-      const fd = new FormData();
-      fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
-      this.http.post(this.imgUrl , fd)
-        .subscribe((res: any) => {
-          console.log(res);
-          this.img_path = res.Data;
+        }
+        else {
+          this.showWarning("Please upload the file size 350 * 700");
+          // alert('Please upload the file size 100 * 100');
           this.imgType.nativeElement.value = "";
-  
-        });
-    }
+        }
+      };
+      img.src = fr.result as string; // The data URL
+    };
+    fr.readAsDataURL(this.selectedimgae);
+    // clear the value after upload
+  }
 
 
-    add_addition_info(){
-      this.addition_detail.push(this.addtion_info_text);
-      this.addtion_info_text = '';
-    }
+  addfiles1() {
+    const fd = new FormData();
+    fd.append('sampleFile', this.selectedimgae, this.selectedimgae.name);
+    this.http.post(this.imgUrl, fd)
+      .subscribe((res: any) => {
+        console.log(res);
+        this.img_path = res.Data;
+        this.imgType.nativeElement.value = "";
 
-    delete_addition_info(data,index){
-      this.addition_detail.splice(index, 1);
-    }
+      });
+  }
 
- 
+
+  add_addition_info() {
+    this.addition_detail.push(this.addtion_info_text);
+    this.addtion_info_text = '';
+  }
+
+  delete_addition_info(data, index) {
+    this.addition_detail.splice(index, 1);
+  }
+
+
 
 }

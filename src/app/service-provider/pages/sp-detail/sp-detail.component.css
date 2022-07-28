@@ -1,8 +1,17 @@
 @import "../../../../assets/css/style.css";
+
 :host::ng-deep .doc-table .ui-table table {
     width: 1600px !important;
 }
-:host::ng-deep .ui-table-wrapper{
-overflow-x: scroll;
+
+:host::ng-deep .ui-table-wrapper {
+    overflow-x: scroll;
 }
 
+.btn-danger1 {
+    color: #fff;
+    height: 19px !important;
+    min-width: 53px !important;
+    /* font-size: 12px; */
+    /* margin-right: 10px; */
+}

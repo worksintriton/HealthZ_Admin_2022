@@ -19,6 +19,10 @@
                                 <h5 class="form-lable">Vendor :<span style="color: red;font-size: large;">*</span></h5>
                                 <p-dropdown [options]="vendor_list" [(ngModel)]="vendor_id" placeholder="Select Vendor"
                                     optionLabel="bussiness_name" [showClear]="true"></p-dropdown>
+                                <div *ngIf="Validation == false && (vendor_id == undefined || vendor_id == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Vendor is Required.</div>
+                                </div>
 
                             </div>
                             <div class="col-md-4" style="margin-bottom: 15px;">
@@ -27,50 +31,84 @@
                                 <p-dropdown [options]="Catagories_list" [(ngModel)]="cat_id"
                                     placeholder="Select Category" optionLabel="product_cate" [showClear]="true">
                                 </p-dropdown>
+                                <div *ngIf="Validation == false && (cat_id == undefined || cat_id == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Category is Required.</div>
+                                </div>
                             </div>
                             <div class="col-md-4" style="margin-bottom: 15px;">
                                 <h5 class="form-lable">Product Name :<span style="color: red;font-size: large;">*</span>
                                 </h5>
                                 <input type="text" pInputText [(ngModel)]="product_name"
                                     placeholder="Enter Product Name" maxlength="25">
+                                <div *ngIf="Validation == false && (product_name == undefined || product_name == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Product Name is Required.</div>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <h5 class="form-lable">Description :<span style="color: red;font-size: large;">*</span>
                                 </h5>
                                 <textarea pInputTextarea [(ngModel)]="product_discription" rows="5"
                                     cols="50"></textarea>
+                                <div *ngIf="Validation == false && (product_discription == undefined || product_discription == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Description is Required.</div>
+                                </div>
                             </div>
                             <hr>
                             <div class="col-md-4">
                                 <h5 class="form-lable">Cost :<span style="color: red;font-size: large;">*</span></h5>
-                                <input type="number" pInputText [(ngModel)]="cost" placeholder="Cost">
+                                <input type="text" pInputText [(ngModel)]="cost" placeholder="Cost"
+                                    (keypress)=_keyPress($event)>
+                                <div *ngIf="Validation == false && (cost == undefined || cost == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Cost is Required.</div>
+                                </div>
                             </div>
 
                             <div class="col-md-4">
                                 <h5 class="form-lable">Threshold :<span style="color: red;font-size: large;">*</span>
                                 </h5>
-                                <input type="number" pInputText [(ngModel)]="threshould" placeholder="Threshould">
+                                <input type="text" pInputText [(ngModel)]="threshold" placeholder="Threshold"
+                                    (keypress)=_keyPress($event)>
+                                <div *ngIf="Validation == false && (threshold == undefined || threshold == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Threshold is Required.</div>
+                                </div>
                             </div>
 
                             <div class="col-md-4">
                                 <h5 class="form-lable">Price type :<span style="color: red;font-size: large;">*</span>
                                 </h5>
                                 <input type="text" pInputText [(ngModel)]="price_type" placeholder="Price type">
+                                <div *ngIf="Validation == false && (price_type == undefined || price_type == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Price type is Required.</div>
+                                </div>
                             </div>
 
                             <div class="col-md-6">
                                 <h5 class="form-lable">Condition :<span style="color: red;font-size: large;">*</span>
                                 </h5>
                                 <input type="text" pInputText [(ngModel)]="condition" placeholder="Condition">
+                                <div *ngIf="Validation == false && (condition == undefined || condition == '' )"
+                                    class="mt-1 error">
+                                    <div class="text-danger">Condition is Required.</div>
+                                </div>
                             </div>
 
                             <div class="col-md-6">
-                                <h5 class="form-lable">Addition details:<span
+                                <h5 class="form-lable">Additional details:<span
                                         style="color: red;font-size: large;">*</span></h5>
                                 <div class="row">
                                     <div class="col-md-8">
                                         <input type="text" pInputText [(ngModel)]="addtion_info_text"
-                                            placeholder="Addition details">
+                                            placeholder="Additional details">
+                                        <div *ngIf="Validation == false && addition_detail.length == 0 "
+                                            class="mt-1 error">
+                                            <div class="text-danger">Additional details is Required.</div>
+                                        </div>
                                     </div>
                                     <div class="col-md-4">
                                         <button (click)="add_addition_info()" class="btn btn-sm btn-primary"><i
@@ -108,7 +146,11 @@
                                     <div class="col-md-7">
                                         <input type="file" class="form-control" #imgType1 (change)="fileupload($event)"
                                             id="imgFile" accept=".png, .jpg, .jpeg">
+
                                         <span class="img-size">Image Size Should be W 700 X H 350</span>
+                                        <div *ngIf="Validation == false && Thmp_list.length == 0 " class="mt-1 error">
+                                            <div class="text-danger">Product Image is Required.</div>
+                                        </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="imgthumcontainer"><img *ngIf="img_path != undefined"
@@ -145,13 +187,18 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h5 class="form-lable">thumbnail Image:<span
+                                <h5 class="form-lable">Thumbnail Image:<span
                                         style="color: red;font-size: large;">*</span></h5>
                                 <div class="form-group row">
                                     <div class="col-md-7">
                                         <input type="file" class="form-control" #imgType2 (change)="fileupload2($event)"
                                             id="imgFile" accept=".png, .jpg, .jpeg">
+
                                         <span class="img-size">Image Size Should be W 200 X H 200</span>
+                                        <div *ngIf="Validation == false && (thumbnail_image == undefined || thumbnail_image == '' )"
+                                            class="mt-1 error">
+                                            <div class="text-danger">Thumbnail Image is Required.</div>
+                                        </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="imgthumcontainer"><img *ngIf="thumbnail_image != undefined"

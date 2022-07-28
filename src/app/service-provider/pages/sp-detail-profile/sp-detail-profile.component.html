@@ -11,7 +11,7 @@
 
             <div class="d-flex">
                 <button class="btn btn-sm btn-secondary " (click)="back()">Back <i
-                        class="fas fa-arrow-right ml-1"></i></button>
+                        class="fas fa-arrow-left ml-1"></i></button>
             </div>
         </div>
 
@@ -24,7 +24,8 @@
 
                         <div class="avatar avatar--180">
                             <div class="avatar__box">
-                                <img src="{{view_detail_data.bus_service_gall[0].bus_service_gall}}" class="pro-pic" height="100%" width="100%">
+                                <img src="{{view_detail_data.bus_service_gall[0].bus_service_gall}}" class="pro-pic"
+                                    height="100%" width="100%">
                             </div>
                         </div>
                         <div class="text-center mb-4">
@@ -47,13 +48,14 @@
 
                             </ul>
                             <div class="text-center mb-4">
-                                <h4 class="mb-1 text-theme"><strong>Profile Stauts:</strong></h4>
+                                <h4 class="mb-1 text-theme"><strong>Profile Statuts:</strong></h4>
                                 <div class="badge badge--aqua d-block mb-2">{{view_detail_data.profile_status}}</div>
                             </div>
 
                             <div class="text-center mb-4">
                                 <h4 class="mb-1 text-theme"><strong>Device type:</strong></h4>
-                                <div class="badge badge--aqua d-block mb-2" style="font-size: 11px;">{{view_detail_data.mobile_type}}</div>
+                                <div class="badge badge--aqua d-block mb-2" style="font-size: 11px;">
+                                    {{view_detail_data.mobile_type}}</div>
                             </div>
 
                             <div class="text-center">
@@ -85,7 +87,8 @@
                                 <div class="row" style="padding: 10px;">
                                     <div class="col-3">
                                         <div class="card">
-                                            <img class="img-fluid" src="{{item.bus_service_gall}}" alt="" style="border-radius: 10px;">
+                                            <img class="img-fluid" src="{{item.bus_service_gall}}" alt=""
+                                                style="border-radius: 10px;">
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +101,8 @@
 
                             <ng-container *ngFor="let spe of view_detail_data.bus_service_list">
                                 <span class="badge badge--dark mr-2 mb-2">
-                                    {{spe.bus_service_list}}  - ₹{{spe.amount}} - <i class="fas fa-clock" style="color: #55dcc2;"></i> {{spe.time_slots}}
+                                    {{spe.bus_service_list}} - ₹{{spe.amount}} - <i class="fas fa-clock"
+                                        style="color: #55dcc2;"></i> {{spe.time_slots}}
                                 </span>
                             </ng-container>
 

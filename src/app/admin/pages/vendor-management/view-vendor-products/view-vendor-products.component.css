@@ -17,3 +17,11 @@
 .h2 {
     width: 150px !important;
 }
+
+.btn-danger1 {
+    color: #fff;
+    /* height: 30px; */
+    min-width: 55px;
+    font-size: 12px;
+    /* margin-right: 10px; */
+}

@@ -20,6 +20,7 @@ export class DoctorlistComponent implements OnInit {
   searchQR: any;
   value1: any;
 
+  tooltipStatus: any;
   @ViewChild('TABLE') table: ElementRef;
   specialzation: string = '';
   shremove: boolean = false;
@@ -39,6 +40,7 @@ export class DoctorlistComponent implements OnInit {
   filter: any;
   @ViewChild("tt") table1: Table;
   @ViewChild('imgType', { static: false }) imgType: ElementRef;
+  tooltips: any;
 
   constructor(
     private toastr: ToastrManager,
@@ -409,6 +411,8 @@ export class DoctorlistComponent implements OnInit {
     }
 
   }
+
+
   refersh() {
     this.listdoctorsall(); this.E_Date = undefined; this.S_Date = undefined;
 
@@ -457,4 +461,6 @@ export class DoctorlistComponent implements OnInit {
     this.shremove = false;
   }
 }
+
+
 
