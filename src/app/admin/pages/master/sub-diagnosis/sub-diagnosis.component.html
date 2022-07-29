@@ -60,7 +60,7 @@
                     <div class="card-item">
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="search-hero">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -78,18 +78,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-8 text-center">
                                 <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon"
                                     placeholder="Start Date" class="mr-3" [readonlyInput]="true"></p-calendar>
                                 <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date"
                                     class="mr-3" [readonlyInput]="true"></p-calendar>
                                 <button type="button" class="btn btn-primary" (click)="filter_date()"><i
                                         class="fas fa-search"></i> Search</button>
-                            </div>
-                            <div class="col-md-3 text-right">
                                 <button type="button" class="btn btn-secondary" (click)="refersh()"><i
                                         class="fas fa-sync-alt"></i> Refresh</button>
                             </div>
+                            <!-- <div class="col-md-3 text-right">
+                                <button type="button" class="btn btn-secondary" (click)="refersh()"><i
+                                        class="fas fa-sync-alt"></i> Refresh</button>
+                            </div> -->
                         </div>
 
                         <!-- search -->

@@ -483,7 +483,7 @@
                                         style="color: red;font-size: large;">*</span></h5>
                                 <input type="number" pInputText [(ngModel)]="consultancy_fees"
                                     placeholder="consultance fee">
-                                <div *ngIf="Validation2 == false && (consultancy_fees == undefined || consultancy_fees.trim() == '') "
+                                <div *ngIf="Validation2 == false && (consultancy_fees == undefined || consultancy_fees == '') "
                                     class="mt-1 error">
                                     <div class="text-danger">Consultanc Fees is Required.</div>
                                 </div>

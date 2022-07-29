@@ -37,7 +37,7 @@ export class PetServiceAppointmentComponent implements OnInit {
   c_list: any = [];
 
   constructor(
-    private toastr:ToastrManager,
+    private toastr: ToastrManager,
     private router: Router,
     @Inject(SESSION_STORAGE) private storage: StorageService,
     private _api: ApiService,
@@ -46,11 +46,10 @@ export class PetServiceAppointmentComponent implements OnInit {
 
   ) {
     // login_status
-if(this.getFromLocal("login_status") === false)
-{
-  this.router.navigate(['login']);
-}
-   }
+    if (this.getFromLocal("login_status") === false) {
+      this.router.navigate(['login']);
+    }
+  }
 
   ngOnInit(): void {
     this.listpettype();
@@ -106,8 +105,8 @@ if(this.getFromLocal("login_status") === false)
     }
 
   }
-  Delete(id){
-    let a ={
+  Delete(id) {
+    let a = {
       "_id": id
     }
     this._api.appointment_delete(a).subscribe(
@@ -120,16 +119,16 @@ if(this.getFromLocal("login_status") === false)
     );
   }
   filter_date() {
-    if ( this.E_Date != undefined && this.S_Date != undefined) {
+    if (this.E_Date != undefined && this.S_Date != undefined) {
       // let yourDate = new Date(this.E_Date.getTime() + (1000 * 60 * 60 * 24));
-      let yourDate= this.E_Date.setDate(this.E_Date.getDate() + 1);
+      let yourDate = this.E_Date.setDate(this.E_Date.getDate() + 1);
 
       let a = {
-        "fromdate":this.datePipe.transform(new Date(this.S_Date),'yyyy-MM-dd'),
-        "todate" : this.datePipe.transform(new Date(yourDate),'yyyy-MM-dd')
-        }
-        let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
-        element.click();
+        "fromdate": this.datePipe.transform(new Date(this.S_Date), 'yyyy-MM-dd'),
+        "todate": this.datePipe.transform(new Date(yourDate), 'yyyy-MM-dd')
+      }
+      let element: HTMLElement = document.getElementsByClassName('ui-paginator-first')[0] as HTMLElement;
+      element.click();
       this._api.appointment_filter_date(a).subscribe(
         (response: any) => {
           console.log(response.Data);
@@ -138,17 +137,17 @@ if(this.getFromLocal("login_status") === false)
         }
       );
     }
-    else{
+    else {
       this.showWarning("Please select the Start Date and End Date");
       //alert('Please select the Start Date and End Date');
     }
-   
+
   }
-  refersh(){
-    this.listpettype();this.E_Date = undefined ; this.S_Date = undefined;
+  refersh() {
+    this.listpettype(); this.E_Date = undefined; this.S_Date = undefined;
   }
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.excelData, 'Pet_service_appiontment_List');
+    this.excelService.exportAsExcelFile(this.excelData, 'Service_appointment');
   }
   get_c_list() {
     this.c_list = this.appointment_list.reverse();
@@ -162,9 +161,9 @@ if(this.getFromLocal("login_status") === false)
 
   }
 
-  goto(page, value){
-    this.saveInLocal(page,value);
-    this.router.navigateByUrl('/admin/'+page);
+  goto(page, value) {
+    this.saveInLocal(page, value);
+    this.router.navigateByUrl('/admin/' + page);
   }
 
   showSuccess(msg) {
@@ -172,10 +171,10 @@ if(this.getFromLocal("login_status") === false)
   }
 
   showError(msg) {
-      this.toastr.errorToastr(msg);
+    this.toastr.errorToastr(msg);
   }
 
   showWarning(msg) {
-      this.toastr.warningToastr(msg);
+    this.toastr.warningToastr(msg);
   }
 }

@@ -4,6 +4,7 @@
     display: flex;
     align-items: center;
     margin: 1rem 0 1.5rem;
+    /* margin: 0rem 0 0.5rem; */
     justify-content: space-between;
     min-height: 50px;
     border-radius: 7px;
@@ -11,7 +12,7 @@
 
 .page-header .breadcrumb {
     background: none;
-    padding-left: 0!important;
+    padding-left: 0 !important;
     padding: 0;
     margin-bottom: 0;
 }
@@ -24,7 +25,7 @@
     display: inline-block;
     padding-right: .5rem;
     padding-left: 0;
-    color: #a8afc7!important;
+    color: #a8afc7 !important;
     content: "/";
 }
 
@@ -113,7 +114,7 @@ body .ui-table .ui-table-tbody>tr>td {
 
 .row-sm>div {
     padding-left: 10px !important;
-    padding-right: 10px!important;
+    padding-right: 10px !important;
 }
 
 .imgthumcontainer {
@@ -161,11 +162,15 @@ body .ui-table .ui-table-tbody>tr>td {
     margin-right: 10px;
 }
 
-button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disabled), [type="submit"]:not(:disabled) {
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
     cursor: pointer;
 }
 
-.btn-secondary.btn-sm, .btn-group-sm>.btn {
+.btn-secondary.btn-sm,
+.btn-group-sm>.btn {
     padding: 0.25rem 0.5rem !important;
     font-size: 0.875rem !important;
     line-height: 1.5 !important;
@@ -186,31 +191,31 @@ button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disab
 }
 
 .bg-org {
-    background: #ff6434!important
+    background: #ff6434 !important
 }
 
 .bg-green {
-    background: #25b398!important
+    background: #25b398 !important
 }
 
 .bg-blue {
-    background: #6179ff!important
+    background: #6179ff !important
 }
 
 .bg-success {
-    background-color: #3ee26c!important
+    background-color: #3ee26c !important
 }
 
 .bg-info {
-    background-color: #36afe2!important
+    background-color: #36afe2 !important
 }
 
 .bg-secondary {
-    background-color: #c054e6!important
+    background-color: #c054e6 !important
 }
 
 .bg-danger {
-    background-color: #ff5061!important
+    background-color: #ff5061 !important
 }
 
 /* existing css */
@@ -225,7 +230,9 @@ button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disab
     margin-right: 10px;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
     background-color: #15ad91 !important;
     border-color: #15ad91 !important;
 }
@@ -240,7 +247,9 @@ button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disab
     margin-right: 10px;
 }
 
-.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active {
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
     background-color: #808a92 !important;
     border-color: #808a92 !important;
 }
@@ -272,7 +281,8 @@ button:not(:disabled), [type="button"]:not(:disabled), [type="reset"]:not(:disab
     line-height: 35px;
 }
 
-body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active, :host::ng-deep .ui-paginator .ui-paginator-pages .ui-paginator-page:hover {}
+body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active,
+:host::ng-deep .ui-paginator .ui-paginator-pages .ui-paginator-page:hover {}
 
 .ui-paginator a {
     background: #fff;
@@ -292,21 +302,21 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active, :host
 }
 
 :host::ng-deep .ui-paginator .ui-paginator-first {
-    float: left!important;
+    float: left !important;
     border: 1px solid #61c27f;
     border-radius: 5px 0 0 5px;
     margin-right: -2px;
 }
 
 :host::ng-deep .ui-paginator .ui-paginator-prev {
-    float: left!important;
+    float: left !important;
     border: 1px solid #61c27f;
     height: 35px !important;
     width: 35px !important;
 }
 
 :host::ng-deep .ui-paginator .ui-paginator-next {
-    float: left!important;
+    float: left !important;
     border: 1px solid #61c27f;
     margin-left: -2px;
     height: 35px !important;
@@ -315,7 +325,7 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active, :host
 }
 
 :host::ng-deep .ui-paginator .ui-paginator-last {
-    float: left!important;
+    float: left !important;
     border: 1px solid #61c27f;
     margin-left: -2px;
     border-radius: 0 5px 5px 0;
@@ -325,7 +335,7 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active, :host
 }
 
 :host::ng-deep.ui-paginator .ui-paginator-pages .ui-paginator-page:focus {
-    box-shadow: none!important
+    box-shadow: none !important
 }
 
 .ui-paginator .ui-paginator-icon {
@@ -350,11 +360,13 @@ body .ui-paginator .ui-paginator-pages .ui-paginator-page {
     width: 35px !important;
 }
 
-body .ui-state-disabled, body .ui-widget:disabled {
+body .ui-state-disabled,
+body .ui-widget:disabled {
     opacity: 1 !important;
 }
 
-body .ui-state-disabled span, body .ui-widget:disabled span {
+body .ui-state-disabled span,
+body .ui-widget:disabled span {
     opacity: 0.5 !important;
 }
 
@@ -377,13 +389,13 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
 .tdrow td {
     color: #333;
     line-height: 1.2;
-    font-weight: unset!important;
+    font-weight: unset !important;
     border-bottom: none
 }
 
 :host::ng-deep .ui-table {
     overflow: hidden;
-    border: none!important
+    border: none !important
 }
 
 .th-1 {
@@ -397,8 +409,8 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
 }
 
 :host::ng-deep .ui-table .ui-table-thead>tr>th {
-    font-size: 14px!important;
-    font-weight: 600!important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
     line-height: 15px;
 }
 
@@ -419,7 +431,7 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
 .form-lable {
     font-size: 14px;
     font-weight: 500;
-    color: #1b1b1b!important;
+    color: #1b1b1b !important;
     margin-bottom: 5px
 }
 
@@ -439,8 +451,9 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
     background: #fff;
 }
 
-.btn-primary.focus, .btn-primary:focus {
-    outline: none!important
+.btn-primary.focus,
+.btn-primary:focus {
+    outline: none !important
 }
 
 .custom-select {
@@ -479,11 +492,11 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
 :host::ng-deep .ui-dropdown {
     border: 1px solid #dcdcdc;
     margin-bottom: 20px;
-        background: #eeeeee;
+    background: #eeeeee;
 }
 
 :host::ng-deep button:focus {
-    outline: none!important
+    outline: none !important
 }
 
 /* ::-webkit-scrollbar {
@@ -509,8 +522,8 @@ body .ui-state-disabled span, body .ui-widget:disabled span {
 }
 
 .btn-bg-blue {
-    background-color: #2196F3!important;
-    border-color: #2196F3!important
+    background-color: #2196F3 !important;
+    border-color: #2196F3 !important
 }
 
 textarea {
@@ -536,7 +549,7 @@ textarea {
 }
 
 .mr-0 {
-    margin-right: 0!important
+    margin-right: 0 !important
 }
 
 :host::ng-deep .ui-multiselect {

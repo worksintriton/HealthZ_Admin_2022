@@ -23,7 +23,7 @@
                     <!-- <div class="card-item"> -->
 
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="search-hero">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -42,20 +42,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 text-center">
+                        <div class="col-md-8 text-center">
                             <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date"
                                 [readonlyInput]="true" class="mr-3"></p-calendar>
                             <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date"
                                 [readonlyInput]="true" class="mr-3"></p-calendar>
 
-                        </div>
-                        <div class="col-md-3 text-center">
+                            <!-- </div>
+                        <div class="col-md-3 text-center"> -->
                             <button type="button" class="btn btn-primary" (click)="filter_date()">
                                 <i class="fas fa-search"></i> Search</button>
                             <button *ngIf="update_button == true" type="button" class="btn btn-primary"
                                 (click)="refersh()">
                                 <i class="fas fa-sync-alt"></i> Refresh</button>
-                            <button type="button" class="btn btn-primary mr-0" (click)="doc_form()">
+                            <button type="button" class="btn btn-primary mr-0" style="text-align:right;"
+                                (click)="doc_form()">
                                 <i class="fas fa-plus-circle"></i> Add</button>
                         </div>
                     </div>
@@ -129,8 +130,9 @@
                                     <th>Device Type</th>
                                     <th>Consultancy Fees</th>
                                     <!-- <th>Profile Stauts</th> -->
-                                    <th style="width: 100px;">Approve / Reject</th>
-                                    <!-- <th style="width: 100px;">Live Status</th> -->
+                                    <th style="width: 100px;">Live Status
+                                    </th>
+
                                     <th style="width: 100px;text-align:center">
                                         Action
                                     </th>
@@ -141,8 +143,8 @@
                                     <td pTooltip="{{i+1}}">{{i+1}}</td>
                                     <td>
                                         <div class="imgthumcontainer" *ngIf="item.clinic_pic.length != 0">
-                                            <img _ngcontent-dah-c159="" src="{{item.clinic_pic[0].clinic_pic}}" alt=""
-                                                style="width: 100%;">
+                                            <span><img _ngcontent-dah-c159="" src="{{item.clinic_pic[0].clinic_pic}}"
+                                                    alt="" style="width: 100%;"></span>
                                         </div>
 
                                     </td>
@@ -157,21 +159,22 @@
 
                                     <td>
                                         <ng-container *ngFor="let edu of item.education_details">
-                                            {{edu.education}}-{{edu.year}} ,
+                                            <span pTooltip=" {{edu.education}}-{{edu.year}}">
+                                                {{edu.education}}-{{edu.year}} , </span>
                                         </ng-container>
 
                                     </td>
                                     <td class="truncate-cell">
                                         <ng-container *ngFor="let exp of item.experience_details">
-                                            {{exp.company}} ({{exp.from}}-{{exp.to}}) ,
-                                            [title]="{{exp.company}} ({{exp.from}}-{{exp.to}})"
+                                            <span pTooltip="{{exp.company}} ({{exp.from}}-{{exp.to}})">{{exp.company}}
+                                                ({{exp.from}}-{{exp.to}}) ,</span>
+
                                         </ng-container>
 
                                     </td>
                                     <td class="truncate-cell">
-                                        <ng-container *ngFor="let spec of item.specialization"
-                                            pTooltip="{{spec.specialization}}">
-                                            {{spec.specialization}} ,
+                                        <ng-container *ngFor="let spec of item.specialization">
+                                            <span pTooltip="{{spec.specialization}}">{{spec.specialization}} ,</span>
                                         </ng-container>
                                     </td>
 

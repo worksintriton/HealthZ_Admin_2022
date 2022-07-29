@@ -59,7 +59,7 @@
             <div class="card-body">
                 <div class="card-item">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="search-hero">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -80,17 +80,17 @@
                         </div>
                         <!-- </div>
                     <div class="row"> -->
-                        <div class="col-md-3">
+                        <div class="col-md-8">
                             <!-- <h5 class="form-lable">Start Date</h5> -->
                             <p-calendar [(ngModel)]="S_Date" [showIcon]="true" placeholder="Start Date" inputId="icon"
                                 [readonlyInput]="true"></p-calendar>
-                        </div>
-                        <div class="col-md-3">
+                            <!-- </div> -->
+                            <!-- <div class="col-md-3"> -->
                             <!-- <h5 class="form-lable">End Date</h5> -->
                             <p-calendar [(ngModel)]="E_Date" [showIcon]="true" placeholder="End Date" inputId="icon"
                                 [readonlyInput]="true"></p-calendar>
-                        </div>
-                        <div class="col-md-3">
+                            <!-- </div> -->
+                            <!-- <div class="col-md-3"> -->
                             <button type="button" class="btn btn-primary" (click)="filter_date()"><i
                                     class="fas fa-search"></i> Search</button>
                             <button type="button" class="btn btn-primary" (click)="refersh()"><i

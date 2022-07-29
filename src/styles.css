@@ -58,6 +58,9 @@ body {
   margin-right: 10px;
 }
 
+body .ui-datepicker table td {
+  padding: 0em !important;
+}
 
 .btn-success {
   color: #fff;

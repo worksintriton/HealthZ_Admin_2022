@@ -7,7 +7,7 @@
 
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="search-hero">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -25,15 +25,15 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-8">
         <!-- <h5 class="form-lable">Start Date</h5> -->
         <p-calendar [(ngModel)]="S_Date" [showIcon]="true" inputId="icon" placeholder="Start Date"></p-calendar>
-    </div>
-    <div class="col-md-3">
+        <!-- </div>
+    <div class="col-md-3"> -->
         <!-- <h5 class="form-lable">End Date</h5> -->
         <p-calendar [(ngModel)]="E_Date" [showIcon]="true" inputId="icon" placeholder="End Date"></p-calendar>
-    </div>
-    <div class="col-md-3">
+        <!-- </div>
+    <div class="col-md-3"> -->
         <button type="button" class="btn btn-primary" style="margin-left: 10px;margin-bottom: 22px;"
             (click)="filter_date()"> <i class="fas fa-search pr-1"></i>Search</button>
         <button type="button" class="btn btn-primary mr-2" style="margin-bottom: 22px;" (click)="refersh()"><i
